@@ -17,7 +17,7 @@ export default function PhotoPlaceholder({
                         <div 
                             aria-hidden="true"
                             className = "absolute inset-0 opacity-60"
-                            style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent 0 16px, rgba(166,100,67,006) 16px 17px)" }}
+                            style={{ backgroundImage: "repeating-linear-gradient(45deg, transparent 0 16px, rgba(166,100,67,0.06) 16px 17px)" }}
                         />
 
                         {label && (

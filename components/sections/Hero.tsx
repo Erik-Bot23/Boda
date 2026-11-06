@@ -1,5 +1,5 @@
-import PhotoPlaceholder from "../ui/PhotoPlaceholder";
-import { couple, event } from "../../data/wedding-data";
+import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
+import { couple, event } from "@/data/wedding-data";
 
 
 export default function Hero() {
@@ -44,11 +44,11 @@ export default function Hero() {
                     strokeWidth={1}
                     className="h-8 w-8"
                     aria-hidden="true">
-                    <path 
-                        d="M12 4v14m0 0l-5-5m5 5l5-5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
+                        <path 
+                            d="M12 4v14m0 0l-5-5m5 5l5-5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        />
                 </svg>
             </a>
         </section>
