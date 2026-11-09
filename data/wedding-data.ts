@@ -20,24 +20,28 @@ export const event = {
      * Oaxaca usa UTC-6 todo el año (desde 2022 ya no hay horario de verano)
      * Este string es el que alimenta el countdown, así no hay ambigüedad.
      */
-    dateIso: "2026-12-28T12:00:00-06:00",
+    dateIso: "2026-12-28T20:00:00-06:00",
     dateLabel: "28 de diciembre de 2026",
-    timeLabel: "12:00 del mediodía",
-    city: "Oaxaca, México"
+    timeLabel: "8:00 de la noche",
+    city: "Cuautitlán Izcalli, Estado de México"
 } as const;
 
+//Un solo link y una sola dirección para la ceremonia y recepción
+const mapsUrl = "https://www.google.com/maps/place/Centro+Cristiano+Izcalli/@19.6608527,-99.216204,17z/data=!3m1!4b1!4m6!3m5!1s0x85d21e4b94ff5c1b:0xa22b683567e9db6!8m2!3d19.6608527!4d-99.216204!16s%2Fg%2F11c32b2fyd?entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D";
+const address = "Jacarandas 6, Santa Rosa de Lima, 54740 Cuautitlán Izcalli, Méx.";
+
 export const ceremony: Venue = {
-    name: "Iglesia Santo Domingo",
-    address: "Oaxaca de Juárez, Oaxaca",
-    time: "12:00",
-    mapsUrl: null, //Todo: pegar el link de Google Maps
+    name: "Centro Cristiano Izcalli",
+    address,
+    time: "08:00",
+    mapsUrl, //Todo: pegar el link de Google Maps
 };
 
 export const reception: Venue = { 
-    name: "Salón Shalom",
-    address: "Calle de la Reforma 123, Oaxaca de Juárez",
-    time: "Por confirmar",
-    mapsUrl: null, //Todo: pegar el link de Google Maps
+    name: "Centro Cristiano Izcalli",
+    address,
+    time: "Después de la ceremonia",
+    mapsUrl, //Todo: pegar el link de Google Maps
 };
 
 export const dressCode = {

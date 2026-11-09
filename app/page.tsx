@@ -1,4 +1,6 @@
 import Header from "@/components/layout/Header";
+import CuentaRegresiva from "@/components/sections/CuentaRegresiva";
+import ElGranDia from "@/components/sections/ElGranDia";
 import Hero from "@/components/sections/Hero";
 import NuestraHistoria from "@/components/sections/NuestraHistoria";
 
@@ -10,6 +12,8 @@ export default function Home() {
             <main>
                 <Hero/>
                 <NuestraHistoria/>
+                <CuentaRegresiva/>
+                <ElGranDia/>
             </main>
         </>
     );

@@ -30,6 +30,9 @@ export default function Hero() {
                 <p className="mt-10 font-sans text-xs uppercase tracking-[0.35em] text-cream">
                     {event.dateLabel}
                 </p>
+                <p className="mt-3 font-sans text-[11px] uppercase tracking-[0.3em] text-cream/80">
+                    {event.timeLabel}
+                </p>
                 <p className="mt-3 font-sans text-[11px] uppercase tracking-[0.3em] text-cream/70">
                     {event.city}
                 </p>
