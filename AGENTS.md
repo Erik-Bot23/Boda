@@ -140,8 +140,8 @@ components/
     NuestraHistoria.tsx  # Texto + <details> expandible + foto       (listo)
     CuentaRegresiva.tsx  # Sección café que envuelve al Countdown    (listo)
     ElGranDia.tsx     # Lugar, horarios y botón de Google Maps       (listo)
-    CodigoVestimenta.tsx                                             (vacío)
-    Hospedaje.tsx                                                    (vacío)
+    CodigoVestimenta.tsx  # Título "Formal" + descripción           (implementado)
+    Hospedaje.tsx     # Hoteles; hoy muestra estado "próximamente"  (implementado)
     Galeria.tsx                                                      (vacío)
     PreguntasFrecuentes.tsx                                          (vacío)
   ui/
@@ -180,7 +180,7 @@ public/
 - [x] **Fase 4 — Nuestra Historia**: texto, foto y `<details>` que expande la historia completa con flecha. *Completada; falta el texto real.*
 - [x] **Fase 5 — Countdown**: contador días/horas/minutos/segundos en tiempo real dentro de una sección café. *Completada y verificada.*
 - [x] **Fase 6 — El Gran Día**: Centro Cristiano Izcalli, ceremonia 5:00 PM, recepción 8:00 PM, dirección y botón a Google Maps. *Completada y verificada.*
-- [ ] **Fase 7 — Vestimenta + Hospedaje**: secciones informativas con botones. *Siguiente.*
+- [x] **Fase 7 — Vestimenta + Hospedaje**: `CodigoVestimenta` lista; `Hospedaje` implementado con estado "próximamente" hasta tener hoteles. *Falta corregir 3 detalles de clases y el texto "Ingresar" del enlace de hoteles.*
 - [ ] **Fase 8 — Galería**: grid/carrusel con `next/image`.
 - [ ] **Fase 9 — FAQ**: acordeón accesible.
 - [ ] **Fase 10 — RSVP + PostgreSQL**: formulario (nombre, acompañantes, restricciones alimenticias), server action y persistencia. *Por ahora solo formulario visual.*
@@ -188,22 +188,28 @@ public/
 
 ---
 
-## 8. Estado actual (al 8 de noviembre de 2026)
+## 8. Estado actual (al 9 de noviembre de 2026)
 
-- **Fases 1 a 6 completas y verificadas** en el navegador. No hay errores de `tsc --noEmit` ni de `eslint`.
-- `app/page.tsx` ya ensambla: `Header` → `Hero` → `NuestraHistoria` → `CuentaRegresiva` → `ElGranDia`.
+- **Fases 1 a 7 implementadas.** `tsc --noEmit` y `eslint` pasan sin errores.
+- `app/page.tsx` ensambla: `Header` → `Hero` → `NuestraHistoria` → `CuentaRegresiva` → `ElGranDia` → `CodigoVestimenta` → `Hospedaje`.
 - **Datos definitivos**: 28 de diciembre de 2026, Centro Cristiano Izcalli (Cuautitlán Izcalli), ceremonia 5:00 PM y recepción 8:00 PM. Mismo lugar y mismo link de Google Maps.
 - **Countdown** apunta a `2026-12-28T17:00:00-06:00` (inicio de la ceremonia).
-- **Nuestra Historia** usa `<details>` nativo para expandir el texto; la flecha es `public/icons/derecha.png`.
+- **Nuestra Historia** usa `<details>` nativo; la flecha es `public/icons/derecha.png`.
 - **Header** cambia a menú completo desde `lg` (1024px); en tablet usa hamburguesa.
+- **Hospedaje** queda en modo "Muy pronto compartiremos recomendaciones..." hasta recibir datos de hoteles. El arreglo `hotels` ya existe en `wedding-data.ts` y se llena solo.
 - **Pendiente de contenido**: fotos reales, texto real de la historia y hoteles recomendados.
-- **Pendiente de código**: Fase 7 (Vestimenta + Hospedaje), Fase 8 (Galería), Fase 9 (FAQ), Fase 10 (RSVP visual) y Footer.
+
+### Detalles por corregir de la Fase 7
+
+- `CodigoVestimenta.tsx`: la clase `px-8py-10` no tiene espacio; debe ser `px-8 py-10`.
+- `Hospedaje.tsx`: `mx-w-15xl` no existe; debe ser `max-w-5xl`.
+- `Hospedaje.tsx`: el enlace "Ver sitio" tiene `<span aria-hidden="true"> Ingresar </span>`; debe ser una flecha (`→`) o la imagen `derecha.png`.
 
 ### Próximo paso concreto
 
-1. Implementar **Fase 7: Código de Vestimenta + Hospedaje**.
-2. Para Hospedaje, decidir si se usarán hoteles reales o un estado "próximamente".
-3. Continuar con la **Fase 8: Galería**.
+1. Corregir esos 3 detalles al retomar.
+2. Continuar con la **Fase 8: Galería**.
+3. Cuando lleguen los datos de hoteles, llenar `hotels` en `wedding-data.ts`.
 
 ---
 
@@ -211,6 +217,8 @@ public/
 
 - **Tailwind falla en silencio**: una clase con el token mal escrito (`bg-coffee` vs `--color-coffe`) no genera CSS y no lanza error. Verificar en el inspector que la propiedad exista.
 - **Typos de clases ya detectados**: `tracking-[o.45em]` (letra "o" en vez de cero), `trracking` (doble "r") y `tracking-[0.3em]` mal escrito no generan CSS. Revisar siempre `tracking`, `leading`, `text`, `bg`, `border`.
+- **Clases pegadas sin espacio**: `px-8py-10` es una sola clase inválida y Tailwind la ignora; debe ser `px-8 py-10`. Lo mismo con `mx-w-15xl`: no existe, es `max-w-5xl`.
+- **Texto de relleno en enlaces**: revisar que no quede `<span>Ingresar</span>` dentro de un enlace que ya dice "Ver sitio"; usar solo la flecha o el ícono.
 - **Prop de hidratación**: es `suppressHydrationWarning`, no `suppressContentEditableWarning`. Este último existe en React y por eso TypeScript no marca error, pero no hace nada para el countdown.
 - **Anclas con acento**: el label puede llevar acento (`Galería`), pero el `id`/`href` no (`#galeria`). `#galería` se percent-codifica y no coincide con `id="galeria"`.
 - **`group-open:`**: para que funcionen `group-open:hidden` / `group-open:inline` / `group-open:rotate-90`, el `<details>` debe tener la clase `group`.
@@ -236,3 +244,6 @@ public/
 | 2026-11-08 | Revisión: detectados typos silenciosos (`tracking-[o.45em]`, `trracking`, `suppressContentEditableWarning`) y `href="#galería"` con acento. Corregidos. |
 | 2026-11-08 | Fase 6 implementada y verificada: Centro Cristiano Izcalli, ceremonia 5:00 PM, recepción 8:00 PM, dirección y Google Maps. Countdown apunta a las 17:00. |
 | 2026-11-08 | `AGENTS.md` actualizado: datos reales, roadmap, decisiones, trampas y bitácora. Próximo: Fase 7. |
+| 2026-11-09 | Fase 7 implementada: `CodigoVestimenta` y `Hospedaje` creados y ensamblados en `app/page.tsx`. Hospedaje queda con estado "próximamente" hasta tener datos de hoteles. |
+| 2026-11-09 | Revisión Fase 7: `tsc` y `eslint` sin errores. Detectados 3 detalles: `px-8py-10` sin espacio, `mx-w-15xl` inválido y `<span>Ingresar</span>` en el enlace de hoteles. Se corrigen al retomar. |
+| 2026-11-09 | Pausa: no se entrega más código. Próximo: corregir los 3 detalles y continuar con la Fase 8 (Galería). |
