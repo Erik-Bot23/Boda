@@ -142,17 +142,21 @@ components/
     ElGranDia.tsx     # Lugar, horarios y botón de Google Maps       (listo)
     CodigoVestimenta.tsx  # Título "Formal" + descripción           (implementado)
     Hospedaje.tsx     # Hoteles; hoy muestra estado "próximamente"  (implementado)
-    Galeria.tsx                                                      (vacío)
+    Galeria.tsx       # Grid de fotos (placeholders hasta tener imágenes) 
     PreguntasFrecuentes.tsx                                          (vacío)
   ui/
     Button.tsx        # Botón reutilizable (variantes)               (vacío)
     Countdown.tsx     # Contador en tiempo real (client component)   (listo)
     PhotoPlaceholder.tsx  # Espacio reservado para fotos             (listo)
 data/
-  wedding-data.ts     # Fuente única de verdad (couple, event, venues, dressCode)
+  wedding-data.ts     # Fuente única de verdad (couple, event, venues, dressCode, hotels, galleryPhotos)
 public/
-  images/             # Fotos reales (vacía)
+  images/             # Fotos definitivas (destino recomendado)
+  imagesPrueba/       # 8 fotos de prueba: novios1.jpg … novios8.jpg
   icons/derecha.png   # Flecha del botón "Ver nuestra historia completa"
+docs/
+  guia-proyecto.html  # Fuente de la guía (se edita aquí)
+  guia-proyecto.pdf   # Guía imprimible: Next, estilos, clases, FAQ
 ```
 
 ---
@@ -169,6 +173,9 @@ public/
 8. **"Historia completa" con `<details>` nativo**: no necesita JavaScript ni `"use client"`. El `<summary>` es un botón accesible por teclado y `group-open:` cambia el texto y rota la flecha.
 9. **Countdown sin desfase**: el intervalo recalcula desde `Date.now()` en cada tick (no resta 1). El primer render muestra `--` para que servidor y cliente coincidan y no haya error de hidratación.
 10. **La ceremonia y la recepción comparten tarjeta**: como son en el mismo lugar, `ElGranDia` muestra un solo `venue` y una lista con los dos horarios.
+11. **Galería como grid uniforme** (no carrusel): 2 columnas en móvil, 3 en escritorio y proporción fija `4/5`. Es más simple, accesible y no requiere JavaScript; un lightbox puede añadirse después sin rehacer la sección.
+12. **Galería con estado vacío**: si `galleryPhotos` está vacío se muestran 6 `PhotoPlaceholder`; al llenar el arreglo, la sección cambia sola a `next/image` sin tocar el componente.
+13. **Imágenes en `public/`**: se referencian con ruta absoluta desde la raíz (`/images/novios1.jpg`), nunca con `public/...`. `Image` con `fill` exige un padre posicionado y con altura definida; `priority` solo en la imagen del Hero (LCP).
 
 ---
 
@@ -180,9 +187,9 @@ public/
 - [x] **Fase 4 — Nuestra Historia**: texto, foto y `<details>` que expande la historia completa con flecha. *Completada; falta el texto real.*
 - [x] **Fase 5 — Countdown**: contador días/horas/minutos/segundos en tiempo real dentro de una sección café. *Completada y verificada.*
 - [x] **Fase 6 — El Gran Día**: Centro Cristiano Izcalli, ceremonia 5:00 PM, recepción 8:00 PM, dirección y botón a Google Maps. *Completada y verificada.*
-- [x] **Fase 7 — Vestimenta + Hospedaje**: `CodigoVestimenta` lista; `Hospedaje` implementado con estado "próximamente" hasta tener hoteles. *Falta corregir 3 detalles de clases y el texto "Ingresar" del enlace de hoteles.*
-- [ ] **Fase 8 — Galería**: grid/carrusel con `next/image`.
-- [ ] **Fase 9 — FAQ**: acordeón accesible.
+- [x] **Fase 7 — Vestimenta + Hospedaje**: `CodigoVestimenta` lista; `Hospedaje` implementado con estado "próximamente" hasta tener hoteles. *Correcciones de clases entregadas (pendientes de pegar).*
+- [x] **Fase 8 — Galería**: grid responsive con `PhotoPlaceholder` y soporte para `next/image` cuando existan fotos. *Implementada y verificada con fotos de prueba.*
+- [ ] **Fase 9 — FAQ**: acordeón accesible. *Código entregado; pendiente de pegar.*
 - [ ] **Fase 10 — RSVP + PostgreSQL**: formulario (nombre, acompañantes, restricciones alimenticias), server action y persistencia. *Por ahora solo formulario visual.*
 - [ ] **Cierre — Footer**: fondo oscuro con foto y texto arena, al final de `page.tsx`.
 
@@ -190,26 +197,30 @@ public/
 
 ## 8. Estado actual (al 9 de noviembre de 2026)
 
-- **Fases 1 a 7 implementadas.** `tsc --noEmit` y `eslint` pasan sin errores.
-- `app/page.tsx` ensambla: `Header` → `Hero` → `NuestraHistoria` → `CuentaRegresiva` → `ElGranDia` → `CodigoVestimenta` → `Hospedaje`.
+- **Fases 1 a 8 implementadas y verificadas en el navegador.** `tsc --noEmit` sin errores y `eslint .` solo con 2 avisos de imports sin usar (`PhotoPlaceholder` en `Hero` y en `NuestraHistoria`). El `next build` solo falla en el entorno del agente por falta de red para descargar Google Fonts; no es un error del proyecto.
+- **Fase 9 entregada** (FAQ): pendiente de pegar.
+- `app/page.tsx` ensambla: `Header` → `Hero` → `NuestraHistoria` → `CuentaRegresiva` → `ElGranDia` → `CodigoVestimenta` → `Hospedaje` → `Galeria` (y `PreguntasFrecuentes` al pegar la Fase 9).
 - **Datos definitivos**: 28 de diciembre de 2026, Centro Cristiano Izcalli (Cuautitlán Izcalli), ceremonia 5:00 PM y recepción 8:00 PM. Mismo lugar y mismo link de Google Maps.
 - **Countdown** apunta a `2026-12-28T17:00:00-06:00` (inicio de la ceremonia).
 - **Nuestra Historia** usa `<details>` nativo; la flecha es `public/icons/derecha.png`.
-- **Header** cambia a menú completo desde `lg` (1024px); en tablet usa hamburguesa.
+- **Header** cambia a menú completo desde `lg` (1024px); en tablet usa hamburguesa. Ya existen las anclas `#galeria` y (con la Fase 9) `#faq`; `#rsvp` llega en la Fase 10.
 - **Hospedaje** queda en modo "Muy pronto compartiremos recomendaciones..." hasta recibir datos de hoteles. El arreglo `hotels` ya existe en `wedding-data.ts` y se llena solo.
-- **Pendiente de contenido**: fotos reales, texto real de la historia y hoteles recomendados.
+- **Fotos**: Hero, Historia y Galería ya usan `next/image` con las 8 fotos de prueba de `public/imagesPrueba/`. Se ven pixeladas porque los archivos miden pocos píxeles; no es un problema de código.
+- **Documentación**: `docs/guia-proyecto.html` (fuente editable) y `docs/guia-proyecto.pdf` (guía imprimible: Next, estilos, catálogo de clases, imágenes, `PhotoPlaceholder`, FAQ y glosario).
 
-### Detalles por corregir de la Fase 7
+### Correcciones pendientes de pegar (detectadas al revisar la Fase 8)
 
-- `CodigoVestimenta.tsx`: la clase `px-8py-10` no tiene espacio; debe ser `px-8 py-10`.
-- `Hospedaje.tsx`: `mx-w-15xl` no existe; debe ser `max-w-5xl`.
-- `Hospedaje.tsx`: el enlace "Ver sitio" tiene `<span aria-hidden="true"> Ingresar </span>`; debe ser una flecha (`→`) o la imagen `derecha.png`.
+- `Hero.tsx` y `NuestraHistoria.tsx`: borrar `import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";` (ya no se usa y genera 2 avisos de eslint).
+- `alt="Sonia y David"` en `Hero`, `NuestraHistoria` y las 6 entradas de `galleryPhotos`: debe decir "Pablo y Marisol" (o una descripción de la escena).
+- `Galeria.tsx`: `group-hover_scale-105` → `group-hover:scale-105` (con guion bajo no existe la clase y el zoom no ocurre).
+- `Galeria.tsx`: el grid está fuera de `mx-auto max-w-6xl px-6`, por eso las fotos van de borde a borde; y el `<h2>` quedó fuera del `div` con `text-center`.
 
 ### Próximo paso concreto
 
-1. Corregir esos 3 detalles al retomar.
-2. Continuar con la **Fase 8: Galería**.
-3. Cuando lleguen los datos de hoteles, llenar `hotels` en `wedding-data.ts`.
+1. Pegar las correcciones de la Fase 8 y la Fase 9 (FAQ).
+2. Verificar el acordeón: abrir/cerrar con mouse y con teclado (Tab + Enter), el "+" debe girar a "×".
+3. **Fase 10: RSVP** (formulario visual primero, luego server action + PostgreSQL).
+4. Cuando lleguen los datos de hoteles, llenar `hotels` en `wedding-data.ts`.
 
 ---
 
@@ -247,3 +258,8 @@ public/
 | 2026-11-09 | Fase 7 implementada: `CodigoVestimenta` y `Hospedaje` creados y ensamblados en `app/page.tsx`. Hospedaje queda con estado "próximamente" hasta tener datos de hoteles. |
 | 2026-11-09 | Revisión Fase 7: `tsc` y `eslint` sin errores. Detectados 3 detalles: `px-8py-10` sin espacio, `mx-w-15xl` inválido y `<span>Ingresar</span>` en el enlace de hoteles. Se corrigen al retomar. |
 | 2026-11-09 | Pausa: no se entrega más código. Próximo: corregir los 3 detalles y continuar con la Fase 8 (Galería). |
+| 2026-11-09 | Revisión completa: `tsc` y `eslint` sin errores; `next build` solo falla por falta de red para Google Fonts en el entorno del agente. Confirmados los 3 detalles de la Fase 7. |
+| 2026-11-09 | Fase 8 entregada: `galleryPhotos` en `wedding-data.ts` y `Galeria.tsx` con grid responsive y estado vacío. |
+| 2026-11-09 | Fotos de prueba (`novios1–8.jpg`) en `public/imagesPrueba/`. Entregado el reemplazo de `PhotoPlaceholder` por `Image` en Hero e Historia y el llenado de `galleryPhotos`. |
+| 2026-11-09 | Fotos verificadas en el navegador (se ven pixeladas por su resolución de archivo). Creada `docs/guia-proyecto.html` y su PDF con Next, estilos, catálogo de clases, imágenes, `PhotoPlaceholder`, FAQ y glosario. |
+| 2026-11-09 | Revisión Fase 8: detectados `group-hover_scale-105`, grid fuera del contenedor, `alt` "Sonia y David" y dos imports sin usar. Fase 9 (FAQ) entregada con `<details>` nativo y `faqItems` en `wedding-data.ts`. |

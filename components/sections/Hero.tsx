@@ -1,5 +1,6 @@
-import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
-import { couple, event } from "@/data/wedding-data";
+import Image from "next/image";
+//import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
+import { couple, event, featuredPhotos } from "@/data/wedding-data";
 
 
 export default function Hero() {
@@ -7,7 +8,13 @@ export default function Hero() {
         <section id="inicio" className="relative flex min-h-svh items-center justify-center overflow-hidden">
             {/*Fondo: hoy un placeholder, después la foto real*/}
             <div className="absolute inset-0">
-                <PhotoPlaceholder label="Foto de los novios" className="h-full w-full"/>
+                <Image 
+                    src={featuredPhotos.hero}
+                    alt="Sonia y David"
+                    fill
+                    priority
+                    sizes="100vw"
+                    className="object-cover"/>
                 <div className="absolute inset-0 bg-linear-to-b from-ink/70 via-ink/45 to-ink/80"/>
             </div>
 

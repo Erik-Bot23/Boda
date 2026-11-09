@@ -17,7 +17,7 @@ export default function CodigoVestimenta(){
                         <div className="mx-auto mt-8 h-px w-16 bg-sand/60 md:mx-0"/>
                     </div>
 
-                    <div className="rounded-2xl border border-sand/60 bg-sand/10 px-8py-10 text-center md:text-left">
+                    <div className="rounded-2xl border border-sand/60 bg-sand/10 px-8 py-10 text-center md:text-left">
                         <p className="font-sans text-base leading-relaxed text-ink/80">
                             {dressCode.description}
                         </p>

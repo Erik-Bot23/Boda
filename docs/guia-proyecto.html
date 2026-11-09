@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Guía del proyecto — Invitación de boda Pablo &amp; Marisol</title>
+<style>
+  @page {
+    size: A4;
+    margin: 16mm 15mm 18mm 15mm;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    color: #1a1817;
+    background: #ffffff;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: Georgia, "Times New Roman", serif;
+    color: #5c3a21;
+    line-height: 1.2;
+  }
+
+  h1 { font-size: 30pt; margin: 0 0 8px; }
+  h2 {
+    font-size: 17pt;
+    margin: 30px 0 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #d8bfa8;
+    break-after: avoid;
+  }
+  h3 {
+    font-size: 12.5pt;
+    margin: 20px 0 6px;
+    color: #a66443;
+    break-after: avoid;
+  }
+  h4 { font-size: 11pt; margin: 14px 0 4px; color: #5c3a21; }
+
+  p { margin: 0 0 9px; }
+  ul, ol { margin: 0 0 10px; padding-left: 20px; }
+  li { margin-bottom: 3px; }
+
+  code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 9pt;
+    background: #f4ede4;
+    color: #5c3a21;
+    padding: 1px 4px;
+    border-radius: 3px;
+  }
+
+  pre {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 8.6pt;
+    line-height: 1.45;
+    background: #faf6f1;
+    border-left: 3px solid #c08d52;
+    padding: 8px 10px;
+    margin: 8px 0 12px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    break-inside: avoid;
+  }
+
+  pre code { background: none; padding: 0; font-size: inherit; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+    margin: 8px 0 14px;
+    break-inside: avoid;
+  }
+
+  th {
+    background: #f3ebe1;
+    color: #5c3a21;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  th, td {
+    border: 1px solid #e3d6c6;
+    padding: 4px 6px;
+    vertical-align: top;
+  }
+
+  td code { white-space: nowrap; }
+
+  .cover {
+    height: 240mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .cover .kicker {
+    font-size: 10pt;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #c08d52;
+    margin-bottom: 18px;
+  }
+
+  .cover h1 { font-size: 40pt; margin-bottom: 4px; }
+  .cover .subtitle { font-size: 13pt; color: #a66443; margin-bottom: 40px; }
+  .cover .rule { width: 60px; height: 1px; background: #d8bfa8; margin: 0 auto 40px; }
+  .cover .meta { font-size: 10pt; color: #6b6560; line-height: 1.8; }
+
+  .toc { margin-top: 10px; }
+  .toc ol { padding-left: 22px; }
+  .toc li { margin-bottom: 4px; }
+  .toc a { color: #1a1817; text-decoration: none; }
+  .toc a:hover { color: #c08d52; }
+
+  .callout {
+    background: #faf6f1;
+    border: 1px solid #e3d6c6;
+    border-left: 4px solid #c08d52;
+    padding: 8px 12px;
+    margin: 10px 0 14px;
+    break-inside: avoid;
+  }
+
+  .callout strong { color: #5c3a21; }
+
+  .warn { border-left-color: #a66443; background: #fbf3ef; }
+
+  .page-break { break-before: page; }
+
+  .small { font-size: 9pt; color: #6b6560; }
+
+  .tree {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 8.8pt;
+    line-height: 1.5;
+    background: #faf6f1;
+    border: 1px solid #e3d6c6;
+    padding: 10px 12px;
+    white-space: pre;
+    break-inside: avoid;
+  }
+
+  .two-col { column-count: 2; column-gap: 18px; }
+  .two-col table { break-inside: avoid; }
+
+  a { color: #a66443; }
+</style>
+</head>
+<body>
+
+<!-- ============================ PORTADA ============================ -->
+<div class="cover">
+  <div class="kicker">Documentación del proyecto</div>
+  <h1>Invitación de boda</h1>
+  <div class="subtitle">Pablo &amp; Marisol · 28 de diciembre de 2026</div>
+  <div class="rule"></div>
+  <div class="meta">
+    Next.js 16 · React 19 · TypeScript · Tailwind CSS 4<br>
+    Guía de funcionamiento, estilos, clases y resolución de dudas<br>
+    <span class="small">Actualizada el 9 de noviembre de 2026</span>
+  </div>
+</div>
+
+<!-- ============================ ÍNDICE ============================ -->
+<div class="page-break"></div>
+<h2 style="margin-top:0">Contenido</h2>
+<div class="toc">
+<ol>
+  <li><a href="#proyecto">El proyecto en una página</a></li>
+  <li><a href="#estructura">Cómo está organizado el código</a></li>
+  <li><a href="#next">Cómo funciona Next.js en este proyecto</a></li>
+  <li><a href="#estilos">Cómo funcionan los estilos</a></li>
+  <li><a href="#clases">Catálogo de clases usadas</a></li>
+  <li><a href="#componentes">Los componentes, uno por uno</a></li>
+  <li><a href="#datos">Los datos de la boda</a></li>
+  <li><a href="#imagenes">Imágenes: resolución, carpetas y reemplazo</a></li>
+  <li><a href="#placeholder">Qué es y para qué sirve PhotoPlaceholder</a></li>
+  <li><a href="#faq">Preguntas frecuentes</a></li>
+  <li><a href="#errores">Errores que ya cometimos y cómo detectarlos</a></li>
+  <li><a href="#checklist">Checklist antes de publicar</a></li>
+  <li><a href="#glosario">Glosario</a></li>
+  <li><a href="#siguiente">Próximos pasos</a></li>
+</ol>
+</div>
+
+<!-- ============================ 1 ============================ -->
+<div class="page-break"></div>
+<h2 id="proyecto">1. El proyecto en una página</h2>
+
+<p>Es un sitio de <strong>una sola página</strong> (one-page) que funciona como invitación de boda. El invitado entra, ve la foto principal, la historia de la pareja, la cuenta regresiva, los datos del evento, el código de vestimenta, el hospedaje, la galería y (más adelante) las preguntas frecuentes y la confirmación de asistencia.</p>
+
+<p>Todo el sitio se arma en <code>app/page.tsx</code> apilando secciones. Cada sección es un componente independiente con su propio archivo, lo que permite trabajar una a la vez sin romper las demás.</p>
+
+<table>
+  <tr><th>Sección</th><th>Componente</th><th>Ancla</th><th>Estado</th></tr>
+  <tr><td>Navegación</td><td><code>components/layout/Header.tsx</code></td><td>—</td><td>Listo</td></tr>
+  <tr><td>Portada</td><td><code>components/sections/Hero.tsx</code></td><td><code>#inicio</code></td><td>Listo</td></tr>
+  <tr><td>Historia</td><td><code>components/sections/NuestraHistoria.tsx</code></td><td><code>#historia</code></td><td>Listo</td></tr>
+  <tr><td>Cuenta regresiva</td><td><code>components/sections/CuentaRegresiva.tsx</code></td><td><code>#countdown</code></td><td>Listo</td></tr>
+  <tr><td>El gran día</td><td><code>components/sections/ElGranDia.tsx</code></td><td><code>#gran-dia</code></td><td>Listo</td></tr>
+  <tr><td>Vestimenta</td><td><code>components/sections/CodigoVestimenta.tsx</code></td><td><code>#vestimenta</code></td><td>Listo</td></tr>
+  <tr><td>Hospedaje</td><td><code>components/sections/Hospedaje.tsx</code></td><td><code>#hospedaje</code></td><td>Listo (sin hoteles aún)</td></tr>
+  <tr><td>Galería</td><td><code>components/sections/Galeria.tsx</code></td><td><code>#galeria</code></td><td>Listo</td></tr>
+  <tr><td>Preguntas</td><td><code>components/sections/PreguntasFrecuentes.tsx</code></td><td><code>#faq</code></td><td>Pendiente</td></tr>
+  <tr><td>Confirmación</td><td><code>components/sections/Rsvp.tsx</code></td><td><code>#rsvp</code></td><td>Pendiente</td></tr>
+  <tr><td>Pie de página</td><td><code>components/layout/Footer.tsx</code></td><td>—</td><td>Pendiente</td></tr>
+</table>
+
+<h3>Datos clave del evento</h3>
+<table>
+  <tr><th>Dato</th><th>Valor</th></tr>
+  <tr><td>Novios</td><td>Pablo y Marisol</td></tr>
+  <tr><td>Fecha</td><td>28 de diciembre de 2026</td></tr>
+  <tr><td>Ceremonia</td><td>5:00 PM</td></tr>
+  <tr><td>Recepción</td><td>8:00 PM</td></tr>
+  <tr><td>Lugar</td><td>Centro Cristiano Izcalli</td></tr>
+  <tr><td>Dirección</td><td>Jacarandas 6, Santa Rosa de Lima, 54740 Cuautitlán Izcalli, Méx.</td></tr>
+  <tr><td>Zona horaria</td><td>UTC−6 todo el año</td></tr>
+</table>
+
+<!-- ============================ 2 ============================ -->
+<div class="page-break"></div>
+<h2 id="estructura">2. Cómo está organizado el código</h2>
+
+<div class="tree">Boda/
+├── app/
+│   ├── layout.tsx        Envoltura global: fuentes, metadata, &lt;html&gt; y &lt;body&gt;
+│   ├── page.tsx          Ensambla todas las secciones en orden
+│   └── globals.css       Tokens de color, fuentes y estilos base
+├── components/
+│   ├── layout/
+│   │   ├── Header.tsx    Barra fija + menú hamburguesa
+│   │   └── Footer.tsx    Pie de página (pendiente)
+│   ├── sections/         Una sección de la página por archivo
+│   └── ui/               Piezas reutilizables (Countdown, PhotoPlaceholder)
+├── data/
+│   └── wedding-data.ts   Fuente única de verdad de los datos
+├── docs/                 Esta guía (HTML y PDF)
+├── public/
+│   ├── images/           Fotos definitivas
+│   ├── imagesPrueba/     Fotos de prueba actuales
+│   └── icons/            Íconos (flecha)
+├── next.config.ts        Configuración de Next
+├── tsconfig.json         Configuración de TypeScript
+└── package.json          Dependencias y scripts</div>
+
+<h3>La regla de oro: una sección, un archivo</h3>
+<p>Cada sección tiene su propio componente. Si algo se rompe en la galería, no afecta al Hero. Si quieres reordenar la página, solo mueves una línea en <code>app/page.tsx</code>.</p>
+
+<h3>Qué va en cada carpeta</h3>
+<table>
+  <tr><th>Carpeta</th><th>Qué contiene</th><th>Qué NO va ahí</th></tr>
+  <tr><td><code>app/</code></td><td>Rutas, layout y estilos globales</td><td>Componentes reutilizables</td></tr>
+  <tr><td><code>components/sections/</code></td><td>Secciones completas de la página</td><td>Lógica de datos</td></tr>
+  <tr><td><code>components/ui/</code></td><td>Piezas pequeñas reutilizables</td><td>Secciones completas</td></tr>
+  <tr><td><code>components/layout/</code></td><td>Header y Footer</td><td>Contenido del evento</td></tr>
+  <tr><td><code>data/</code></td><td>Textos y datos del evento</td><td>Estilos ni JSX</td></tr>
+  <tr><td><code>public/</code></td><td>Archivos servidos tal cual (fotos, íconos)</td><td>Código</td></tr>
+  <tr><td><code>docs/</code></td><td>Documentación</td><td>Código de la app</td></tr>
+</table>
+
+<div class="callout">
+  <strong>Alias <code>@/</code>:</strong> en lugar de escribir <code>../../../data/wedding-data</code>, se escribe <code>@/data/wedding-data</code>. La raíz del alias es la carpeta del proyecto y se configura en <code>tsconfig.json</code>.
+</div>
+
+<!-- ============================ 3 ============================ -->
+<div class="page-break"></div>
+<h2 id="next">3. Cómo funciona Next.js en este proyecto</h2>
+
+<h3>3.1 App Router: layout y page</h3>
+<p>Next usa la carpeta <code>app/</code> para definir las rutas. Un archivo <code>page.tsx</code> es una página; un archivo <code>layout.tsx</code> envuelve a todas las páginas que están a su lado y se mantiene montado al navegar.</p>
+
+<pre><code>// app/layout.tsx (simplificado)
+export default function RootLayout({ children }: LayoutProps&lt;"/"&gt;) {
+  return (
+    &lt;html lang="es"&gt;
+      &lt;body&gt;{children}&lt;/body&gt;
+    &lt;/html&gt;
+  );
+}</code></pre>
+
+<p>Como este proyecto tiene una sola página, <code>app/page.tsx</code> contiene todo. <code>children</code> es el contenido que Next inyecta dentro del layout: en este caso, la página.</p>
+
+<p>El tipo <code>LayoutProps&lt;"/"&gt;</code> es una novedad de Next 16: los tipos de rutas se generan automáticamente, así que no hay que escribir la interfaz de props a mano.</p>
+
+<h3>3.2 Server Components y Client Components</h3>
+<p>En el App Router, <strong>todos los componentes son de servidor por defecto</strong>: se ejecutan en el servidor, no llevan JavaScript al navegador y pueden leer datos directamente. Eso es ideal para una invitación: la mayor parte del sitio es texto e imágenes.</p>
+
+<p>Solo se agrega <code>"use client"</code> en la primera línea cuando el componente necesita:</p>
+<ul>
+  <li>estado (<code>useState</code>),</li>
+  <li>efectos (<code>useEffect</code>),</li>
+  <li>eventos del navegador (<code>onClick</code>, <code>onScroll</code>),</li>
+  <li>APIs del navegador (<code>window</code>, <code>document</code>, <code>localStorage</code>).</li>
+</ul>
+
+<p>En este proyecto solo dos piezas lo necesitan:</p>
+<table>
+  <tr><th>Componente</th><th>Por qué es cliente</th></tr>
+  <tr><td><code>Header.tsx</code></td><td>Escucha el scroll y abre/cierra el menú móvil con estado.</td></tr>
+  <tr><td><code>Countdown.tsx</code></td><td>Actualiza los segundos cada segundo con <code>setInterval</code>.</td></tr>
+</table>
+
+<div class="callout">
+  <strong>Regla práctica:</strong> no pongas <code>"use client"</code> "por si acaso". Cada componente cliente suma JavaScript que el invitado debe descargar. Las secciones de contenido no lo necesitan.
+</div>
+
+<h3>3.3 Fuentes con next/font</h3>
+<p><code>next/font/google</code> descarga las fuentes en tiempo de compilación, las guarda en el propio sitio y genera un CSS sin peticiones a Google. Eso mejora privacidad y evita el salto de texto (FOUT).</p>
+
+<pre><code>const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  variable: "--font-cormorant",
+  display: "swap",
+});</code></pre>
+
+<p>Luego la variable se aplica en <code>&lt;html&gt;</code> y Tailwind la usa a través de <code>@theme inline</code>. Consecuencia importante: <strong>el build necesita internet</strong> para descargar la fuente. En Vercel funciona; en un entorno sin red falla.</p>
+
+<h3>3.4 Imágenes con next/image</h3>
+<p><code>next/image</code> optimiza las fotos: las redimensiona, las convierte a formatos modernos y evita el salto de layout si se le indica el tamaño. En este proyecto se usa con <code>fill</code>, que hace que la imagen ocupe todo su contenedor.</p>
+
+<pre><code>&lt;div className="relative h-80 w-full overflow-hidden rounded-2xl"&gt;
+  &lt;Image
+    src="/images/novios2.jpg"
+    alt="Pablo y Marisol"
+    fill
+    sizes="(min-width: 768px) 50vw, 100vw"
+    className="object-cover"
+  /&gt;
+&lt;/div&gt;</code></pre>
+
+<p>Requisitos de <code>fill</code>:</p>
+<ul>
+  <li>El contenedor debe tener <code>position: relative</code> (o ser <code>absolute</code>), por eso el <code>relative</code>.</li>
+  <li>El contenedor debe tener altura definida (<code>h-80</code>, <code>aspect-[4/5]</code>, o estar dentro de un <code>absolute inset-0</code>).</li>
+  <li>Conviene <code>overflow-hidden</code> para recortar las esquinas redondeadas.</li>
+</ul>
+
+<h3>3.5 La carpeta public</h3>
+<p>Todo archivo dentro de <code>public/</code> se sirve desde la raíz del sitio. La ruta en el código empieza con <code>/</code> y <strong>nunca</strong> incluye la palabra <code>public</code>:</p>
+
+<table>
+  <tr><th>Archivo real</th><th>Ruta en el código</th></tr>
+  <tr><td><code>public/images/novios1.jpg</code></td><td><code>/images/novios1.jpg</code></td></tr>
+  <tr><td><code>public/imagesPrueba/novios1.jpg</code></td><td><code>/imagesPrueba/novios1.jpg</code></td></tr>
+  <tr><td><code>public/icons/derecha.png</code></td><td><code>/icons/derecha.png</code></td></tr>
+</table>
+
+<div class="callout warn">
+  <strong>Mayúsculas y acentos:</strong> en Windows los nombres de archivo no distinguen mayúsculas, pero en Linux (donde corre Vercel) sí. Si en tu equipo funciona <code>/images/Novios1.jpg</code> y en producción no, es por esto. Usa minúsculas, sin acentos y sin espacios.
+</div>
+
+<h3>3.6 Metadata</h3>
+<p>El objeto <code>metadata</code> de <code>app/layout.tsx</code> define el título de la pestaña y la descripción que aparece al compartir el enlace. Se puede ampliar con una imagen para redes sociales (<code>opengraph-image</code>) más adelante.</p>
+
+<h3>3.7 Configuración del proyecto</h3>
+<p><code>next.config.ts</code> activa <code>cacheComponents</code>, <code>partialPrefetching</code> y la regla de Turbopack para procesar CSS. No hace falta tocarla para el desarrollo normal.</p>
+
+<!-- ============================ 4 ============================ -->
+<div class="page-break"></div>
+<h2 id="estilos">4. Cómo funcionan los estilos</h2>
+
+<p>El proyecto usa <strong>Tailwind CSS 4</strong>. La idea central es escribir el estilo directamente en el atributo <code>className</code> del elemento, combinando clases pequeñas de una sola responsabilidad.</p>
+
+<pre><code>&lt;h2 className="mt-6 font-serif text-4xl text-coffee md:text-5xl"&gt;
+  Nuestra historia
+&lt;/h2&gt;</code></pre>
+
+<p>Ese <code>className</code> equivale a este CSS:</p>
+
+<pre><code>h2 {
+  margin-top: 1.5rem;
+  font-family: var(--font-cormorant);
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  color: #5c3a21;
+}
+@media (min-width: 768px) {
+  h2 { font-size: 3rem; line-height: 1; }
+}</code></pre>
+
+<h3>4.1 globals.css y la directiva @import</h3>
+<pre><code>@import "tailwindcss";</code></pre>
+<p>Esa línea carga Tailwind completo: reinicio de estilos, utilidades y variantes. Se importa una sola vez, en <code>app/layout.tsx</code>, y aplica a todo el sitio.</p>
+
+<h3>4.2 @theme: los tokens del proyecto</h3>
+<pre><code>@theme {
+  --color-cream: #f3ebe1;
+  --color-sand: #d8bfa8;
+  --color-terracotta: #c08d52;
+  --color-cinnamon: #a66443;
+  --color-coffee: #5c3a21;
+  --color-ink: #1a1817;
+}</code></pre>
+
+<p>Al declarar <code>--color-terracotta</code>, Tailwind genera automáticamente todas las utilidades de color derivadas:</p>
+
+<table>
+  <tr><th>Utilidad</th><th>Resultado</th></tr>
+  <tr><td><code>bg-terracotta</code></td><td>fondo terracota</td></tr>
+  <tr><td><code>text-terracotta</code></td><td>color de texto terracota</td></tr>
+  <tr><td><code>border-terracotta</code></td><td>borde terracota</td></tr>
+  <tr><td><code>bg-terracotta/80</code></td><td>fondo terracota al 80 % de opacidad</td></tr>
+</table>
+
+<p>Por eso en los componentes nunca se escribe <code>#c08d52</code>: se escribe <code>bg-terracotta</code>. Si un día cambia el tono, se cambia en un solo lugar.</p>
+
+<h3>4.3 @theme inline: las fuentes</h3>
+<pre><code>@theme inline {
+  --font-sans: var(--font-montserrat);
+  --font-serif: var(--font-cormorant);
+}</code></pre>
+
+<p>Se usa <code>inline</code> porque el valor real lo inyecta <code>next/font</code> en el elemento <code>&lt;html&gt;</code> después de compilar. Sin <code>inline</code>, Tailwind intentaría resolver la variable antes de que exista. Resultado: <code>font-sans</code> y <code>font-serif</code> funcionan.</p>
+
+<h3>4.4 @layer base: estilos globales</h3>
+<pre><code>@layer base {
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+}</code></pre>
+
+<p><code>@layer base</code> agrupa los estilos de etiquetas (body, html, ::selection, :focus-visible). Es el lugar correcto para valores por defecto, no para estilos de un componente.</p>
+
+<h3>4.5 Anatomía de una clase</h3>
+<p>Una clase de Tailwind se lee de izquierda a derecha: <strong>variantes</strong> → <strong>propiedad</strong> → <strong>valor</strong>.</p>
+
+<table>
+  <tr><th>Clase</th><th>Lectura</th></tr>
+  <tr><td><code>md:text-5xl</code></td><td>Desde 768 px, tamaño de texto 5xl</td></tr>
+  <tr><td><code>hover:bg-cinnamon</code></td><td>Al pasar el mouse, fondo canela</td></tr>
+  <tr><td><code>text-ink/80</code></td><td>Color de texto ink al 80 %</td></tr>
+  <tr><td><code>sm:first:border-l-0</code></td><td>Desde 640 px, al primer hijo, sin borde izquierdo</td></tr>
+  <tr><td><code>[&amp;::-webkit-details-marker]:hidden</code></td><td>Oculta el triángulo nativo de <code>&lt;summary&gt;</code></td></tr>
+  <tr><td><code>group-open:rotate-90</code></td><td>Cuando el <code>&lt;details&gt;</code> padre está abierto, rota 90°</td></tr>
+</table>
+
+<h3>4.6 Breakpoints (responsive)</h3>
+<table>
+  <tr><th>Prefijo</th><th>Desde</th><th>Se usa para</th></tr>
+  <tr><td><code>sm:</code></td><td>640 px</td><td>Teléfonos grandes</td></tr>
+  <tr><td><code>md:</code></td><td>768 px</td><td>Tablet vertical / dos columnas</td></tr>
+  <tr><td><code>lg:</code></td><td>1024 px</td><td>Menú completo, escritorio</td></tr>
+  <tr><td><code>xl:</code></td><td>1280 px</td><td>Pantallas amplias</td></tr>
+  <tr><td><code>2xl:</code></td><td>1536 px</td><td>Pantallas muy grandes</td></tr>
+</table>
+
+<p>Tailwind es <strong>mobile-first</strong>: lo que escribes sin prefijo aplica a móvil, y los prefijos van sumando reglas hacia arriba. Por eso <code>text-4xl md:text-5xl</code> significa "4xl en móvil y 5xl desde tablet".</p>
+
+<h3>4.7 Escala de espaciado</h3>
+<p>La unidad base es <code>0.25rem</code> = <strong>4 px</strong>. El número se multiplica por 4.</p>
+
+<table>
+  <tr><th>Clase</th><th>Valor</th><th>Píxeles</th></tr>
+  <tr><td><code>p-1</code></td><td>0.25rem</td><td>4 px</td></tr>
+  <tr><td><code>p-2</code></td><td>0.5rem</td><td>8 px</td></tr>
+  <tr><td><code>p-3</code></td><td>0.75rem</td><td>12 px</td></tr>
+  <tr><td><code>p-4</code></td><td>1rem</td><td>16 px</td></tr>
+  <tr><td><code>p-6</code></td><td>1.5rem</td><td>24 px</td></tr>
+  <tr><td><code>p-8</code></td><td>2rem</td><td>32 px</td></tr>
+  <tr><td><code>p-12</code></td><td>3rem</td><td>48 px</td></tr>
+  <tr><td><code>p-24</code></td><td>6rem</td><td>96 px</td></tr>
+</table>
+
+<p>La letra indica el lado: <code>p</code> padding, <code>m</code> margen, <code>px</code> izquierda y derecha, <code>py</code> arriba y abajo, <code>pt</code>/<code>pb</code>/<code>pl</code>/<code>pr</code> un lado, <code>gap</code> separación entre hijos de flex o grid, <code>space-y</code> separación vertical entre hijos.</p>
+
+<h3>4.8 Valores arbitrarios</h3>
+<p>Cuando la escala no alcanza, se usan corchetes: <code>text-[11px]</code>, <code>tracking-[0.45em]</code>, <code>leading-[0.95]</code>, <code>aspect-[4/5]</code>, <code>max-h-[calc(100svh-5rem)]</code>, <code>grid-cols-[0.8fr_1.2fr]</code>. Los guiones bajos <code>_</code> representan espacios dentro del valor.</p>
+
+<h3>4.9 Estados y variantes</h3>
+<table>
+  <tr><th>Variante</th><th>Cuándo se aplica</th><th>Ejemplo</th></tr>
+  <tr><td><code>hover:</code></td><td>Mouse encima</td><td><code>hover:bg-cinnamon</code></td></tr>
+  <tr><td><code>focus-visible:</code></td><td>Foco por teclado</td><td><code>focus-visible:outline-2</code></td></tr>
+  <tr><td><code>group</code> + <code>group-hover:</code></td><td>Padre con clase group + hover sobre el padre</td><td><code>group-hover:scale-105</code></td></tr>
+  <tr><td><code>group-open:</code></td><td>Padre <code>details</code> abierto</td><td><code>group-open:rotate-90</code></td></tr>
+  <tr><td><code>first:</code> / <code>last:</code></td><td>Primer o último hijo</td><td><code>first:border-l-0</code></td></tr>
+  <tr><td><code>md:</code> / <code>lg:</code></td><td>Breakpoint de ancho</td><td><code>md:grid-cols-2</code></td></tr>
+</table>
+
+<h3>4.10 Transiciones</h3>
+<pre><code>transition-colors duration-300</code></pre>
+<p>Anima solo las propiedades de color durante 300 ms. En las imágenes se usa <code>transition-transform duration-500</code> con <code>group-hover:scale-105</code> para el zoom lento.</p>
+
+<div class="callout warn">
+  <strong>Tailwind falla en silencio.</strong> Si una clase está mal escrita, no hay error de compilación ni de consola: simplemente no se genera CSS. Revisa el inspector del navegador y confirma que la propiedad existe. Los errores más comunes son letras cambiadas (<code>coffe</code> en vez de <code>coffee</code>) y clases pegadas (<code>px-8py-10</code> en vez de <code>px-8 py-10</code>).
+</div>
+
+<!-- ============================ 5 ============================ -->
+<div class="page-break"></div>
+<h2 id="clases">5. Catálogo de clases usadas</h2>
+
+<p class="small">Las clases están agrupadas por función. "Proyecto" indica dónde se usa realmente.</p>
+
+<h3>5.1 Estructura y posición</h3>
+<table>
+  <tr><th>Clase</th><th>Qué hace</th><th>Proyecto</th></tr>
+  <tr><td><code>fixed</code></td><td>Fija el elemento a la ventana; no se mueve al hacer scroll</td><td>Header</td></tr>
+  <tr><td><code>absolute</code></td><td>Posiciona respecto al ancestro posicionado más cercano</td><td>Hero fondo, overlays</td></tr>
+  <tr><td><code>relative</code></td><td>Posiciona respecto a su lugar normal y habilita hijos absolutos</td><td>Hero, Historia, Galería</td></tr>
+  <tr><td><code>inset-0</code></td><td>top/right/bottom/left en 0: ocupa todo el contenedor</td><td>Fondo del Hero, overlays</td></tr>
+  <tr><td><code>inset-x-0</code></td><td>Izquierda y derecha en 0</td><td>Header</td></tr>
+  <tr><td><code>top-0</code></td><td>Separación superior de 0</td><td>Header</td></tr>
+  <tr><td><code>z-10</code> / <code>z-50</code></td><td>Nivel de apilamiento</td><td>Contenido del Hero / Header</td></tr>
+  <tr><td><code>-translate-x-1/2</code></td><td>Desplaza a la izquierda la mitad de su ancho (centrado con <code>left-1/2</code>)</td><td>Flecha del Hero</td></tr>
+  <tr><td><code>overflow-hidden</code></td><td>Recorta lo que se sale del contenedor</td><td>Hero, fotos redondeadas</td></tr>
+  <tr><td><code>overflow-y-auto</code></td><td>Scroll vertical interno si hace falta</td><td>Menú móvil</td></tr>
+  <tr><td><code>pointer-events-none</code></td><td>No intercepta clics</td><td>Borde decorativo de la foto</td></tr>
+</table>
+
+<h3>5.2 Flexbox</h3>
+<table>
+  <tr><th>Clase</th><th>Qué hace</th></tr>
+  <tr><td><code>flex</code></td><td>Convierte el contenedor en flex</td></tr>
+  <tr><td><code>inline-flex</code></td><td>Flex que se comporta como texto en línea (botones)</td></tr>
+  <tr><td><code>flex-col</code></td><td>Dirección vertical</td></tr>
+  <tr><td><code>flex-1</code></td><td>Ocupa el espacio restante</td></tr>
+  <tr><td><code>items-center</code></td><td>Alinea hijos en el eje transversal (vertical en fila)</td></tr>
+  <tr><td><code>justify-between</code></td><td>Separa hijos a los extremos</td></tr>
+  <tr><td><code>justify-center</code></td><td>Centra hijos en el eje principal</td></tr>
+  <tr><td><code>gap-2</code> / <code>gap-6</code></td><td>Separación entre hijos (8 px / 24 px)</td></tr>
+  <tr><td><code>flex-wrap</code></td><td>Permite que los hijos salten de línea</td></tr>
+</table>
+
+<h3>5.3 Grid</h3>
+<table>
+  <tr><th>Clase</th><th>Qué hace</th><th>Proyecto</th></tr>
+  <tr><td><code>grid</code></td><td>Contenedor de cuadrícula</td><td>Varias secciones</td></tr>
+  <tr><td><code>grid-cols-2</code></td><td>Dos columnas iguales</td><td>Galería móvil, Countdown</td></tr>
+  <tr><td><code>md:grid-cols-3</code></td><td>Tres columnas desde 768 px</td><td>Galería</td></tr>
+  <tr><td><code>md:grid-cols-2</code></td><td>Dos columnas desde 768 px</td><td>Historia, Hospedaje</td></tr>
+  <tr><td><code>grid-cols-[0.8fr_1.2fr]</code></td><td>Columnas con proporción 0.8 / 1.2</td><td>Vestimenta</td></tr>
+  <tr><td><code>gap-3</code> / <code>gap-12</code></td><td>Separación entre celdas</td><td>Galería / Historia</td></tr>
+</table>
+
+<h3>5.4 Tamaño y ancho</h3>
+<table>
+  <tr><th>Clase</th><th>Qué hace</th></tr>
+  <tr><td><code>w-full</code></td><td>Ancho 100 % del contenedor</td></tr>
+  <tr><td><code>h-full</code></td><td>Altura 100 % del contenedor</td></tr>
+  <tr><td><code>h-10 w-10</code></td><td>40 × 40 px (botón hamburguesa)</td></tr>
+  <tr><td><code>h-20</code></td><td>80 px de alto (barra del header)</td></tr>
+  <tr><td><code>min-h-svh</code></td><td>Altura mínima = alto visible del móvil (small viewport)</td></tr>
+  <tr><td><code>max-w-3xl</code> … <code>max-w-6xl</code></td><td>Ancho máximo tipográfico del contenedor</td></tr>
+  <tr><td><code>mx-auto</code></td><td>Márgenes laterales automáticos: centra el contenedor</td></tr>
+  <tr><td><code>aspect-[4/5]</code></td><td>Proporción 4:5 (retrato)</td></tr>
+  <tr><td><code>aspect-square</code></td><td>Proporción 1:1 (no usado aún)</td></tr>
+</table>
+
+<h3>5.5 Tipografía</h3>
+<table>
+  <tr><th>Clase</th><th>Qué hace</th><th>Proyecto</th></tr>
+  <tr><td><code>font-serif</code></td><td>Cormorant Garamond (títulos)</td><td>Encabezados</td></tr>
+  <tr><td><code>font-sans</code></td><td>Montserrat (cuerpo y botones)</td><td>Párrafos</td></tr>
+  <tr><td><code>text-xs</code></td><td>0.75rem / 12 px</td><td>Etiquetas</td></tr>
+  <tr><td><code>text-sm</code></td><td>0.875rem / 14 px</td><td>Textos secundarios</td></tr>
+  <tr><td><code>text-base</code></td><td>1rem / 16 px</td><td>Párrafos</td></tr>
+  <tr><td><code>text-lg</code></td><td>1.125rem / 18 px</td><td>Historia</td></tr>
+  <tr><td><code>text-4xl</code></td><td>2.25rem / 36 px</td><td>Títulos de sección</td></tr>
+  <tr><td><code>text-5xl</code> … <code>text-9xl</code></td><td>Escala de títulos grandes</td><td>Hero</td></tr>
+  <tr><td><code>text-[11px]</code></td><td>Tamaño exacto de 11 px</td><td>Etiquetas pequeñas</td></tr>
+  <tr><td><code>leading-none</code> / <code>leading-[0.95]</code></td><td>Interlineado ajustado</td><td>Nombres del Hero</td></tr>
+  <tr><td><code>leading-relaxed</code></td><td>Interlineado amplio para lectura</td><td>Párrafos</td></tr>
+  <tr><td><code>tracking-[0.45em]</code></td><td>Espaciado entre letras</td><td>Etiquetas en mayúsculas</td></tr>
+  <tr><td><code>uppercase</code></td><td>Texto en mayúsculas</td><td>Etiquetas y botones</td></tr>
+  <tr><td><code>italic</code></td><td>Cursiva</td><td>El "&amp;" del Hero</td></tr>
+  <tr><td><code>text-center</code> / <code>md:text-left</code></td><td>Alineación de texto</td><td>Secciones</td></tr>
+</table>
+
+<h3>5.6 Color</h3>
+<table>
+  <tr><th>Clase</th><th>Qué hace</th></tr>
+  <tr><td><code>bg-cream</code></td><td>Fondo crema</td></tr>
+  <tr><td><code>bg-coffee</code></td><td>Fondo café (countdown)</td></tr>
+  <tr><td><code>bg-sand/15</code></td><td>Fondo arena al 15 % (Hospedaje)</td></tr>
+  <tr><td><code>text-ink/80</code></td><td>Texto principal al 80 %</td></tr>
+  <tr><td><code>text-cream/70</code></td><td>Texto crema al 70 % sobre fondo oscuro</td></tr>
+  <tr><td><code>border-sand/60</code></td><td>Borde arena al 60 %</td></tr>
+  <tr><td><code>bg-transparent</code></td><td>Fondo transparente</td></tr>
+</table>
+
+<h3>5.7 Bordes, radios y efectos</h3>
+<table>
+  <tr><th>Clase</th><th>Qué hace</th></tr>
+  <tr><td><code>border</code></td><td>Borde de 1 px</td></tr>
+  <tr><td><code>border-b</code> / <code>border-t</code></td><td>Borde solo abajo / arriba</td></tr>
+  <tr><td><code>border-dashed</code></td><td>Borde discontinuo</td></tr>
+  <tr><td><code>rounded-full</code></td><td>Borde completamente redondeado (píldora)</td></tr>
+  <tr><td><code>rounded-xl</code> / <code>rounded-2xl</code></td><td>Esquinas redondeadas</td></tr>
+  <tr><td><code>shadow-sm</code></td><td>Sombra suave</td></tr>
+  <tr><td><code>backdrop-blur-sm</code></td><td>Difumina lo que hay detrás (header con scroll)</td></tr>
+  <tr><td><code>opacity-60</code></td><td>Opacidad del 60 % (textura)</td></tr>
+  <tr><td><code>bg-linear-to-b from-ink/70 via-ink/45 to-ink/80</code></td><td>Degradado vertical sobre la foto del Hero</td></tr>
+</table>
+
+<h3>5.8 Visibilidad responsive</h3>
+<table>
+  <tr><th>Clase</th><th>Qué hace</th><th>Proyecto</th></tr>
+  <tr><td><code>hidden</code></td><td>Oculta el elemento</td><td>Menú de escritorio en móvil</td></tr>
+  <tr><td><code>hidden md:flex</code></td><td>Oculto en móvil, visible y flex desde 768 px</td><td>Navegación</td></tr>
+  <tr><td><code>lg:hidden</code></td><td>Visible hasta 1023 px; oculto en escritorio</td><td>Hamburguesa</td></tr>
+  <tr><td><code>hidden lg:flex</code></td><td>Menú completo desde 1024 px</td><td>Header</td></tr>
+  <tr><td><code>block</code></td><td>Elemento de bloque</td><td>Enlaces del menú móvil</td></tr>
+</table>
+
+<!-- ============================ 6 ============================ -->
+<div class="page-break"></div>
+<h2 id="componentes">6. Los componentes, uno por uno</h2>
+
+<h3>Header — <code>components/layout/Header.tsx</code></h3>
+<p>Barra fija arriba. Empieza transparente sobre el Hero y, al pasar 40 px de scroll, cambia a crema con blur. Contiene el monograma "P &amp; M", los enlaces de escritorio y el botón hamburguesa en móvil.</p>
+<ul>
+  <li><code>"use client"</code> porque usa <code>useState</code> y <code>useEffect</code>.</li>
+  <li>Un listener de scroll con <code>{ passive: true }</code> actualiza <code>isScrolled</code>.</li>
+  <li><code>isSolid = isScrolled || isMenuOpen</code>: al abrir el menú, el header se vuelve sólido aunque estés arriba.</li>
+  <li>El menú móvil bloquea el scroll del fondo y se cierra con <code>Escape</code> o al tocar un enlace.</li>
+  <li>Los dos <code>useEffect</code> limpian sus listeners al desmontar.</li>
+</ul>
+
+<h3>Hero — <code>components/sections/Hero.tsx</code></h3>
+<p>Portada a pantalla completa: foto, degradado, nombres, fecha, hora y ciudad. La foto es la única con <code>priority</code> porque es el elemento más grande visible al cargar (LCP). El degradado va encima de la imagen y debajo del texto para garantizar contraste.</p>
+
+<h3>NuestraHistoria</h3>
+<p>Texto, foto y un botón que expande la historia completa. Usa <code>&lt;details&gt;</code> y <code>&lt;summary&gt;</code> nativos: se abren sin JavaScript, funcionan con teclado y el navegador ya los anuncia como contenido expandible. Las clases <code>group</code> y <code>group-open:</code> cambian el texto y rotan la flecha.</p>
+
+<h3>CuentaRegresiva + Countdown</h3>
+<p>La sección café envuelve al contador. El contador es cliente: cada segundo calcula la diferencia entre la fecha objetivo y <code>Date.now()</code>. No resta uno al valor anterior, así que no se desfasa aunque el navegador esté ocupado.</p>
+<ul>
+  <li>Estado inicial <code>undefined</code> → muestra <code>--</code>.</li>
+  <li>Si la fecha ya pasó → muestra un mensaje en lugar de números.</li>
+  <li>Al desmontar, <code>clearInterval</code> detiene el reloj.</li>
+</ul>
+
+<h3>ElGranDia</h3>
+<p>Una sola tarjeta porque ceremonia y recepción son en el mismo lugar. Muestra nombre, dirección, los dos horarios y el botón "Cómo llegar" con el link de Google Maps. Si <code>mapsUrl</code> es <code>null</code>, muestra "Ubicación próximamente" en vez de un botón roto.</p>
+
+<h3>CodigoVestimenta</h3>
+<p>Dos columnas: título "Formal" a la izquierda y la descripción en una tarjeta a la derecha. Es contenido estático, sin estado.</p>
+
+<h3>Hospedaje</h3>
+<p>Si el arreglo <code>hotels</code> está vacío, muestra un aviso de "muy pronto". Al agregar hoteles, aparecen tarjetas con nombre, nota y enlace. El cambio es automático: no se toca el componente.</p>
+
+<h3>Galeria</h3>
+<p>Grid de 2 columnas en móvil y 3 en escritorio. Si <code>galleryPhotos</code> está vacío, pinta 6 placeholders; si tiene fotos, pinta imágenes con <code>next/image</code> y zoom al pasar el mouse.</p>
+
+<h3>PhotoPlaceholder</h3>
+<p>Componente propio (no es de Next) que dibuja un recuadro con textura y un texto tenue. Sirve para reservar el espacio de una foto que aún no existe. Se explica en detalle en la sección 9.</p>
+
+<!-- ============================ 7 ============================ -->
+<div class="page-break"></div>
+<h2 id="datos">7. Los datos de la boda</h2>
+
+<p>Todo el contenido variable vive en <code>data/wedding-data.ts</code>. Los componentes solo lo importan y lo muestran. Si cambia la fecha o el lugar, se cambia ahí y se actualiza en todas las secciones a la vez.</p>
+
+<table>
+  <tr><th>Exportación</th><th>Qué contiene</th></tr>
+  <tr><td><code>couple</code></td><td>Nombres de los novios</td></tr>
+  <tr><td><code>event</code></td><td>Fecha ISO, fecha legible, hora y ciudad</td></tr>
+  <tr><td><code>ceremony</code> / <code>reception</code></td><td>Nombre, dirección, hora y link del lugar</td></tr>
+  <tr><td><code>dressCode</code></td><td>Título y descripción del código de vestimenta</td></tr>
+  <tr><td><code>hotels</code></td><td>Lista de hoteles (vacía por ahora)</td></tr>
+  <tr><td><code>galleryPhotos</code></td><td>Lista de fotos de la galería</td></tr>
+</table>
+
+<h3>Por qué la fecha es un string ISO</h3>
+<pre><code>dateIso: "2026-12-28T17:00:00-06:00"</code></pre>
+<p>El sufijo <code>-06:00</code> indica la zona horaria de Cuautitlán Izcalli. Sin él, el navegador interpretaría la hora en la zona del invitado y el contador estaría desfasado para alguien en otro país. Con el offset, todos cuentan al mismo instante.</p>
+
+<h3>El patrón mapsUrl: string | null</h3>
+<pre><code>export type Venue = {
+  name: string;
+  address: string;
+  time: string;
+  mapsUrl: string | null;
+};</code></pre>
+<p>Mientras no haya link, el valor es <code>null</code> y los componentes muestran un texto alternativo. Cuando lo pegues, el botón aparece solo. Es mejor que inventar una URL vacía o romper el enlace.</p>
+
+<h3>Cómo cambiar datos</h3>
+<ol>
+  <li>Abre <code>data/wedding-data.ts</code>.</li>
+  <li>Cambia el valor (fecha, nombre, dirección, hora).</li>
+  <li>Guarda. Next recarga solo.</li>
+  <li>Revisa las secciones afectadas: Hero, Countdown, ElGranDia y el footer a futuro.</li>
+</ol>
+
+<div class="callout">
+  <strong>Si cambias el año:</strong> actualiza <code>dateIso</code> (con su offset), <code>dateLabel</code> y el <code>metadata.title</code> de <code>app/layout.tsx</code> si menciona el año. El día de la semana no está escrito a mano: se puede derivar de <code>dateIso</code> cuando lo necesites.
+</div>
+
+<!-- ============================ 8 ============================ -->
+<div class="page-break"></div>
+<h2 id="imagenes">8. Imágenes: resolución, carpetas y reemplazo</h2>
+
+<h3>8.1 Por qué se ven pixeladas</h3>
+<p>La pixelación no se arregla con CSS. Una imagen tiene un ancho en píxeles <strong>dentro del archivo</strong>. Si el archivo mide 300 px de ancho y se muestra a 1400 px, el navegador estira la información disponible: no puede inventar detalle.</p>
+
+<p><code>next/image</code> optimiza, comprime y elige el tamaño adecuado, pero <strong>nunca supera la resolución del archivo original</strong>. Las fotos de prueba pesan entre 3 y 10 KB, así que su ancho real es pequeño.</p>
+
+<div class="callout warn">
+  <strong>No existe una clase ni una prop para "poner 1920 px".</strong> Los anchos recomendados son del <em>archivo de imagen</em>, no del código. Se definen al exportar la foto desde el celular, la cámara o un editor.
+</div>
+
+<h3>8.2 Dónde se define cada tamaño</h3>
+<table>
+  <tr><th>Uso</th><th>Ancho del archivo</th><th>Dónde se define</th></tr>
+  <tr><td>Hero (pantalla completa)</td><td>1920 px o más</td><td>Al exportar la foto original</td></tr>
+  <tr><td>Nuestra Historia</td><td>1200 px</td><td>Al exportar la foto original</td></tr>
+  <tr><td>Galería</td><td>1000 px</td><td>Al exportar cada foto</td></tr>
+</table>
+
+<p>En el código solo se decide <strong>cómo se muestra</strong>:</p>
+<pre><code>&lt;!-- El alto lo decide el contenedor --&gt;
+&lt;div className="relative h-80 w-full md:h-[400px]"&gt;
+  &lt;Image ... fill className="object-cover" /&gt;
+&lt;/div&gt;
+
+&lt;!-- La proporción la decide el contenedor --&gt;
+&lt;figure className="aspect-[4/5]"&gt;
+  &lt;Image ... fill className="object-cover" /&gt;
+&lt;/figure&gt;</code></pre>
+
+<h3>8.3 Cómo saber cuánto mide una foto</h3>
+<ul>
+  <li>Windows: clic derecho → Propiedades → Detalles → Dimensiones.</li>
+  <li>O abre la imagen y mira la barra de título o la información del visor.</li>
+  <li>En el navegador: clic derecho sobre la imagen → Inspeccionar; el tamaño natural aparece en las DevTools.</li>
+</ul>
+
+<h3>8.4 Cómo exportar bien</h3>
+<ol>
+  <li>Parte del archivo original (cámara o celular), no de una copia de WhatsApp: WhatsApp reduce la resolución.</li>
+  <li>Recorta a la proporción que necesitas (horizontal para Hero, vertical para galería).</li>
+  <li>Exporta a <strong>JPG calidad 80–85</strong> o <strong>WebP calidad 80</strong>.</li>
+  <li>Verifica que el ancho sea el de la tabla anterior.</li>
+  <li>Nombra en minúsculas, sin acentos ni espacios: <code>novios-01.jpg</code>.</li>
+</ol>
+
+<h3>8.5 La prop sizes y la nitidez</h3>
+<p><code>sizes</code> le dice al navegador cuánto espacio ocupa la imagen en cada breakpoint. Con ese dato, Next genera variantes y sirve la adecuada (incluyendo pantallas 2x). Si <code>sizes</code> dice un valor menor al real, el navegador descarga una imagen más pequeña y se ve borrosa aunque el archivo sea grande.</p>
+
+<table>
+  <tr><th>Componente</th><th>sizes usado</th><th>Por qué</th></tr>
+  <tr><td>Hero</td><td><code>100vw</code></td><td>Ocupa todo el ancho</td></tr>
+  <tr><td>Historia</td><td><code>(min-width: 768px) 50vw, 100vw</code></td><td>Media pantalla en escritorio</td></tr>
+  <tr><td>Galería</td><td><code>(min-width: 768px) 33vw, 50vw</code></td><td>Tres o dos columnas</td></tr>
+</table>
+
+<h3>8.6 Carpetas: imagesPrueba hoy, images después</h3>
+<p>Mientras pruebas el diseño:</p>
+<pre><code>public/imagesPrueba/novios1.jpg  →  src="/imagesPrueba/novios1.jpg"</code></pre>
+<p>Cuando lleguen las fotos definitivas:</p>
+<pre><code>public/images/novios1.jpg        →  src="/images/novios1.jpg"</code></pre>
+<p>Dos formas de hacer el cambio:</p>
+<ul>
+  <li><strong>Manual:</strong> mover archivos y actualizar cada <code>src</code> (Hero, Historia y las 6 entradas de la galería).</li>
+  <li><strong>Recomendada:</strong> guardar las rutas en <code>wedding-data.ts</code> y cambiarlas en un solo archivo.</li>
+</ul>
+
+<pre><code>// data/wedding-data.ts
+export const photos = {
+  hero: "/imagesPrueba/novios1.jpg",
+  history: "/imagesPrueba/novios2.jpg",
+};
+
+// Hero.tsx
+&lt;Image src={photos.hero} ... /&gt;</code></pre>
+
+<p>Así, el día que cambies de carpeta, editas dos líneas y no tocas los componentes.</p>
+
+<h3>8.7 Errores típicos con imágenes</h3>
+<table>
+  <tr><th>Síntoma</th><th>Causa probable</th></tr>
+  <tr><td>404 en consola</td><td>Ruta o nombre incorrecto; recuerda que no lleva <code>public/</code></td></tr>
+  <tr><td>La imagen no ocupa el contenedor</td><td>Falta <code>fill</code> y un padre <code>relative</code> con altura</td></tr>
+  <tr><td>Se estira o se deforma</td><td>Falta <code>object-cover</code></td></tr>
+  <tr><td>Se ve borrosa</td><td>Archivo pequeño o <code>sizes</code> mal calculado</td></tr>
+  <tr><td>Esquinas no redondeadas</td><td>Falta <code>overflow-hidden</code> en el contenedor</td></tr>
+  <tr><td>Funciona en Windows, no en Vercel</td><td>Mayúsculas o acentos en el nombre del archivo</td></tr>
+</table>
+
+<!-- ============================ 9 ============================ -->
+<div class="page-break"></div>
+<h2 id="placeholder">9. Qué es y para qué sirve PhotoPlaceholder</h2>
+
+<p><code>PhotoPlaceholder</code> es un <strong>componente propio del proyecto</strong>, no una función de Next.js. Dibuja un recuadro con fondo arena, una textura sutil de líneas y un texto pequeño. No carga ninguna imagen.</p>
+
+<h3>Sus dos trabajos</h3>
+<ol>
+  <li><strong>Reservar el espacio</strong> con la proporción correcta, para que el diseño se vea completo y no salte cuando llegue la foto.</li>
+  <li><strong>Hacer visible lo que falta</strong> durante el desarrollo: un recuadro con "Foto de la pareja" se entiende mejor que un hueco vacío.</li>
+</ol>
+
+<h3>Cuándo se usa</h3>
+<table>
+  <tr><th>Situación</th><th>Qué usar</th></tr>
+  <tr><td>No hay foto todavía</td><td><code>&lt;PhotoPlaceholder /&gt;</code></td></tr>
+  <tr><td>Ya hay foto</td><td><code>&lt;Image /&gt;</code> de <code>next/image</code></td></tr>
+  <tr><td>Galería vacía</td><td>Varios <code>PhotoPlaceholder</code> (lo decide el componente)</td></tr>
+  <tr><td>Galería con fotos</td><td><code>Image</code> (lo decide el componente)</td></tr>
+</table>
+
+<h3>Cómo se reemplaza</h3>
+<pre><code>&lt;!-- Antes --&gt;
+&lt;PhotoPlaceholder label="Foto de la pareja" className="h-80 w-full rounded-2xl" /&gt;
+
+&lt;!-- Después --&gt;
+&lt;div className="relative h-80 w-full overflow-hidden rounded-2xl"&gt;
+  &lt;Image src="/images/novios2.jpg" alt="Pablo y Marisol" fill sizes="50vw" className="object-cover" /&gt;
+&lt;/div&gt;</code></pre>
+
+<p>El cambio importante es que las clases de tamaño (<code>h-80</code>, <code>rounded-2xl</code>) pasan del placeholder al <strong>contenedor</strong> de la imagen, porque <code>fill</code> necesita un padre con altura.</p>
+
+<div class="callout">
+  <strong>¿Se borra al final?</strong> No hace falta. Puede quedarse para futuras secciones sin foto (por ejemplo, el Footer) o para el estado vacío de la galería. No suma peso si no se renderiza.
+</div>
+
+<!-- ============================ 10 ============================ -->
+<div class="page-break"></div>
+<h2 id="faq">10. Preguntas frecuentes</h2>
+
+<h3>¿Por qué las fotos se ven pixeladas y dónde pongo el ancho recomendado?</h3>
+<p>Porque el archivo original tiene pocos píxeles. El ancho (1920 / 1200 / 1000 px) se define al <strong>exportar la foto</strong>, no en el código. En el código solo controlas el tamaño de visualización con clases como <code>h-80</code> o <code>aspect-[4/5]</code>. Una foto de 300 px estirada a 1400 px siempre se verá borrosa.</p>
+
+<h3>¿PhotoPlaceholder solo sirve para cuando no hay imágenes?</h3>
+<p>Sí. Es un sustituto visual temporal. Cuando existe la foto, se usa <code>next/image</code>. Su valor está en reservar el espacio y comunicar qué falta durante el desarrollo.</p>
+
+<h3>¿Cuál es la diferencia entre Header y Hero?</h3>
+<p>El <strong>Header</strong> es la barra de navegación fija (monograma, enlaces, hamburguesa). El <strong>Hero</strong> es la portada a pantalla completa con la foto, los nombres y la fecha. La foto grande va en el Hero, no en el Header.</p>
+
+<h3>¿Por qué el header no cambiaba de color?</h3>
+<p>Porque el Hero ocupaba exactamente el alto de la pantalla y no había más contenido: no existía barra de scroll, así que <code>window.scrollY</code> nunca superaba 40. Al agregar la sección de Historia apareció el scroll y el cambio empezó a funcionar.</p>
+
+<h3>¿Por qué escribo <code>&amp;amp;</code> y no <code>&amp;</code>?</h3>
+<p>En HTML y JSX, el ampersand inicia una entidad. <code>&amp;amp;</code> se muestra como <code>&amp;</code>. En texto normal de JSX también funciona un <code>&amp;</code> suelto, pero <code>&amp;amp;</code> es la forma segura y consistente.</p>
+
+<h3>¿Necesito <code>"use client"</code> en todas las secciones?</h3>
+<p>No. Solo en las que usan estado, efectos o APIs del navegador. Hoy son dos: Header y Countdown. El resto son componentes de servidor, más livianos.</p>
+
+<h3>¿Por qué el contador muestra <code>--</code> al principio?</h3>
+<p>Para que el HTML del servidor y el primer render del cliente coincidan. Si el servidor calculara una hora y el cliente otra, React mostraría un error de hidratación. El <code>useEffect</code> calcula el valor real apenas el componente se monta, un instante después.</p>
+
+<h3>¿Cómo agrego una foto a la galería?</h3>
+<ol>
+  <li>Copia el archivo a <code>public/images/</code>.</li>
+  <li>Agrega una entrada a <code>galleryPhotos</code> con <code>src</code> y <code>alt</code>.</li>
+  <li>Listo: el componente deja de mostrar placeholders automáticamente.</li>
+</ol>
+
+<h3>¿Cómo cambio la fecha o el lugar?</h3>
+<p>En <code>data/wedding-data.ts</code>. La fecha del contador es <code>dateIso</code> (con zona horaria); la legible es <code>dateLabel</code>. Los lugares son <code>ceremony</code> y <code>reception</code>.</p>
+
+<h3>¿Por qué una clase no tiene efecto?</h3>
+<p>Porque está mal escrita y Tailwind la ignora sin avisar. Revisa letra por letra y que no haya dos clases pegadas (<code>px-8py-10</code>). En el inspector debe aparecer la propiedad CSS; si no aparece, la clase no existe.</p>
+
+<h3>¿Puedo usar CSS normal además de Tailwind?</h3>
+<p>Sí. <code>app/globals.css</code> es CSS normal; ahí están los tokens y los estilos base. Para estilos muy específicos (texturas, animaciones complejas) se puede usar CSS o la prop <code>style</code>. Tailwind es la herramienta principal, no una obligación absoluta.</p>
+
+<h3>¿Qué pasa si el invitado abre en un celular viejo?</h3>
+<p>El sitio usa unidades modernas (<code>svh</code>), <code>backdrop-filter</code> y <code>next/image</code>. En navegadores muy antiguos algunos efectos se degradan (por ejemplo, el blur del header), pero el contenido sigue siendo legible. Tailwind 4 requiere navegadores relativamente modernos (Safari 16.4+, Chrome 111+).</p>
+
+<!-- ============================ 11 ============================ -->
+<div class="page-break"></div>
+<h2 id="errores">11. Errores que ya cometimos y cómo detectarlos</h2>
+
+<table>
+  <tr><th>Error</th><th>Qué pasaba</th><th>Cómo se detecta</th></tr>
+  <tr><td><code>--color-coffe</code> vs <code>bg-coffee</code></td><td>El token tenía una "e" y la clase otra; el fondo no se pintaba</td><td>El inspector no muestra <code>background-color</code></td></tr>
+  <tr><td><code>text-cofee</code></td><td>Clase inexistente; el título usaba el color heredado</td><td>El color no coincide con el token</td></tr>
+  <tr><td><code>px-8py-10</code></td><td>Dos clases pegadas; la tarjeta quedaba sin padding</td><td>El texto toca el borde de la tarjeta</td></tr>
+  <tr><td><code>mx-w-15xl</code></td><td>Clase inventada; el contenedor no tenía ancho máximo</td><td>El contenido se estira demasiado en pantallas grandes</td></tr>
+  <tr><td><code>tracking-[o.45em]</code></td><td>Letra "o" en vez de cero</td><td>El espaciado entre letras no cambia</td></tr>
+  <tr><td><code>#galería</code> en un href</td><td>El acento se codifica y no coincide con <code>id="galeria"</code></td><td>El enlace no salta a la sección</td></tr>
+  <tr><td><code>suppressContentEditableWarning</code></td><td>Prop de React equivocada; no silencia la hidratación</td><td>Advertencia de hidratación en consola</td></tr>
+  <tr><td>Sin scroll en la página</td><td>El Hero llenaba la pantalla y no había más contenido</td><td>El header no cambia al hacer scroll</td></tr>
+</table>
+
+<h3>Método general de diagnóstico</h3>
+<ol>
+  <li>Abre DevTools (F12) → pestaña Elements.</li>
+  <li>Selecciona el elemento y revisa "Styles".</li>
+  <li>Si la propiedad no aparece, la clase no se generó: nombre mal escrito o clase inexistente.</li>
+  <li>Si aparece tachada, otra regla la está sobrescribiendo.</li>
+  <li>Mira la consola: los 404 de imágenes y los errores de hidratación salen ahí.</li>
+</ol>
+
+<!-- ============================ 12 ============================ -->
+<h2 id="checklist">12. Checklist antes de publicar</h2>
+<ul>
+  <li>Reemplazar todas las fotos de prueba por las definitivas (Hero, Historia, Galería).</li>
+  <li>Escribir el texto real de "Nuestra Historia".</li>
+  <li>Verificar el link de Google Maps en un celular real.</li>
+  <li>Probar en móvil: menú, anclas, contador y galería.</li>
+  <li>Revisar que cada imagen tenga un <code>alt</code> descriptivo.</li>
+  <li>Actualizar <code>metadata.title</code> y <code>description</code> en <code>app/layout.tsx</code>.</li>
+  <li>Agregar una imagen para compartir en redes (<code>opengraph-image</code>).</li>
+  <li>Cambiar el favicon por las iniciales de la pareja.</li>
+  <li>Ejecutar <code>npm run build</code> sin errores (requiere internet para las fuentes).</li>
+  <li>Revisar el sitio en un teléfono real, no solo en DevTools.</li>
+</ul>
+
+<!-- ============================ 13 ============================ -->
+<h2 id="glosario">13. Glosario</h2>
+<table>
+  <tr><th>Término</th><th>Significado</th></tr>
+  <tr><td>Componente</td><td>Función que devuelve JSX (la descripción de una parte de la interfaz)</td></tr>
+  <tr><td>Prop</td><td>Valor que un componente recibe desde fuera (<code>label</code>, <code>className</code>)</td></tr>
+  <tr><td>Estado</td><td>Dato que cambia y hace que la interfaz se vuelva a dibujar (<code>useState</code>)</td></tr>
+  <tr><td>Hook</td><td>Función especial de React (<code>useState</code>, <code>useEffect</code>)</td></tr>
+  <tr><td>Efecto</td><td>Código que corre después del render (listeners, intervalos)</td></tr>
+  <tr><td>Hidratación</td><td>Proceso en que React toma el HTML del servidor y lo vuelve interactivo</td></tr>
+  <tr><td>Server Component</td><td>Componente que se ejecuta solo en el servidor y no envía JS</td></tr>
+  <tr><td>Client Component</td><td>Componente marcado con <code>"use client"</code> que corre en el navegador</td></tr>
+  <tr><td>LCP</td><td>Largest Contentful Paint: el elemento más grande visible al cargar; se optimiza con <code>priority</code></td></tr>
+  <tr><td>CLS</td><td>Cambio acumulado de layout: los saltos visuales que se evitan reservando espacio</td></tr>
+  <tr><td>Token</td><td>Variable de diseño (color, fuente) declarada una vez y reutilizada</td></tr>
+  <tr><td>Utility-first</td><td>Estilo basado en clases pequeñas de una sola responsabilidad</td></tr>
+  <tr><td>Breakpoint</td><td>Ancho de pantalla a partir del cual cambian los estilos (<code>md</code>, <code>lg</code>)</td></tr>
+  <tr><td>Ancla</td><td>Enlace a una sección de la misma página (<code>#historia</code>)</td></tr>
+</table>
+
+<!-- ============================ 14 ============================ -->
+<h2 id="siguiente">14. Próximos pasos</h2>
+<ol>
+  <li><strong>Fase 9 — Preguntas frecuentes:</strong> acordeón con <code>&lt;details&gt;</code> nativo, sin JavaScript, con datos en <code>wedding-data.ts</code>.</li>
+  <li><strong>Fase 10 — RSVP:</strong> formulario visual primero; después server action y PostgreSQL.</li>
+  <li><strong>Cierre — Footer:</strong> fondo oscuro con foto y texto arena.</li>
+  <li><strong>Pulido:</strong> fotos definitivas, texto real, metadata para compartir y favicon.</li>
+</ol>
+
+<div class="callout">
+  <strong>Cómo leer este proyecto si vuelves en semanas:</strong> empieza por <code>app/page.tsx</code> para ver el orden de las secciones, sigue con <code>data/wedding-data.ts</code> para los datos y luego abre solo la sección que quieras tocar. Todo lo visual está en el <code>className</code> del componente correspondiente.
+</div>
+
+</body>
+</html>

@@ -9,15 +9,9 @@ export type Venue = {
     mapsUrl: string | null;
 };
 
-export type Hotel = {
-    name: string;
-    note: string;
-    url: string | null;
-}
-
 export const couple = {
-    groom: "Pablo",
-    bride: "Marisol",
+    groom: "David",
+    bride: "Sonia",
 } as const;
 
 export const event = {
@@ -55,7 +49,64 @@ export const dressCode = {
     description: "Te pedimos venir con vestimenta formal. Evita el blanco: está reservado para la novia. ¡Gracias por tu comprensión!",
 } as const;
 
+//Lugares para quedarse
+export type Hotel = {
+    name: string;
+    note: string;
+    url: string | null;
+}
+
 export const hotels: Hotel[] = [
     //Agregar los hoteles recomendados
-    //{ name: "Hotel ejemplo", note: "A 10 minutos del evento", urel: "https://..." }
+    //{ name: "Hotel ejemplo", note: "A 10 minutos del evento", url: "https://..." }
+];
+
+//Galería
+export type GalleryPhoto = {
+    src: string;
+    alt: string;
+};
+
+export const galleryPhotos: GalleryPhoto[] = [
+    //Las fotos se guardan en public/images/ y se agrega así:
+    //{ src: "/images/galeria-01.jpg", alt: "Pablo y Marisol en la playa"}
+    {src: "/imagesPrueba/gale1.jpg", alt: "Sonia y David"},
+    {src: "/imagesPrueba/gale2.jpg", alt: "Sonia y David"},
+    {src: "/imagesPrueba/gale3.png", alt: "Sonia y David"},
+    {src: "/imagesPrueba/gal4.jpg", alt: "Sonia y David"},
+    {src: "/imagesPrueba/gal5.jpg", alt: "Sonia y David"},
+    {src: "/imagesPrueba/gal6.jpg", alt: "Sonia y David"},
+];
+
+//Rutas para las fotos destacadas (Hero e Historia)
+//Al pasar a las fotos definitivas: cambiar imagesPrueba -> images, solo aquí
+export const featuredPhotos = {
+    hero: "/imagesPrueba/hero.jpg",
+    history: "/imagesPrueba/historias.jpg",
+}
+
+//Preguntas frecuentes
+export type FaqItem = {
+    question: string;
+    answer: string;
+};
+
+export const faqItems: FaqItem[] = [
+    {
+        question: "¿A qué hora debo llegar?",
+        answer: "La ceremonía comienza a las 5:00 PM. Te recomendamos llegas entre 4:30 y 4:45 PM para acomodarte sin prisa y no perderte el inicio.",
+    },
+    {
+        question: "¿Qué pasa si tengo alguna restricción alimenticia?",
+        answer: "Cuéntanoslo al confirmar tu asistencia. Avisaremos a quien prepara el banquete para que tengas una opción que puedas disfrutar.",
+    },
+    {
+        question: "¿Hasta cuándo puedo confirmar mi asistencia?",
+        //Ajustar esta fecha cuando definan el límite real del RSVP
+        answer: "Hasta el 1 de diciembre de 2026. Después de esa fecha ya no podremos asegurar tu lugar, así que te pedimos no dejarlo para el final.",
+    },
+    {
+        question: "¿Cómo llego al lugar?",
+        answer: "En la sección \"El gran día\" está el botón \"Cómo llegar\", que abre la ubicación exacta en Google Maps. La ceremonia y la recepción son en el mismo lugar.",
+    },
 ];

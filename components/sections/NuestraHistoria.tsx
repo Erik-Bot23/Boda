@@ -1,5 +1,6 @@
+import { featuredPhotos } from "@/data/wedding-data";
 import Image from "next/image";
-import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
+//import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
 
 export default function NuestraHistoria(){
     return (
@@ -61,9 +62,14 @@ export default function NuestraHistoria(){
                             </details>
                         </div>
 
-                        <div className="relative">
-                            <PhotoPlaceholder label="Foto de la pareja" className="h-80 w-full rounded-2xl md:h-[400px]"/>
-                            <div className="absolute -inset-px rounded-2xl border border-sand/50 pointer-events-none"/>
+                        <div className="relative h-80 w-full overflow-hidden rounded-2xl md:h-[400px]">
+                            <Image
+                                src={featuredPhotos.history}
+                                alt="Sonia y David"
+                                fill
+                                sizes="(min-width: 768px) 50vw, 100vw"
+                                className="object-cover"/>
+                            <div className="pointer-events-none absolute inset-0 rounded-2xl border border-sand/50"/>
                         </div>
                     </div>
                 </div>

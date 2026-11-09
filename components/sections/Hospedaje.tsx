@@ -1,9 +1,10 @@
+import Image from "next/image";
 import { hotels } from "@/data/wedding-data";
 
 export default function Hospedaje(){
     return (
         <section id="hospedaje" className="scroll-mt-24 bg-sand/15 py-24">
-            <div className="mx-auto mx-w-15xl px-6">
+            <div className="mx-auto max-w-5xl px-6">
                 <div className="text-center">
                     <p className="font-sans text-[11px] uppercase tracking-[0.45em] text-terracotta">
                         Hospedaje
@@ -42,7 +43,9 @@ export default function Hospedaje(){
                                             rel="noopener noreferrer"
                                             className="mt-5 inline-flex items-center gap-2 font-sans text-[11px] uppercase tracking-[0.2em] text-terracotta transition-colors duration-300 hover:text-cinnamon">
                                                 Ver sitio
-                                                <span aria-hidden="true"> Ingresar </span>
+                                                <span aria-hidden="true"> 
+                                                    <Image src="/icons/derecha.png" alt="" width={16} height={16} className="h-4 w-4 object-contain transition-transform duration-300 group-open:rotate-90"/>
+                                                </span>
                                         </a>
                                     ) : null}
                             </li>
