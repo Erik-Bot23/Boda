@@ -9,6 +9,12 @@ export type Venue = {
     mapsUrl: string | null;
 };
 
+export type Hotel = {
+    name: string;
+    note: string;
+    url: string | null;
+}
+
 export const couple = {
     groom: "Pablo",
     bride: "Marisol",
@@ -17,12 +23,12 @@ export const couple = {
 export const event = {
     /**
      * Fecha y hora del evento en formato ISO 8601 (YYYY-MM-DDTHH:mm:ssZ) con zona horaria
-     * Oaxaca usa UTC-6 todo el año (desde 2022 ya no hay horario de verano)
-     * Este string es el que alimenta el countdown, así no hay ambigüedad.
+     * Cuautitlán Izcalli usa UTC-6 todo el año (desde 2022 ya no hay horario de verano)
+     * Apunta al inicio de la ceremonia (5:00 PM), que es cuando arranca el gran día.
      */
-    dateIso: "2026-12-28T20:00:00-06:00",
+    dateIso: "2026-12-28T17:00:00-06:00",
     dateLabel: "28 de diciembre de 2026",
-    timeLabel: "8:00 de la noche",
+    timeLabel: "5:00 de la tarde",
     city: "Cuautitlán Izcalli, Estado de México"
 } as const;
 
@@ -33,15 +39,15 @@ const address = "Jacarandas 6, Santa Rosa de Lima, 54740 Cuautitlán Izcalli, M�
 export const ceremony: Venue = {
     name: "Centro Cristiano Izcalli",
     address,
-    time: "08:00",
-    mapsUrl, //Todo: pegar el link de Google Maps
+    time: "5:00 PM",
+    mapsUrl,
 };
 
-export const reception: Venue = { 
+export const reception: Venue = {
     name: "Centro Cristiano Izcalli",
     address,
-    time: "Después de la ceremonia",
-    mapsUrl, //Todo: pegar el link de Google Maps
+    time: "8:00 PM",
+    mapsUrl,
 };
 
 export const dressCode = {
@@ -49,4 +55,7 @@ export const dressCode = {
     description: "Te pedimos venir con vestimenta formal. Evita el blanco: está reservado para la novia. ¡Gracias por tu comprensión!",
 } as const;
 
-
+export const hotels: Hotel[] = [
+    //Agregar los hoteles recomendados
+    //{ name: "Hotel ejemplo", note: "A 10 minutos del evento", urel: "https://..." }
+];

@@ -51,22 +51,25 @@ Fuente única de verdad: `data/wedding-data.ts`. Ningún componente debe hardcod
 | Dato | Valor |
 |---|---|
 | Novios | Pablo & Marisol |
-| Fecha | 28 de diciembre, 12:00 del mediodía |
-| Año | 2026 (confirmado) |
-| Ceremonia | Iglesia Santo Domingo, Oaxaca de Juárez, Oaxaca |
-| Recepción | Salón Shalom, Oaxaca de Juárez, Oaxaca |
-| Ciudad | Oaxaca, México |
+| Fecha | 28 de diciembre de 2026 |
+| Ceremonia | Centro Cristiano Izcalli — 5:00 PM |
+| Recepción | Centro Cristiano Izcalli — 8:00 PM |
+| Dirección | Jacarandas 6, Santa Rosa de Lima, 54740 Cuautitlán Izcalli, Méx. |
+| Ciudad | Cuautitlán Izcalli, Estado de México |
 | Zona horaria | UTC−6 todo el año (`-06:00`) |
 | Código de vestimenta | Formal (evitar blanco) |
+
+> Ceremonia y recepción son en el mismo lugar y comparten el mismo link de Google Maps. El countdown apunta al inicio de la ceremonia (`2026-12-28T17:00:00-06:00`).
 
 **Pendientes de contenido:**
 
 - [x] Año confirmado: 2026.
-- [ ] Link de Google Maps de la iglesia.
-- [ ] Link de Google Maps del salón.
-- [ ] Direcciones exactas (calle y número) de ambos lugares.
-- [ ] Hora de la recepción (hoy figura "Por confirmar").
+- [x] Link de Google Maps (uno para ceremonia y recepción).
+- [x] Direcciones exactas del lugar.
+- [x] Horas de ceremonia (5:00 PM) y recepción (8:00 PM).
 - [ ] Fotos reales → guardar en `public/images/`.
+- [ ] Texto real de "Nuestra Historia" (hoy es texto de ejemplo).
+- [ ] Hoteles recomendados para la sección de Hospedaje.
 
 ---
 
@@ -126,28 +129,30 @@ Definidos en el bloque `@theme`, por lo que generan utilidades (`bg-*`, `text-*`
 ```
 app/
   layout.tsx          # Fuentes, metadata, <html lang="es">
-  page.tsx            # Ensamblaje de todas las secciones (hoy: prueba de humo temporal)
+  page.tsx            # Ensamblaje: Hero → Historia → Countdown → Gran Día
   globals.css         # Tokens de color, fuentes y estilos base
 components/
   layout/
-    Header.tsx        # Menú fijo/scroll + hamburguesa móvil        (vacío)
+    Header.tsx        # Menú fijo/scroll + hamburguesa móvil        (listo)
     Footer.tsx        # Fondo oscuro con foto y texto arena          (vacío)
   sections/
-    Hero.tsx          # Foto, nombres y fecha                        (vacío)
-    NuestraHistoria.tsx                                              (vacío)
-    ElGranDia.tsx     # Ceremonia, recepción y botón de mapa         (vacío)
+    Hero.tsx          # Foto, nombres, fecha, hora y ciudad          (listo)
+    NuestraHistoria.tsx  # Texto + <details> expandible + foto       (listo)
+    CuentaRegresiva.tsx  # Sección café que envuelve al Countdown    (listo)
+    ElGranDia.tsx     # Lugar, horarios y botón de Google Maps       (listo)
     CodigoVestimenta.tsx                                             (vacío)
     Hospedaje.tsx                                                    (vacío)
     Galeria.tsx                                                      (vacío)
     PreguntasFrecuentes.tsx                                          (vacío)
   ui/
     Button.tsx        # Botón reutilizable (variantes)               (vacío)
-    Countdown.tsx     # Contador en tiempo real (client component)   (vacío)
+    Countdown.tsx     # Contador en tiempo real (client component)   (listo)
+    PhotoPlaceholder.tsx  # Espacio reservado para fotos             (listo)
 data/
-  wedding-data.ts     # Datos de la boda (hoy: solo el comentario inicial)
+  wedding-data.ts     # Fuente única de verdad (couple, event, venues, dressCode)
 public/
-  images/             # Fotos reales (vacía, creada)
-  icons/              # Íconos (creada)
+  images/             # Fotos reales (vacía)
+  icons/derecha.png   # Flecha del botón "Ver nuestra historia completa"
 ```
 
 ---
@@ -155,50 +160,61 @@ public/
 ## 6. Decisiones técnicas ya tomadas
 
 1. **Tailwind 4 con `@theme`**: los colores son tokens, no hex repetidos en los componentes. Las fuentes usan `@theme inline` porque su valor lo inyecta `next/font` en `<html>`.
-2. **`dateISO` con offset `-06:00`**: el countdown debe apuntar a un instante único, sin depender de la zona horaria del visitante. Oaxaca ya no aplica horario de verano.
-3. **`mapsUrl: string | null`**: si no hay link, el componente muestra "Ubicación próximamente" en vez de un botón roto. Cuando se pegue el link, el botón aparece solo.
-4. **Día de la semana derivado**, no escrito a mano: se calculará con `Intl.DateTimeFormat("es-MX", …)` desde `dateISO` para que nunca se desincronice si cambia la fecha.
+2. **`dateIso` con offset `-06:00`**: el countdown debe apuntar a un instante único, sin depender de la zona horaria del visitante. Cuautitlán Izcalli ya no aplica horario de verano.
+3. **`mapsUrl: string | null`**: si no hay link, el componente muestra "Ubicación próximamente" en vez de un botón roto. Cuando se pegue el link, el botón aparece solo. Hoy ceremonia y recepción comparten el mismo link y la misma dirección.
+4. **Día de la semana derivado**, no escrito a mano: se calculará con `Intl.DateTimeFormat("es-MX", …)` desde `dateIso` para que nunca se desincronice si cambia la fecha.
 5. **Fotos por fases**: primero un componente reutilizable `PhotoPlaceholder` (fondo arena, borde fino, texto sutil) que reserva el espacio con la proporción correcta; después se sustituye por `next/image` cuando existan las fotos.
 6. **Una sola fuente de datos**: `data/wedding-data.ts`, importada con `@/data/wedding-data`.
-7. **Componentes de servidor por defecto.** Solo serán `"use client"` los que necesiten estado o efectos: Header (scroll/hamburguesa), Countdown, FAQ y RSVP.
+7. **Componentes de servidor por defecto.** Solo son `"use client"` los que necesitan estado o efectos: Header (scroll/hamburguesa) y Countdown. FAQ y RSVP lo serán cuando se implementen.
+8. **"Historia completa" con `<details>` nativo**: no necesita JavaScript ni `"use client"`. El `<summary>` es un botón accesible por teclado y `group-open:` cambia el texto y rota la flecha.
+9. **Countdown sin desfase**: el intervalo recalcula desde `Date.now()` en cada tick (no resta 1). El primer render muestra `--` para que servidor y cliente coincidan y no haya error de hidratación.
+10. **La ceremonia y la recepción comparten tarjeta**: como son en el mismo lugar, `ElGranDia` muestra un solo `venue` y una lista con los dos horarios.
 
 ---
 
 ## 7. Roadmap por fases
 
 - [x] **Fase 1 — Fundamentos**: paleta, fuentes, estilos base, metadata. *Completada.*
-- [x] **Fase 2 — Datos**: `data/wedding-data.ts` con `couple`, `event`, `ceremony` y `dressCode`. *Falta añadir `reception` (se usará en la Fase 6).*
-- [ ] **Fase 3 — Header + Hero**: header transparente que se vuelve sólido al hacer scroll, menú hamburguesa móvil, Hero con foto/nombres/fecha y `PhotoPlaceholder`. *Código entregado; pendiente de pegar.*
-- [ ] **Fase 4 — Nuestra Historia**: texto, fotos y botón a historia completa.
-- [ ] **Fase 5 — Countdown**: contador días/horas/minutos/segundos en tiempo real.
-- [ ] **Fase 6 — El Gran Día**: ceremonia, recepción, hora, dirección y botón a Google Maps.
-- [ ] **Fase 7 — Vestimenta + Hospedaje**: secciones informativas con botones.
+- [x] **Fase 2 — Datos**: `data/wedding-data.ts` con `couple`, `event`, `ceremony`, `reception` y `dressCode`. *Completada.*
+- [x] **Fase 3 — Header + Hero**: header transparente que se vuelve sólido al hacer scroll, menú hamburguesa móvil desde `lg`, Hero con foto/nombres/fecha/hora/ciudad y `PhotoPlaceholder`. *Completada y verificada.*
+- [x] **Fase 4 — Nuestra Historia**: texto, foto y `<details>` que expande la historia completa con flecha. *Completada; falta el texto real.*
+- [x] **Fase 5 — Countdown**: contador días/horas/minutos/segundos en tiempo real dentro de una sección café. *Completada y verificada.*
+- [x] **Fase 6 — El Gran Día**: Centro Cristiano Izcalli, ceremonia 5:00 PM, recepción 8:00 PM, dirección y botón a Google Maps. *Completada y verificada.*
+- [ ] **Fase 7 — Vestimenta + Hospedaje**: secciones informativas con botones. *Siguiente.*
 - [ ] **Fase 8 — Galería**: grid/carrusel con `next/image`.
 - [ ] **Fase 9 — FAQ**: acordeón accesible.
-- [ ] **Fase 10 — RSVP + PostgreSQL**: formulario (nombre, acompañantes, restricciones alimenticias), server action y persistencia.
+- [ ] **Fase 10 — RSVP + PostgreSQL**: formulario (nombre, acompañantes, restricciones alimenticias), server action y persistencia. *Por ahora solo formulario visual.*
+- [ ] **Cierre — Footer**: fondo oscuro con foto y texto arena, al final de `page.tsx`.
 
 ---
 
-## 8. Estado actual (al 4 de noviembre de 2026)
+## 8. Estado actual (al 8 de noviembre de 2026)
 
-- **Fase 1** completa y verificada en el navegador.
-- **Fase 2** completa: `data/wedding-data.ts` con `couple`, `event`, `ceremony` y `dressCode`. Falta añadir `reception` (Fase 6).
-- Typo `coffe`/`coffee` corregido; año confirmado (**2026**).
-- **Fase 3 entregada**: `components/ui/PhotoPlaceholder.tsx`, `components/sections/Hero.tsx`, `components/layout/Header.tsx` y ensamblaje en `app/page.tsx`. Pendiente de pegar y verificar.
-- `app/page.tsx` sigue mostrando la prueba de humo hasta que se pegue la Fase 3.
-- `public/images/` existe y está vacía; el Hero usa `PhotoPlaceholder` con overlay oscuro.
+- **Fases 1 a 6 completas y verificadas** en el navegador. No hay errores de `tsc --noEmit` ni de `eslint`.
+- `app/page.tsx` ya ensambla: `Header` → `Hero` → `NuestraHistoria` → `CuentaRegresiva` → `ElGranDia`.
+- **Datos definitivos**: 28 de diciembre de 2026, Centro Cristiano Izcalli (Cuautitlán Izcalli), ceremonia 5:00 PM y recepción 8:00 PM. Mismo lugar y mismo link de Google Maps.
+- **Countdown** apunta a `2026-12-28T17:00:00-06:00` (inicio de la ceremonia).
+- **Nuestra Historia** usa `<details>` nativo para expandir el texto; la flecha es `public/icons/derecha.png`.
+- **Header** cambia a menú completo desde `lg` (1024px); en tablet usa hamburguesa.
+- **Pendiente de contenido**: fotos reales, texto real de la historia y hoteles recomendados.
+- **Pendiente de código**: Fase 7 (Vestimenta + Hospedaje), Fase 8 (Galería), Fase 9 (FAQ), Fase 10 (RSVP visual) y Footer.
 
 ### Próximo paso concreto
 
-1. Pegar `PhotoPlaceholder`, `Header`, `Hero` y el nuevo `app/page.tsx`.
-2. Verificar en escritorio y móvil: header transparente → crema con blur, hamburguesa, cierre con `Escape`.
-3. Continuar con la **Fase 4: Nuestra Historia**.
+1. Implementar **Fase 7: Código de Vestimenta + Hospedaje**.
+2. Para Hospedaje, decidir si se usarán hoteles reales o un estado "próximamente".
+3. Continuar con la **Fase 8: Galería**.
 
 ---
 
 ## 9. Trampas conocidas
 
 - **Tailwind falla en silencio**: una clase con el token mal escrito (`bg-coffee` vs `--color-coffe`) no genera CSS y no lanza error. Verificar en el inspector que la propiedad exista.
+- **Typos de clases ya detectados**: `tracking-[o.45em]` (letra "o" en vez de cero), `trracking` (doble "r") y `tracking-[0.3em]` mal escrito no generan CSS. Revisar siempre `tracking`, `leading`, `text`, `bg`, `border`.
+- **Prop de hidratación**: es `suppressHydrationWarning`, no `suppressContentEditableWarning`. Este último existe en React y por eso TypeScript no marca error, pero no hace nada para el countdown.
+- **Anclas con acento**: el label puede llevar acento (`Galería`), pero el `id`/`href` no (`#galeria`). `#galería` se percent-codifica y no coincide con `id="galeria"`.
+- **`group-open:`**: para que funcionen `group-open:hidden` / `group-open:inline` / `group-open:rotate-90`, el `<details>` debe tener la clase `group`.
+- **Color de token en estilos inline**: usar `var(--color-cinnamon)` dentro de `color-mix(...)`, no repetir el hex.
 - **Fuentes variables**: no pasar `weight` a Montserrat ni a Cormorant Garamond.
 - **`@theme` vs `@theme inline`**: colores → `@theme`; fuentes de `next/font` → `@theme inline`.
 - **No reactivar el modo oscuro** automático del template.
@@ -214,4 +230,9 @@ public/
 | 2026-11-04 | Fase 2 entregada: estructura tipada de `data/wedding-data.ts` con datos reales; pendiente de pegar. |
 | 2026-11-04 | Detectado y documentado el typo `coffe` / `coffee` que hacía invisible un color de la paleta. |
 | 2026-11-04 | Fase 2 verificada; año confirmado (2026). Detectado que faltaba `reception` y que `timeLabel` era redundante. |
-| 2026-11-04 | Fase 3 entregada: `PhotoPlaceholder`, `Hero`, `Header` con scroll y menú móvil, y ensamblaje en `app/page.tsx`. |
+| 2026-11-04 | Fase 3 implementada y verificada: `PhotoPlaceholder`, `Hero`, `Header` con scroll y menú móvil, y ensamblaje en `app/page.tsx`. |
+| 2026-11-08 | Fase 4 implementada: divisor corregido, `<details>` nativo para "historia completa" y flecha `public/icons/derecha.png`. |
+| 2026-11-08 | Fase 5 implementada y verificada: `Countdown` cliente con `useEffect`, `suppressHydrationWarning` y recálculo desde `Date.now()`. |
+| 2026-11-08 | Revisión: detectados typos silenciosos (`tracking-[o.45em]`, `trracking`, `suppressContentEditableWarning`) y `href="#galería"` con acento. Corregidos. |
+| 2026-11-08 | Fase 6 implementada y verificada: Centro Cristiano Izcalli, ceremonia 5:00 PM, recepción 8:00 PM, dirección y Google Maps. Countdown apunta a las 17:00. |
+| 2026-11-08 | `AGENTS.md` actualizado: datos reales, roadmap, decisiones, trampas y bitácora. Próximo: Fase 7. |
