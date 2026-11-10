@@ -72,10 +72,10 @@ export const galleryPhotos: GalleryPhoto[] = [
     //{ src: "/images/galeria-01.jpg", alt: "Pablo y Marisol en la playa"}
     {src: "/imagesPrueba/gale1.jpg", alt: "Sonia y David"},
     {src: "/imagesPrueba/gale2.jpg", alt: "Sonia y David"},
-    {src: "/imagesPrueba/gale3.png", alt: "Sonia y David"},
-    {src: "/imagesPrueba/gal4.jpg", alt: "Sonia y David"},
-    {src: "/imagesPrueba/gal5.jpg", alt: "Sonia y David"},
-    {src: "/imagesPrueba/gal6.jpg", alt: "Sonia y David"},
+    {src: "/imagesPrueba/gale3.jpg", alt: "Sonia y David"},
+    {src: "/imagesPrueba/gale4.jpg", alt: "Sonia y David"},
+    {src: "/imagesPrueba/gale5.jpg", alt: "Sonia y David"},
+    {src: "/imagesPrueba/gale6.jpg", alt: "Sonia y David"},
 ];
 
 //Rutas para las fotos destacadas (Hero e Historia)
