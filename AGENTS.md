@@ -8,7 +8,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# Proyecto: Invitación de boda — Pablo & Marisol
+# Proyecto: Invitación de boda - Sonia & David
 
 Sitio web de una sola página (one-page) tipo invitación de boda, en español, con estética editorial: fondos crema, acentos terracota y tipografía serif elegante.
 
@@ -36,7 +36,7 @@ Estas reglas aplican a cualquier agente que retome el proyecto:
 | TypeScript | 5, `strict: true` |
 | Tailwind CSS | 4 (vía `@tailwindcss/turbopack`) |
 | Fuentes | `next/font/google` (auto-alojadas) |
-| Base de datos | PostgreSQL — **aún no implementada** (Fase 10) |
+| Base de datos | Oracle Database — **aún no implementada** (Fase 18) |
 
 `next.config.ts` ya trae activado: `cacheComponents`, `partialPrefetching`, `experimental.agentFeedback` y la regla de Turbopack para CSS. **No tocar sin necesidad.**
 
@@ -50,14 +50,14 @@ Fuente única de verdad: `data/wedding-data.ts`. Ningún componente debe hardcod
 
 | Dato | Valor |
 |---|---|
-| Novios | Pablo & Marisol |
+| Novios | Sonia & David |
 | Fecha | 28 de diciembre de 2026 |
 | Ceremonia | Centro Cristiano Izcalli — 5:00 PM |
 | Recepción | Centro Cristiano Izcalli — 8:00 PM |
 | Dirección | Jacarandas 6, Santa Rosa de Lima, 54740 Cuautitlán Izcalli, Méx. |
 | Ciudad | Cuautitlán Izcalli, Estado de México |
 | Zona horaria | UTC−6 todo el año (`-06:00`) |
-| Código de vestimenta | Formal (evitar blanco) |
+| Código de vestimenta | Formal — evitar blanco (vestido de la novia) y azul (traje del novio) |
 
 > Ceremonia y recepción son en el mismo lugar y comparten el mismo link de Google Maps. El countdown apunta al inicio de la ceremonia (`2026-12-28T17:00:00-06:00`).
 
@@ -107,6 +107,7 @@ Definidos en el bloque `@theme`, por lo que generan utilidades (`bg-*`, `text-*`
 | Nuestra Historia | `cream` | Títulos `coffee`, texto `ink`, botón con borde `terracotta` |
 | Countdown | `coffee` | Números `cream`, títulos/etiquetas `terracotta` |
 | El Gran Día | `cream` | Íconos `terracotta`, botón mapa `terracotta` con texto blanco |
+| Cronograma | `cream` | Onda y puntos `terracotta`, horas `coffee` |
 | Vestimenta / Hospedaje | `cream` o blanco | Divisorias `sand`, texto `ink` |
 | Galería | `cream` | — |
 | FAQ | `ink` o `coffee` | Texto `cream`, signos "+" en `terracotta` |
@@ -120,7 +121,7 @@ Definidos en el bloque `@theme`, por lo que generan utilidades (`bg-*`, `text-*`
 - **Sin modo oscuro automático:** se eliminó el `@media (prefers-color-scheme: dark)` a propósito.
 - Foco visible en `terracotta` para accesibilidad (ya en `globals.css`).
 - `scroll-behavior: smooth` global para la navegación por anclas.
-- Anclas de sección con `id` en español (`#historia`, `#countdown`, `#gran-dia`, `#vestimenta`, `#hospedaje`, `#galeria`, `#faq`, `#rsvp`).
+- Anclas de sección con `id` en español (`#bienvenida`, `#historia`, `#countdown`, `#gran-dia`, `#cronograma`, `#vestimenta`, `#hospedaje`, `#galeria`, `#faq`, `#rsvp`).
 
 ---
 
@@ -129,7 +130,7 @@ Definidos en el bloque `@theme`, por lo que generan utilidades (`bg-*`, `text-*`
 ```
 app/
   layout.tsx          # Fuentes, metadata, <html lang="es">
-  page.tsx            # Ensamblaje: Hero → Historia → Countdown → Gran Día
+  page.tsx            # Ensamblaje: Hero → Bienvenida → Historia → … → FAQ
   globals.css         # Tokens de color, fuentes y estilos base
 components/
   layout/
@@ -137,26 +138,31 @@ components/
     Footer.tsx        # Fondo oscuro con foto y texto arena          (vacío)
   sections/
     Hero.tsx          # Foto, nombres, fecha, hora y ciudad          (listo)
+    Bienvenida.tsx    # Mensaje de los novios tras el Hero           (listo)
     NuestraHistoria.tsx  # Texto + <details> expandible + foto       (listo)
     CuentaRegresiva.tsx  # Sección café que envuelve al Countdown    (listo)
     ElGranDia.tsx     # Lugar, horarios y botón de Google Maps       (listo)
+    Cronograma.tsx    # Onda SVG con 6 hitos; lista vertical en móvil (Fase 12)
     CodigoVestimenta.tsx  # Título "Formal" + descripción           (implementado)
     Hospedaje.tsx     # Hoteles; hoy muestra estado "próximamente"  (implementado)
     Galeria.tsx       # Grid de fotos (placeholders hasta tener imágenes) 
-    PreguntasFrecuentes.tsx                                          (vacío)
+    PreguntasFrecuentes.tsx  # Acordeón con <details> nativo        (listo)
   ui/
     Button.tsx        # Botón reutilizable (variantes)               (vacío)
     Countdown.tsx     # Contador en tiempo real (client component)   (listo)
     PhotoPlaceholder.tsx  # Espacio reservado para fotos             (listo)
 data/
-  wedding-data.ts     # Fuente única de verdad (couple, event, venues, dressCode, hotels, galleryPhotos)
+  wedding-data.ts     # Fuente única de verdad (couple, event, welcome, schedule, venues, dressCode, hotels, galleryPhotos, faqItems)
 public/
   images/             # Fotos definitivas (destino recomendado)
   imagesPrueba/       # 8 fotos de prueba: novios1.jpg … novios8.jpg
   icons/derecha.png   # Flecha del botón "Ver nuestra historia completa"
+  icons/anadir.png    # Signo "+" del acordeón de FAQ
 docs/
   guia-proyecto.html  # Fuente de la guía (se edita aquí)
   guia-proyecto.pdf   # Guía imprimible: Next, estilos, clases, FAQ
+  plan-fases.html     # Plan de las fases 11 a 18
+  plan-fases.pdf      # Versión imprimible del plan
 ```
 
 ---
@@ -176,6 +182,15 @@ docs/
 11. **Galería como grid uniforme** (no carrusel): 2 columnas en móvil, 3 en escritorio y proporción fija `4/5`. Es más simple, accesible y no requiere JavaScript; un lightbox puede añadirse después sin rehacer la sección.
 12. **Galería con estado vacío**: si `galleryPhotos` está vacío se muestran 6 `PhotoPlaceholder`; al llenar el arreglo, la sección cambia sola a `next/image` sin tocar el componente.
 13. **Imágenes en `public/`**: se referencian con ruta absoluta desde la raíz (`/images/novios1.jpg`), nunca con `public/...`. `Image` con `fill` exige un padre posicionado y con altura definida; `priority` solo en la imagen del Hero (LCP).
+14. **Cronograma sin JavaScript**: la onda es un `<svg>` con una sola ruta y los puntos son `<span>` posicionados por porcentaje; el componente sigue siendo de servidor. La onda aparece desde `lg` (no desde `md`) porque seis columnas a 768 px dejan ~100 px por columna y las etiquetas se rompen en 3–4 líneas.
+15. **La onda y los puntos se alinean por porcentaje, no por pixeles**: el SVG usa `preserveAspectRatio="none"` + `vectorEffect="non-scaling-stroke"` para estirarse sin engrosar el trazo, y cada punto va en `top-[40%]` / `top-[60%]` del mismo contenedor de altura fija (`h-96`). Si se cambia la altura, ambos cambian juntos.
+16. **El grid de la onda no lleva `gap`**: con separación, los centros de columna dejan de coincidir con las coordenadas del SVG y los puntos se despegan del trazo. El aire se logra con `px-3` dentro de cada celda.
+17. **Header con 7 enlaces máximo**: al entrar Cronograma sale "Hospedaje" del menú (la sección sigue accesible bajando). Así no se aprieta en `lg`.
+18. **Vestimenta en dos cards con `aspect-[3/4]`**: es el punto medio que menos recorta la foto vertical del novio (2:3) y la casi cuadrada de la novia. Los dos looks viven en `dressCode.groom` / `dressCode.bride` y el componente los recorre con `.map`, así que un tercer look (por ejemplo niños) es una entrada más en los datos.
+19. **El carrusel es un solo `div` con las fotos apiladas en absoluto**: lo único que cambia es la `opacity` de cada una. No hay desplazamiento ni ancho calculado, así que no hay saltos de layout y el contenedor mantiene el alto (`h-80 md:h-[400px]`).
+20. **El temporizador se reinicia al cambiar de foto**: `activa` está en las dependencias del `useEffect`, así que el intervalo se limpia y se crea de nuevo tras cada avance o clic en un punto. Sin eso, un clic podía provocar un cambio inmediato a los 0.1 s.
+21. **`aria-hidden` solo en las fotos inactivas**: se pasa como `undefined` en la activa para que React no renderice el atributo; con `aria-hidden="false"` el lector de pantalla lo anuncia igual.
+22. **`prefers-reduced-motion` con `useSyncExternalStore`, no con `useEffect`**: eslint-plugin-react-hooks v7 marca como **error** el `setState` síncrono dentro del cuerpo de un efecto (`react-hooks/set-state-in-effect`). El hook de React para fuentes externas resuelve el matchMedia sin efectos y sin doble render.
 
 ---
 
@@ -189,38 +204,66 @@ docs/
 - [x] **Fase 6 — El Gran Día**: Centro Cristiano Izcalli, ceremonia 5:00 PM, recepción 8:00 PM, dirección y botón a Google Maps. *Completada y verificada.*
 - [x] **Fase 7 — Vestimenta + Hospedaje**: `CodigoVestimenta` lista; `Hospedaje` implementado con estado "próximamente" hasta tener hoteles. *Correcciones de clases entregadas (pendientes de pegar).*
 - [x] **Fase 8 — Galería**: grid responsive con `PhotoPlaceholder` y soporte para `next/image` cuando existan fotos. *Implementada y verificada con fotos de prueba.*
-- [ ] **Fase 9 — FAQ**: acordeón accesible. *Código entregado; pendiente de pegar.*
-- [ ] **Fase 10 — RSVP + PostgreSQL**: formulario (nombre, acompañantes, restricciones alimenticias), server action y persistencia. *Por ahora solo formulario visual.*
-- [ ] **Cierre — Footer**: fondo oscuro con foto y texto arena, al final de `page.tsx`.
+- [x] **Fase 9 — FAQ**: acordeón accesible. *Implementada y verificada.*
+- [x] **Fase 10 — Ajustes de iconos y texto**: `+` de FAQ como imagen (`public/icons/anadir.png`), flecha de Hospedaje con `group-hover`, texto de Historia justificado. *Implementada y verificada.*
+- [x] **Fase 11 — Bienvenida**: sección entre Hero e Historia, con mensaje de los novios. *Implementada y verificada.*
+- [x] **Fase 12 — Cronograma**: línea de tiempo ondulada (SVG) con hitos; versión vertical en móvil. *Implementada y verificada.*
+- [x] **Fase 13 — Vestimenta con imágenes**: dos cards (novio / novia) con foto y la nota de color a evitar. *Implementada; detectado el typo `text-terracota` en el label.*
+- [x] **Fase 14 — Carrusel de Historia**: fundido cruzado cada N segundos, con caption por foto que también se desvanece. Client component. *Implementada; pendiente el ajuste de `useSyncExternalStore`.*
+- [ ] **Fase 15 — Galería collage + lightbox**: tamaños variables (`col-span` / `row-span`) y vista ampliada en modal accesible. Client component. *Código entregado; en curso (pegada la mitad) y sin verificar.*
+- [ ] **Fase 16 — Despedida y agradecimientos**: sección de cierre antes del Footer.
+- [ ] **Fase 17 — Footer**: fondo oscuro con foto y texto arena.
+- [ ] **Fase 18 — RSVP + Oracle**: formulario, server action y persistencia en Oracle (Autonomous Database Free o Docker local). *Cambia la decisión anterior de PostgreSQL.*
+
+### Orden y criterio
+
+1. Primero lo estático y visible (Fases 10–13, 16–17): no requieren estado ni infraestructura.
+2. Después lo interactivo (Fases 14–15): ambas son client components y comparten el patrón de imágenes con `next/image` + `fill`.
+3. Al final el RSVP (Fase 18): es lo único que necesita cuenta en Oracle, wallet/TLS y variables de entorno, así que conviene tener el sitio visualmente cerrado antes.
 
 ---
 
-## 8. Estado actual (al 9 de noviembre de 2026)
+## 8. Estado actual (al 10 de noviembre de 2026)
 
-- **Fases 1 a 8 implementadas y verificadas en el navegador.** `tsc --noEmit` sin errores y `eslint .` solo con 2 avisos de imports sin usar (`PhotoPlaceholder` en `Hero` y en `NuestraHistoria`). El `next build` solo falla en el entorno del agente por falta de red para descargar Google Fonts; no es un error del proyecto.
-- **Fase 9 entregada** (FAQ): pendiente de pegar.
-- `app/page.tsx` ensambla: `Header` → `Hero` → `NuestraHistoria` → `CuentaRegresiva` → `ElGranDia` → `CodigoVestimenta` → `Hospedaje` → `Galeria` (y `PreguntasFrecuentes` al pegar la Fase 9).
+- **Fases 1 a 13 implementadas.** `tsc --noEmit` limpio; `eslint .` con **un error pendiente** en `HistoriaCarrusel.tsx` (regla `react-hooks/set-state-in-effect`) y dos imports sin usar.
+- **Fase 14 entregada** (Carrusel de Historia): implementada y vista en el navegador; falta aplicar el ajuste de `useSyncExternalStore` (ver *Próximo paso*).
+- **Fase 15 en curso (a la mitad) y sin verificar.** Falta terminar de pegar: el bloque `GalleryPhoto` / `galleryPhotos` en los datos, `components/ui/Lightbox.tsx` y el reemplazo de `components/sections/Galeria.tsx`.
+- `app/page.tsx` ensambla: `Header` → `Hero` → `Bienvenida` → `NuestraHistoria` → `CuentaRegresiva` → `ElGranDia` → `Cronograma` → `CodigoVestimenta` → `Hospedaje` → `Galeria` → `PreguntasFrecuentes`.
 - **Datos definitivos**: 28 de diciembre de 2026, Centro Cristiano Izcalli (Cuautitlán Izcalli), ceremonia 5:00 PM y recepción 8:00 PM. Mismo lugar y mismo link de Google Maps.
+- **Cronograma del día**: 5:00 ceremonia · 6:30 fotos con familiares y amigos · 8:00 recepción · 9:00 baile de los novios · 9:30 pastel · 10:00 baile general.
 - **Countdown** apunta a `2026-12-28T17:00:00-06:00` (inicio de la ceremonia).
 - **Nuestra Historia** usa `<details>` nativo; la flecha es `public/icons/derecha.png`.
-- **Header** cambia a menú completo desde `lg` (1024px); en tablet usa hamburguesa. Ya existen las anclas `#galeria` y (con la Fase 9) `#faq`; `#rsvp` llega en la Fase 10.
-- **Hospedaje** queda en modo "Muy pronto compartiremos recomendaciones..." hasta recibir datos de hoteles. El arreglo `hotels` ya existe en `wedding-data.ts` y se llena solo.
-- **Fotos**: Hero, Historia y Galería ya usan `next/image` con las 8 fotos de prueba de `public/imagesPrueba/`. Se ven pixeladas porque los archivos miden pocos píxeles; no es un problema de código.
-- **Documentación**: `docs/guia-proyecto.html` (fuente editable) y `docs/guia-proyecto.pdf` (guía imprimible: Next, estilos, catálogo de clases, imágenes, `PhotoPlaceholder`, FAQ y glosario).
+- **Header** cambia a menú completo desde `lg` (1024px); en tablet usa hamburguesa. Monograma `S & D`. Al entrar Cronograma sale "Hospedaje" del menú para no saturarlo.
+- **Fotos**: Hero, Historia y Galería usan `next/image` con fotos en alta resolución en `public/imagesPrueba/` (`gale1–3`, `gal4–6`, `hero`, `historias`). Las rutas del Hero y la Historia están centralizadas en `featuredPhotos`.
+- **Documentación**: `docs/guia-proyecto.html` (fuente editable) y `docs/guia-proyecto.pdf` (guía imprimible: Next, estilos, clases, imágenes, `PhotoPlaceholder`, FAQ, glosario). Además `docs/plan-fases.html` y `docs/plan-fases.pdf` (plan de las fases 11 a 18 con carrusel, collage/lightbox y RSVP con Oracle a fondo). Nombres ya corregidos a Sonia y David; **los PDF están pendientes de regenerar**.
 
-### Correcciones pendientes de pegar (detectadas al revisar la Fase 8)
+### Pendientes de contenido (los pide el cliente)
 
-- `Hero.tsx` y `NuestraHistoria.tsx`: borrar `import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";` (ya no se usa y genera 2 avisos de eslint).
-- `alt="Sonia y David"` en `Hero`, `NuestraHistoria` y las 6 entradas de `galleryPhotos`: debe decir "Pablo y Marisol" (o una descripción de la escena).
-- `Galeria.tsx`: `group-hover_scale-105` → `group-hover:scale-105` (con guion bajo no existe la clase y el zoom no ocurre).
-- `Galeria.tsx`: el grid está fuera de `mx-auto max-w-6xl px-6`, por eso las fotos van de borde a borde; y el `<h2>` quedó fuera del `div` con `text-center`.
+- Texto real de bienvenida (Fase 11) y de despedida (Fase 16); hoy hay texto de ejemplo.
+- Fotos del traje y del vestido (Fase 13), 5+ fotos con descripción para el carrusel (Fase 14), fotos para el collage (Fase 15), texto del Footer (Fase 17).
+- Fecha límite real del RSVP.
+
+### Deuda técnica menor (detectada al revisar la Fase 11)
+
+- Typos en `welcome.message`: "no estaría completos" → "completo", "caminadoa" → "caminado a", "acompañanos" → "acompáñanos". **Corregidos.**
+- Typos en `faqItems`: "ceremonía" → "ceremonia", "Te recomendamos llegas" → "Te recomendamos llegar". **Corregidos.**
+- `dressCode.description` solo mencionaba el blanco; la Fase 13 lo reescribe con las dos reglas (blanco y azul) y agrega `groom` / `bride`.
+
+### Pendiente de fotos
+
+- `public/imagesPrueba/vestimentaNovio.jpeg` (736×1104, ratio 2:3): sirve bien.
+- `public/imagesPrueba/vestimentaNovia.jpg` (**178×167**, casi cuadrada): se verá borrosa al ampliarla y pierde los lados al recortarla en vertical. Pedir al cliente una versión vertical en alta resolución; al reemplazar el archivo no hay que tocar código.
 
 ### Próximo paso concreto
 
-1. Pegar las correcciones de la Fase 8 y la Fase 9 (FAQ).
-2. Verificar el acordeón: abrir/cerrar con mouse y con teclado (Tab + Enter), el "+" debe girar a "×".
-3. **Fase 10: RSVP** (formulario visual primero, luego server action + PostgreSQL).
-4. Cuando lleguen los datos de hoteles, llenar `hotels` en `wedding-data.ts`.
+1. **Terminar la Fase 15** (fue interrumpida a la mitad):
+   - [ ] Datos: reemplazar el bloque `GalleryPhoto` / `galleryPhotos` con `caption?` y `size?` (repacto: gale1 `grande`, gale2 `alto`, gale3 y gale4 `normal`, gale5 y gale6 `ancho`).
+   - [ ] Crear `components/ui/Lightbox.tsx` (el `<dialog>` nativo).
+   - [ ] Reemplazar todo `components/sections/Galeria.tsx` por la versión client con el collage y el `<Lightbox>`.
+   - [ ] Probar: collage sin huecos, modal, `Escape`, clic en el fondo, flechas del teclado y regreso del foco.
+2. **Ajustar la Fase 14** (queda un error de ESLint): quitar `event` del import del carrusel, quitar `featuredPhotos` del import de `NuestraHistoria`, y sustituir el efecto del matchMedia por `useSyncExternalStore` (código entregado en el chat).
+3. **Fase 16: Despedida y agradecimientos** (necesita el texto del cliente; se puede prototipar).
+4. Seguir el roadmap hasta la Fase 18.
 
 ---
 
@@ -263,3 +306,14 @@ docs/
 | 2026-11-09 | Fotos de prueba (`novios1–8.jpg`) en `public/imagesPrueba/`. Entregado el reemplazo de `PhotoPlaceholder` por `Image` en Hero e Historia y el llenado de `galleryPhotos`. |
 | 2026-11-09 | Fotos verificadas en el navegador (se ven pixeladas por su resolución de archivo). Creada `docs/guia-proyecto.html` y su PDF con Next, estilos, catálogo de clases, imágenes, `PhotoPlaceholder`, FAQ y glosario. |
 | 2026-11-09 | Revisión Fase 8: detectados `group-hover_scale-105`, grid fuera del contenedor, `alt` "Sonia y David" y dos imports sin usar. Fase 9 (FAQ) entregada con `<details>` nativo y `faqItems` en `wedding-data.ts`. |
+| 2026-11-10 | Fotos reemplazadas por versiones en alta resolución y rutas centralizadas en `featuredPhotos`. El cliente pide 9 cambios nuevos (roadmap ampliado a Fase 18) y **Oracle en lugar de PostgreSQL**. Fase 10 entregada: `+` como imagen, flecha de Hospedaje corregida, Historia justificada. |
+| 2026-11-10 | Confirmados horarios (5:00 ceremonia, 6:30 fotos, 8:00 recepción, 9:00 baile de novios, 9:30 pastel, 10:00 baile general) y vestimenta (traje azul / vestido blanco). Creado `docs/plan-fases.pdf`. Fase 11 (Bienvenida) entregada. |
+| 2026-11-10 | Revisión de la Fase 11: `tsc` y `eslint` sin errores. Fase 10 confirmada como pegada. Detectados typos de texto en `welcome` y `faqItems`, el monograma `P & M` del Header y el `metadata.title`. Nombres corregidos en los HTML de `docs/`. |
+| 2026-11-10 | Fase 12 (Cronograma) entregada: `schedule` en los datos, `Cronograma.tsx` con onda SVG desde `lg`, lista vertical en móvil, ancla `#cronograma` en el Header y salida de "Hospedaje" del menú. |
+| 2026-11-10 | Fase 12 verificada. Corregidos `lg-hidden` (guion en vez de dos puntos, la trampa de Tailwind en silencio), un `import { it } from "node:test"` autoinsertado por el editor, `border-cream` sin `border-2` y un "tiemponos" pegado. El Header quedó con 7 enlaces al quitar "Inicio" (el logo ya cumple esa función). |
+| 2026-11-10 | Fase 13 (Vestimenta con imágenes) entregada: `dressCode` con `groom` / `bride`, dos cards `aspect-[3/4]` y la nota de los dos colores reservados. Medidas de las fotos revisadas: la del novio sirve, la de la novia está en 178×167 y hay que pedirla en alta. |
+| 2026-11-10 | Revisión de la Fase 13: `tsc` y `eslint` limpios, pero detectado un typo silencioso: `text-terracota` (falta una "t") en el label "Ellos"/"Ellas", que deja el color en el heredado. Avisado para corregir. |
+| 2026-11-10 | Fase 14 (Carrusel de Historia) entregada: `historyPhotos` en los datos, `HistoriaCarrusel.tsx` con `"use client"`, fundido por opacidad, pausa al hover/focus, respeto a `prefers-reduced-motion` y puntos accesibles. Reemplaza la foto fija de `NuestraHistoria`. Fotos reales: `historias.jpg` (3500×2333) e `historia2.png` (1672×941). |
+| 2026-11-10 | Revisión de la Fase 14: detectados dos imports sin usar (`event` en el carrusel y `featuredPhotos` en `NuestraHistoria`) y un **error** de ESLint nuevo: `react-hooks/set-state-in-effect` por leer el matchMedia con `setState` en el cuerpo del efecto. Solución: `useSyncExternalStore`. Verificada con ESLint en un archivo temporal. |
+| 2026-11-10 | Fase 15 (Galería collage + lightbox) entregada: `size` y `caption` en `GalleryPhoto`, `Galeria.tsx` como client component con grid de tamaños (`dense`, `auto-rows`) y `Lightbox.tsx` con `<dialog>` nativo. Verificada con ESLint y `tsc` en archivos temporales. |
+| 2026-11-10 | Pausa: la Fase 15 quedó a la mitad de pegar y sin verificar. `AGENTS.md` actualizado con el punto exacto y lo que falta, para retomarla en casa. |

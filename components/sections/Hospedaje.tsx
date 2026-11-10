@@ -41,11 +41,9 @@ export default function Hospedaje(){
                                             href={hotel.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="mt-5 inline-flex items-center gap-2 font-sans text-[11px] uppercase tracking-[0.2em] text-terracotta transition-colors duration-300 hover:text-cinnamon">
+                                            className="group mt-5 inline-flex items-center gap-2 font-sans text-[11px] uppercase tracking-[0.2em] text-terracotta transition-colors duration-300 hover:text-cinnamon">
                                                 Ver sitio
-                                                <span aria-hidden="true"> 
-                                                    <Image src="/icons/derecha.png" alt="" width={16} height={16} className="h-4 w-4 object-contain transition-transform duration-300 group-open:rotate-90"/>
-                                                </span>
+                                                <Image src="/icons/derecha.png" alt="" width={16} height={16} className="h-4 w-4 object-contain transition-transform duration-300 group-hover:translate-x-1"/>
                                         </a>
                                     ) : null}
                             </li>

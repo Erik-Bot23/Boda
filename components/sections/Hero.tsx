@@ -46,7 +46,7 @@ export default function Hero() {
             </div>
 
             {/*Indicador para bajar */}
-            <a href="#historia" aria-label="Ir a nuestra historia" className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-cream/60 transition-colors duration-300 hover:text-cream">
+            <a href="#bienvenida" aria-label="Ir a la bienvenida" className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 text-cream/60 transition-colors duration-300 hover:text-cream">
                 <svg
                     viewBox="0 0 24 24"
                     fill="none"

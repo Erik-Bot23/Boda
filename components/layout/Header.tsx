@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react";
 
 const navItems = [
-{ label: "Inicio", href: "#inicio"},
+//{ label: "Inicio", href: "#inicio"},
 { label: "Historia", href: "#historia"},
 { label: "El gran día", href: "#gran-dia"},
+{ label: "Cronograma", href: "#cronograma"},
 { label: "Vestimenta", href: "#vestimenta"},
 { label: "Hospedaje", href: "#hospedaje"},
 { label: "Galería", href: "#galeria"},
@@ -57,7 +58,7 @@ export default function Header() {
                         onClick={() => setIsMenuOpen(false)}
                         className={`font-serif text-2xl tracking-[0.25em] transition-colors duration-300 
                         ${isSolid ? "text-coffee" :  "text-white"}`}>
-                            P &amp; M
+                            S &amp; D
                     </a>
 
                     {/*Navegación del escritorio */}

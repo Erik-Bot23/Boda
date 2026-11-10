@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Plan de trabajo — Fases 11 a 18 · Invitación Sonia &amp; David</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm 18mm 15mm; }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    color: #1a1817;
+    background: #ffffff;
+  }
+
+  h1, h2, h3, h4 { font-family: Georgia, "Times New Roman", serif; color: #5c3a21; line-height: 1.2; }
+
+  h1 { font-size: 30pt; margin: 0 0 8px; }
+  h2 {
+    font-size: 17pt; margin: 30px 0 10px; padding-bottom: 5px;
+    border-bottom: 1px solid #d8bfa8; break-after: avoid;
+  }
+  h3 { font-size: 12.5pt; margin: 20px 0 6px; color: #a66443; break-after: avoid; }
+  h4 { font-size: 11pt; margin: 14px 0 4px; color: #5c3a21; break-after: avoid; }
+
+  p { margin: 0 0 9px; }
+  ul, ol { margin: 0 0 10px; padding-left: 20px; }
+  li { margin-bottom: 3px; }
+
+  code {
+    font-family: Consolas, "Courier New", monospace; font-size: 9pt;
+    background: #f4ede4; color: #5c3a21; padding: 1px 4px; border-radius: 3px;
+  }
+
+  pre {
+    font-family: Consolas, "Courier New", monospace; font-size: 8.2pt; line-height: 1.45;
+    background: #faf6f1; border-left: 3px solid #c08d52; padding: 8px 10px;
+    margin: 8px 0 12px; white-space: pre-wrap; overflow-wrap: anywhere; break-inside: avoid;
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 8.8pt; margin: 8px 0 14px; break-inside: avoid; }
+  th { background: #f3ebe1; color: #5c3a21; text-align: left; font-weight: 600; }
+  th, td { border: 1px solid #e3d6c6; padding: 4px 6px; vertical-align: top; }
+  td code { white-space: nowrap; }
+
+  .cover { height: 240mm; display: flex; flex-direction: column; justify-content: center; text-align: center; }
+  .cover .kicker { font-size: 10pt; letter-spacing: 0.35em; text-transform: uppercase; color: #c08d52; margin-bottom: 18px; }
+  .cover h1 { font-size: 38pt; margin-bottom: 4px; }
+  .cover .subtitle { font-size: 13pt; color: #a66443; margin-bottom: 40px; }
+  .cover .rule { width: 60px; height: 1px; background: #d8bfa8; margin: 0 auto 40px; }
+  .cover .meta { font-size: 10pt; color: #6b6560; line-height: 1.8; }
+
+  .toc ol { padding-left: 22px; }
+  .toc li { margin-bottom: 4px; }
+  .toc a { color: #1a1817; text-decoration: none; }
+
+  .callout { background: #faf6f1; border: 1px solid #e3d6c6; border-left: 4px solid #c08d52; padding: 8px 12px; margin: 10px 0 14px; break-inside: avoid; }
+  .callout strong { color: #5c3a21; }
+  .warn { border-left-color: #a66443; background: #fbf3ef; }
+  .ok { border-left-color: #7c8b5a; background: #f5f7ef; }
+
+  .page-break { break-before: page; }
+  .small { font-size: 9pt; color: #6b6560; }
+
+  .tree, .diagram {
+    font-family: Consolas, "Courier New", monospace; font-size: 8.4pt; line-height: 1.5;
+    background: #faf6f1; border: 1px solid #e3d6c6; padding: 10px 12px;
+    white-space: pre; break-inside: avoid; overflow-wrap: anywhere;
+  }
+
+  .tag {
+    display: inline-block; font-size: 7.5pt; font-family: Consolas, monospace;
+    padding: 1px 5px; border-radius: 3px; border: 1px solid #e3d6c6; background: #f3ebe1;
+    color: #5c3a21; vertical-align: 1px;
+  }
+  .tag.c { background: #fbf3ef; border-color: #e8cfc2; color: #a66443; }
+
+  a { color: #a66443; }
+</style>
+</head>
+<body>
+
+<!-- ============================ PORTADA ============================ -->
+<div class="cover">
+  <div class="kicker">Plan de trabajo</div>
+  <h1>Fases 11 a 18</h1>
+  <div class="subtitle">Invitación de boda Sonia &amp; David · 28 de diciembre de 2026</div>
+  <div class="rule"></div>
+  <div class="meta">
+    Cómo se conectan las secciones nuevas, qué estilos usan y qué conceptos de Next.js aparecen<br>
+    Énfasis en carrusel, galería collage y RSVP con Oracle Autonomous Database<br>
+    <span class="small">10 de noviembre de 2026</span>
+  </div>
+</div>
+
+<!-- ============================ ÍNDICE ============================ -->
+<div class="page-break"></div>
+<h2 style="margin-top:0">Contenido</h2>
+<div class="toc">
+<ol>
+  <li><a href="#resumen">El plan en una página</a></li>
+  <li><a href="#mapa">Cómo se conectan las secciones</a></li>
+  <li><a href="#estilos">El sistema de estilos aplicado a lo nuevo</a></li>
+  <li><a href="#next">Conceptos de Next.js que vas a aprender</a></li>
+  <li><a href="#f11">Fase 11 — Bienvenida</a></li>
+  <li><a href="#f12">Fase 12 — Cronograma (línea ondulada)</a></li>
+  <li><a href="#f13">Fase 13 — Vestimenta con imágenes</a></li>
+  <li><a href="#f14">Fase 14 — Carrusel de Historia (a fondo)</a></li>
+  <li><a href="#f15">Fase 15 — Galería collage + lightbox (a fondo)</a></li>
+  <li><a href="#f16">Fase 16 — Despedida y agradecimientos</a></li>
+  <li><a href="#f17">Fase 17 — Footer</a></li>
+  <li><a href="#f18">Fase 18 — RSVP con Oracle (a fondo)</a></li>
+  <li><a href="#orden">Orden de ejecución y checklist</a></li>
+  <li><a href="#glosario">Glosario de términos nuevos</a></li>
+  <li><a href="#riesgos">Riesgos y decisiones pendientes</a></li>
+</ol>
+</div>
+
+<!-- ============================ 1 ============================ -->
+<div class="page-break"></div>
+<h2 id="resumen">1. El plan en una página</h2>
+
+<p>La página ya tiene nueve secciones terminadas. Faltan nueve más, y la buena noticia es que <strong>ninguna obliga a rehacer lo que ya existe</strong>: cada una es un archivo nuevo que se inserta en <code>app/page.tsx</code> y, si aporta datos nuevos, un arreglo nuevo en <code>data/wedding-data.ts</code>.</p>
+
+<table>
+  <tr><th style="width:9%">Fase</th><th style="width:26%">Sección</th><th>Qué implica</th><th style="width:12%">Tipo</th></tr>
+  <tr><td>10</td><td>Ajustes</td><td>Icono <code>+</code> con imagen, flecha de Hospedaje, Historia justificada</td><td>estático</td></tr>
+  <tr><td>11</td><td>Bienvenida</td><td>Mensaje de los novios entre el Hero y la Historia</td><td>estático</td></tr>
+  <tr><td>12</td><td>Cronograma</td><td>Línea de tiempo ondulada con 6 hitos; vertical en móvil</td><td>estático + SVG</td></tr>
+  <tr><td>13</td><td>Vestimenta</td><td>Dos cards con foto (traje azul / vestido blanco)</td><td>estático</td></tr>
+  <tr><td>14</td><td>Carrusel</td><td>Historia con fundido cruzado y descripción por foto</td><td><span class="tag c">cliente</span></td></tr>
+  <tr><td>15</td><td>Galería</td><td>Collage de tamaños variables + vista ampliada</td><td><span class="tag c">cliente</span></td></tr>
+  <tr><td>16</td><td>Despedida</td><td>Agradecimiento antes del pie de página</td><td>estático</td></tr>
+  <tr><td>17</td><td>Footer</td><td>Cierre oscuro con foto y texto arena</td><td>estático</td></tr>
+  <tr><td>18</td><td>RSVP</td><td>Formulario, server action y persistencia en Oracle</td><td><span class="tag c">cliente</span> + <span class="tag">servidor</span></td></tr>
+</table>
+
+<div class="callout">
+  <strong>Regla del proyecto que no cambia:</strong> los componentes son de servidor por defecto. Solo las Fases 14, 15 y el formulario de la 18 llevan <code>"use client"</code>, porque son las únicas que necesitan estado, eventos o APIs del navegador.
+</div>
+
+<h3>Decisiones ya tomadas</h3>
+<table>
+  <tr><th>Dato</th><th>Valor</th></tr>
+  <tr><td>Vestimenta del novio</td><td>Traje <strong>azul</strong> → los invitados evitan azul</td></tr>
+  <tr><td>Vestimenta de la novia</td><td>Vestido <strong>blanco</strong> → los invitados evitan blanco</td></tr>
+  <tr><td>Ceremonia</td><td>5:00 PM</td></tr>
+  <tr><td>Fotos con familiares y amigos</td><td>6:30 PM</td></tr>
+  <tr><td>Recepción</td><td>8:00 PM</td></tr>
+  <tr><td>Baile de los novios</td><td>9:00 PM</td></tr>
+  <tr><td>Partir el pastel</td><td>9:30 PM</td></tr>
+  <tr><td>Baile general</td><td>10:00 PM</td></tr>
+  <tr><td>Base de datos</td><td><strong>Oracle Autonomous Database (Always Free)</strong>, en la nube</td></tr>
+</table>
+
+<!-- ============================ 2 ============================ -->
+<div class="page-break"></div>
+<h2 id="mapa">2. Cómo se conectan las secciones</h2>
+
+<p>Toda la página es un solo archivo de ensamblaje. No hay rutas, no hay navegación entre páginas: hay una lista ordenada de componentes y un conjunto de anclas (<code>id</code>) para saltar entre ellos.</p>
+
+<h3>2.1 El orden final de la página</h3>
+<div class="tree">app/page.tsx
+├── Header                     (fijo, fuera de &lt;main&gt;)
+└── main
+    ├── Hero                   #inicio        foto + nombres + fecha
+    ├── Bienvenida             #bienvenida    mensaje de los novios      ← Fase 11
+    ├── NuestraHistoria        #historia      texto + carrusel           ← Fase 14
+    ├── CuentaRegresiva        #countdown     sección café + contador
+    ├── ElGranDia              #gran-dia      lugar, horarios, mapa
+    ├── Cronograma             #cronograma    línea de tiempo            ← Fase 12
+    ├── CodigoVestimenta       #vestimenta    2 cards con foto           ← Fase 13
+    ├── Hospedaje              #hospedaje     hoteles o "muy pronto"
+    ├── Galeria                #galeria       collage + lightbox         ← Fase 15
+    ├── PreguntasFrecuentes    #faq           acordeón
+    ├── Rsvp                   #rsvp          formulario + Oracle        ← Fase 18
+    ├── Despedida              #despedida     agradecimiento             ← Fase 16
+    └── Footer                 (sin ancla)    cierre oscuro              ← Fase 17</div>
+
+<h3>2.2 Las tres capas de cada sección</h3>
+<p>Entender esto es lo que hace que el proyecto escale sin desorden. Cada sección tiene siempre las mismas tres capas:</p>
+
+<table>
+  <tr><th>Capa</th><th>Vive en</th><th>Contiene</th><th>Ejemplo</th></tr>
+  <tr><td>Datos</td><td><code>data/wedding-data.ts</code></td><td>Textos, rutas de imágenes, horas</td><td><code>welcome.message</code></td></tr>
+  <tr><td>Presentación</td><td><code>components/sections/*.tsx</code></td><td>JSX y clases de Tailwind</td><td><code>Bienvenida.tsx</code></td></tr>
+  <tr><td>Ensamblaje</td><td><code>app/page.tsx</code></td><td>Solo el orden</td><td><code>&lt;Bienvenida /&gt;</code></td></tr>
+</table>
+
+<p>Si un texto cambia, se toca la capa 1. Si un color cambia, la capa 2. Si cambia el orden de la página, la capa 3. Nunca se mezclan.</p>
+
+<h3>2.3 Las anclas y el Header</h3>
+<p>El Header navega con <code>href="#historia"</code>. Ese enlace busca un elemento con <code>id="historia"</code> en la misma página. Dos detalles que ya nos mordieron una vez:</p>
+<ul>
+  <li>El <strong>label</strong> puede llevar acento ("Galería"), el <strong>href</strong> y el <strong>id</strong> no (<code>#galeria</code>).</li>
+  <li>Cada sección lleva <code>scroll-mt-24</code>: sin eso, el header fijo tapa el título al saltar.</li>
+</ul>
+
+<div class="callout warn">
+  <strong>El Header se está quedando sin espacio.</strong> Hoy tiene 7 enlaces más el botón de RSVP. Al agregar Cronograma serían 8. En <code>lg</code> (1024 px) eso se aprieta. La decisión se toma en la Fase 12: lo más probable es quitar "Hospedaje" del menú (sigue accesible bajando) y dejar 7 enlaces + RSVP.
+</div>
+
+<!-- ============================ 3 ============================ -->
+<div class="page-break"></div>
+<h2 id="estilos">3. El sistema de estilos aplicado a lo nuevo</h2>
+
+<h3>3.1 El patrón de sección</h3>
+<p>Todas las secciones comparten la misma estructura. Memorizarla es más útil que memorizar clases sueltas:</p>
+
+<pre><code>&lt;section id="bienvenida" className="scroll-mt-24 bg-cream py-24"&gt;
+  &lt;div className="mx-auto max-w-3xl px-6 text-center"&gt;
+
+    &lt;p className="font-sans text-[11px] uppercase tracking-[0.45em] text-terracotta"&gt;
+      Bienvenidos
+    &lt;/p&gt;
+
+    &lt;h2 className="mt-6 font-serif text-4xl leading-[1.1] text-coffee md:text-5xl"&gt;
+      Título
+    &lt;/h2&gt;
+
+    &lt;div className="mx-auto mt-8 h-px w-16 bg-sand/60" /&gt;
+
+    &lt;p className="mt-8 font-sans text-base leading-relaxed text-ink/80"&gt;
+      Texto de introducción
+    &lt;/p&gt;
+
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+
+<p>Ese bloque se repite en Historia, Countdown, El Gran Día, Hospedaje, Galería y FAQ. Las secciones nuevas lo reutilizan, así que todas se sienten parte del mismo sitio sin tener que inventar nada.</p>
+
+<h3>3.2 Fondos: cómo se alternan</h3>
+<p>El ritmo visual de la página se construye alternando fondos. Así queda con las secciones nuevas:</p>
+
+<table>
+  <tr><th>Sección</th><th>Fondo</th><th>Texto</th></tr>
+  <tr><td>Hero</td><td>foto + degradado</td><td>blanco/crema</td></tr>
+  <tr><td>Bienvenida</td><td><code>bg-cream</code></td><td><code>ink</code> / <code>coffee</code></td></tr>
+  <tr><td>Nuestra Historia</td><td><code>bg-cream</code></td><td><code>ink</code> / <code>coffee</code></td></tr>
+  <tr><td>Cuenta regresiva</td><td><code>bg-coffee</code></td><td><code>cream</code></td></tr>
+  <tr><td>El Gran Día</td><td><code>bg-cream</code></td><td><code>ink</code></td></tr>
+  <tr><td>Cronograma</td><td><code>bg-sand/15</code></td><td><code>ink</code></td></tr>
+  <tr><td>Vestimenta</td><td><code>bg-cream</code></td><td><code>ink</code></td></tr>
+  <tr><td>Hospedaje</td><td><code>bg-sand/15</code></td><td><code>ink</code></td></tr>
+  <tr><td>Galería</td><td><code>bg-cream</code></td><td><code>ink</code></td></tr>
+  <tr><td>FAQ</td><td><code>bg-coffee</code></td><td><code>cream</code></td></tr>
+  <tr><td>RSVP</td><td><code>bg-cream</code></td><td><code>ink</code></td></tr>
+  <tr><td>Despedida</td><td><code>bg-coffee</code></td><td><code>cream</code></td></tr>
+  <tr><td>Footer</td><td><code>bg-ink</code> + foto</td><td><code>sand</code></td></tr>
+</table>
+
+<div class="callout">
+  <strong>Nunca dos fondos oscuros seguidos.</strong> FAQ ya es café y Despedida también: entre ellas van RSVP (crema) y Galería (crema). Si dos secciones oscuras quedan contiguas, la página pierde ritmo y el texto cansa.
+</div>
+
+<h3>3.3 Clases nuevas que aparecerán</h3>
+<table>
+  <tr><th>Clase</th><th>Para qué</th><th>Fase</th></tr>
+  <tr><td><code>text-justify</code> / <code>md:text-justify</code></td><td>Alinear ambos bordes del párrafo</td><td>10</td></tr>
+  <tr><td><code>aspect-[4/5]</code>, <code>aspect-square</code></td><td>Proporción fija para fotos</td><td>13, 15</td></tr>
+  <tr><td><code>col-span-2</code>, <code>row-span-2</code></td><td>Que una foto ocupe dos columnas o filas</td><td>15</td></tr>
+  <tr><td><code>auto-rows-[220px]</code></td><td>Altura base de cada fila del grid</td><td>15</td></tr>
+  <tr><td><code>[grid-auto-flow:dense]</code></td><td>Rellena huecos del collage</td><td>15</td></tr>
+  <tr><td><code>opacity-0</code> / <code>opacity-100</code></td><td>Fundido del carrusel</td><td>14</td></tr>
+  <tr><td><code>transition-opacity duration-1000</code></td><td>Que el fundido dure un segundo</td><td>14</td></tr>
+  <tr><td><code>backdrop:bg-ink/70</code></td><td>Fondo del modal nativo</td><td>15</td></tr>
+  <tr><td><code>group-hover:-translate-y-1</code></td><td>Que una card se levante al pasar el mouse</td><td>13</td></tr>
+  <tr><td><code>focus-visible:outline-2</code></td><td>Foco visible por teclado</td><td>14, 15, 18</td></tr>
+</table>
+
+<h3>3.4 Responsive: mobile-first</h3>
+<p>Todo lo que se escribe sin prefijo aplica al móvil, y los prefijos agregan reglas hacia arriba. Las secciones nuevas siguen la misma lógica:</p>
+
+<table>
+  <tr><th>Elemento</th><th>Móvil</th><th>Desktop</th></tr>
+  <tr><td>Cronograma</td><td>Lista vertical con línea a la izquierda</td><td>Onda horizontal con 6 puntos</td></tr>
+  <tr><td>Vestimenta</td><td>1 card debajo de la otra</td><td>2 cards lado a lado</td></tr>
+  <tr><td>Carrusel</td><td>Alto 320 px</td><td>Alto 400 px</td></tr>
+  <tr><td>Collage</td><td>2 columnas, filas de 180 px</td><td>4 columnas, filas de 220 px</td></tr>
+</table>
+
+<!-- ============================ 4 ============================ -->
+<div class="page-break"></div>
+<h2 id="next">4. Conceptos de Next.js que vas a aprender</h2>
+
+<h3>4.1 Server Components y Client Components</h3>
+<p>En el App Router, un componente es de servidor por defecto: se ejecuta en el servidor, puede leer la base de datos y <strong>no envía JavaScript al navegador</strong>. Es ideal para texto y fotos.</p>
+
+<p>Un componente se vuelve de cliente cuando se marca con <code>"use client"</code> en la primera línea. Solo entonces puede usar:</p>
+<ul>
+  <li>estado (<code>useState</code>) y efectos (<code>useEffect</code>),</li>
+  <li>eventos del usuario (<code>onClick</code>, <code>onChange</code>, <code>onMouseEnter</code>),</li>
+  <li>APIs del navegador (<code>window</code>, <code>document</code>, <code>matchMedia</code>).</li>
+</ul>
+
+<div class="callout warn">
+  <strong>La regla no es "usar cliente para todo".</strong> Cada componente cliente suma JavaScript que el invitado descarga, posiblemente con datos móviles. Por eso solo el carrusel, el lightbox y el formulario serán cliente; el resto queda en servidor.
+</div>
+
+<h3>4.2 Hidratación, y por qué importa</h3>
+<p>El servidor manda HTML ya armado. Después, React lo "hidrata": le adjunta los eventos y lo vuelve interactivo. Si el HTML del servidor y el primer render del cliente no coinciden, React avisa con un error de hidratación.</p>
+
+<p>Por eso el contador muestra <code>--</code> al principio: en el servidor no existe <code>Date.now()</code> del visitante. La misma lógica aplica al carrusel: la foto activa inicial siempre es la 0, y el <code>setInterval</code> arranca después, dentro de un <code>useEffect</code>.</p>
+
+<h3>4.3 Los hooks que vas a usar</h3>
+<table>
+  <tr><th>Hook</th><th>Qué hace</th><th>Dónde se usa</th></tr>
+  <tr><td><code>useState</code></td><td>Guarda un valor que, al cambiar, redibuja el componente</td><td>Foto activa, modal abierto, pausa</td></tr>
+  <tr><td><code>useEffect</code></td><td>Ejecuta código después del render y devuelve una limpieza</td><td>Intervalos, listeners, <code>matchMedia</code></td></tr>
+  <tr><td><code>useRef</code></td><td>Guarda una referencia a un elemento del DOM sin redibujar</td><td>El <code>&lt;dialog&gt;</code> del lightbox</td></tr>
+  <tr><td><code>useCallback</code></td><td>Memoriza una función para que no cambie en cada render</td><td>La función "siguiente" del carrusel</td></tr>
+  <tr><td><code>useActionState</code></td><td>Conecta un formulario a una server action y expone estado y pendiente</td><td>Formulario RSVP</td></tr>
+</table>
+
+<h3>4.4 Server Actions</h3>
+<p>Una <em>server action</em> es una función que se ejecuta <strong>en el servidor</strong> pero se llama desde el navegador como si fuera local. Es la forma moderna de procesar un formulario sin escribir un endpoint a mano.</p>
+
+<pre><code>// 1. Se declara en un archivo con "use server" arriba
+"use server";
+export async function guardarRsvp(prev, formData) { /* ... */ }
+
+// 2. Se pasa al formulario
+&lt;form action={formAction}&gt; ... &lt;/form&gt;</code></pre>
+
+<p>Next se encarga del transporte, de la serialización y de la protección CSRF. Tú solo escribes la lógica.</p>
+
+<h3>4.5 Variables de entorno</h3>
+<p>Las credenciales de Oracle <strong>nunca</strong> van en el código ni en un componente. Van en <code>.env.local</code> (que no se sube a Git) y se leen con <code>process.env</code> solo en el servidor.</p>
+
+<table>
+  <tr><th>Prefijo</th><th>Visible en</th><th>Uso</th></tr>
+  <tr><td><code>ORACLE_USER</code></td><td>Solo servidor</td><td>Usuario de la base</td></tr>
+  <tr><td><code>NEXT_PUBLIC_APP_URL</code></td><td>Servidor y navegador</td><td>Datos que pueden ser públicos</td></tr>
+</table>
+
+<div class="callout warn">
+  <strong>Todo lo que empiece con <code>NEXT_PUBLIC_</code> se incrusta en el JavaScript del navegador.</strong> Si le pones ese prefijo a una contraseña, cualquiera la lee con F12. La contraseña de Oracle va sin prefijo.
+</div>
+
+<h3>4.6 next/image con y sin fill</h3>
+<table>
+  <tr><th>Modo</th><th>Cuándo</th><th>Requisito</th></tr>
+  <tr><td><code>width</code> + <code>height</code></td><td>Íconos y logos</td><td>Valores fijos; la proporción se conserva</td></tr>
+  <tr><td><code>fill</code></td><td>Fotos que ocupan un contenedor</td><td>Padre con <code>relative</code> y altura o proporción</td></tr>
+</table>
+
+<p>Con <code>fill</code> siempre se acompaña <code>object-cover</code> (recorta sin deformar) y <code>sizes</code> (le dice al navegador cuánto espacio ocupa la imagen en cada breakpoint).</p>
+
+<!-- ============================ 5 ============================ -->
+<div class="page-break"></div>
+<h2 id="f11">5. Fase 11 — Bienvenida</h2>
+
+<p><strong>Objetivo:</strong> recibir al invitado justo después de la foto de portada, con un mensaje breve de los novios. No lleva fotos ni JavaScript.</p>
+
+<h3>Datos</h3>
+<pre><code>// data/wedding-data.ts
+export const welcome = {
+    kicker: "Bienvenidos",
+    title: "Nos encantaría compartir este día contigo",
+    message: "Con mucha alegría queremos invitarte a celebrar el comienzo de nuestra vida juntos. ...",
+} as const;</code></pre>
+
+<p>La firma no se guarda: se toma de <code>couple</code>. Así, si algún día cambia un nombre, cambia en un solo lugar.</p>
+
+<h3>Componente</h3>
+<pre><code>import { couple, welcome } from "@/data/wedding-data";
+
+export default function Bienvenida() {
+    return (
+        &lt;section id="bienvenida" className="scroll-mt-24 bg-cream py-24"&gt;
+            &lt;div className="mx-auto max-w-3xl px-6 text-center"&gt;
+                &lt;p className="font-sans text-[11px] uppercase tracking-[0.45em] text-terracotta"&gt;
+                    {welcome.kicker}
+                &lt;/p&gt;
+
+                &lt;h2 className="mt-6 font-serif text-3xl leading-[1.2] text-coffee md:text-4xl"&gt;
+                    {welcome.title}
+                &lt;/h2&gt;
+
+                &lt;div className="mt-8 flex items-center justify-center gap-4" aria-hidden="true"&gt;
+                    &lt;span className="h-px w-12 bg-sand" /&gt;
+                    &lt;span className="h-1.5 w-1.5 rotate-45 bg-terracotta" /&gt;
+                    &lt;span className="h-px w-12 bg-sand" /&gt;
+                &lt;/div&gt;
+
+                &lt;p className="mx-auto mt-8 max-w-2xl font-sans text-base leading-relaxed text-ink/80 md:text-lg"&gt;
+                    {welcome.message}
+                &lt;/p&gt;
+
+                &lt;p className="mt-10 font-serif text-2xl italic text-terracotta"&gt;
+                    {couple.groom} &amp; {couple.bride}
+                &lt;/p&gt;
+            &lt;/div&gt;
+        &lt;/section&gt;
+    );
+}</code></pre>
+
+<h3>Detalles que vale la pena entender</h3>
+<ul>
+  <li><code>max-w-3xl</code>: un mensaje corto se lee mejor en 768 px que en 1152. Es la misma lógica que el FAQ.</li>
+  <li><code>text-center</code> en el contenedor: los párrafos heredan la alineación. Para un texto de 3–4 líneas se ve bien; para un texto largo no (por eso Historia usa justificado a la izquierda).</li>
+  <li>El ornamento (línea, rombo, línea) es puro CSS: un <code>span</code> de 6 × 6 px con <code>rotate-45</code> se ve como un rombo. Lleva <code>aria-hidden</code> porque es decorativo.</li>
+  <li>La firma usa <code>italic</code> y la serif: es el gesto editorial que cierra el bloque.</li>
+</ul>
+
+<div class="callout">
+  <strong>Efecto colateral que hay que corregir:</strong> la flecha para bajar del Hero apunta a <code>#historia</code>. Al insertar Bienvenida en medio, debe apuntar a <code>#bienvenida</code>; si no, salta una sección de largo.
+</div>
+
+<!-- ============================ 6 ============================ -->
+<div class="page-break"></div>
+<h2 id="f12">6. Fase 12 — Cronograma</h2>
+
+<p><strong>Objetivo:</strong> mostrar los seis momentos del día sobre una línea ondulada, con la hora y una descripción corta.</p>
+
+<h3>Datos</h3>
+<pre><code>export type ScheduleItem = {
+    time: string;      // "5:00 PM"
+    title: string;     // "Ceremonia"
+    description: string;
+};
+
+export const schedule: ScheduleItem[] = [
+    { time: "5:00 PM",  title: "Ceremonia",        description: "Nos damos el sí." },
+    { time: "6:30 PM",  title: "Fotos",            description: "Con familiares y amigos." },
+    { time: "8:00 PM",  title: "Recepción",        description: "Cena y brindis." },
+    { time: "9:00 PM",  title: "Baile de los novios", description: "El primer baile." },
+    { time: "9:30 PM",  title: "Pastel",           description: "El corte y el postre." },
+    { time: "10:00 PM", title: "Baile general",    description: "A celebrar." },
+];</code></pre>
+
+<h3>Cómo se dibuja la onda</h3>
+<p>Dos piezas independientes que se alinean por porcentaje:</p>
+<ol>
+  <li>Un <strong>SVG</strong> con una sola ruta de curvas, estirado al ancho completo.</li>
+  <li>Los <strong>puntos</strong>, posicionados en absoluto con <code>left-[8%]</code>, <code>left-[25%]</code>, etc., alternando arriba y abajo.</li>
+</ol>
+
+<pre><code>&lt;div className="relative hidden h-40 md:block"&gt;
+  &lt;svg viewBox="0 0 1000 120" preserveAspectRatio="none"
+       className="absolute inset-0 h-full w-full text-sand"&gt;
+    &lt;path
+      d="M0,60 C125,10 125,10 250,60 S375,110 500,60 S625,10 750,60 S875,110 1000,60"
+      fill="none" stroke="currentColor" strokeWidth="1.5" /&gt;
+  &lt;/svg&gt;
+
+  {/* Un punto por hito, posicionado por porcentaje */}
+  &lt;span className="absolute left-[8%] top-[30%] h-2.5 w-2.5 -translate-x-1/2 rounded-full bg-terracotta" /&gt;
+  {/* ... */}
+&lt;/div&gt;</code></pre>
+
+<h3>Qué significa cada atributo del SVG</h3>
+<table>
+  <tr><th>Atributo</th><th>Qué hace</th></tr>
+  <tr><td><code>viewBox="0 0 1000 120"</code></td><td>Define un sistema de coordenadas interno de 1000 × 120</td></tr>
+  <tr><td><code>preserveAspectRatio="none"</code></td><td>Estira el dibujo al contenedor, sin mantener proporción</td></tr>
+  <tr><td><code>d="M0,60 C..."</code></td><td>La ruta: <code>M</code> mueve el lápiz, <code>C</code> dibuja una curva de Bézier, <code>S</code> continúa suavemente</td></tr>
+  <tr><td><code>fill="none"</code></td><td>Solo línea, sin relleno</td></tr>
+  <tr><td><code>stroke="currentColor"</code></td><td>Usa el color de texto del contenedor (aquí <code>text-sand</code>)</td></tr>
+</table>
+
+<div class="callout warn">
+  <strong>El móvil no usa la onda.</strong> A 375 px de ancho, seis puntos en una onda quedan ilegibles. En móvil se muestra una línea vertical a la izquierda con los hitos apilados; la onda aparece desde <code>md</code>.
+</div>
+
+<!-- ============================ 7 ============================ -->
+<div class="page-break"></div>
+<h2 id="f13">7. Fase 13 — Vestimenta con imágenes</h2>
+
+<p><strong>Objetivo:</strong> dos cards, una con el traje y otra con el vestido, con una nota de color debajo de cada imagen.</p>
+
+<h3>Datos</h3>
+<pre><code>export const dressCode = {
+    title: "Formal",
+    description: "Te pedimos venir con vestimenta formal.",
+    groom: {
+        label: "Ellos",
+        image: "/images/vestimenta-traje.jpg",
+        alt: "Traje azul del novio",
+        note: "Evita el azul: lo llevará el novio.",
+    },
+    bride: {
+        label: "Ellas",
+        image: "/images/vestimenta-vestido.jpg",
+        alt: "Vestido blanco de la novia",
+        note: "Evita el blanco: lo llevará la novia.",
+    },
+} as const;</code></pre>
+
+<h3>Patrón de la card</h3>
+<pre><code>&lt;figure className="overflow-hidden rounded-2xl border border-sand/60 bg-cream"&gt;
+  &lt;div className="group relative aspect-[4/5] overflow-hidden"&gt;
+    &lt;Image src={dressCode.groom.image} alt={dressCode.groom.alt}
+           fill sizes="(min-width: 768px) 50vw, 100vw"
+           className="object-cover transition-transform duration-500 group-hover:scale-105" /&gt;
+  &lt;/div&gt;
+  &lt;figcaption className="p-6"&gt;
+    &lt;p className="font-serif text-xl text-coffee"&gt;{dressCode.groom.label}&lt;/p&gt;
+    &lt;p className="mt-1 font-sans text-sm text-ink/70"&gt;{dressCode.groom.note}&lt;/p&gt;
+  &lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+
+<div class="callout">
+  <strong>Por qué <code>figure</code> y <code>figcaption</code>:</strong> una imagen con su descripción es exactamente lo que representan esas etiquetas. Un lector de pantalla anuncia la nota como parte de la imagen, no como un párrafo suelto.
+</div>
+
+<p><strong>Conteo de columnas:</strong> si los dos modelos tienen la misma proporción (4/5), las cards quedan parejas. Si una foto es horizontal, usa <code>object-cover</code> para recortarla al marco y que no rompa la simetría.</p>
+
+<!-- ============================ 8 ============================ -->
+<div class="page-break"></div>
+<h2 id="f14">8. Fase 14 — Carrusel de Historia (a fondo)</h2>
+
+<p>Es el primer componente realmente interactivo del sitio. Vale la pena entenderlo bien porque el mismo patrón se repite en cualquier carrusel que hagas después.</p>
+
+<h3>8.1 La idea en una frase</h3>
+<p><strong>Todas las fotos están montadas al mismo tiempo, una encima de otra; solo cambia la opacidad de la activa.</strong> No hay desplazamiento, no hay posición, no hay transformaciones: solo <code>opacity</code>. Eso es lo que produce el fundido.</p>
+
+<div class="diagram">Contenedor (alto fijo, overflow-hidden)
+┌─────────────────────────────────────┐
+│ figura 0   opacity-0   (invisible)  │
+│ figura 1   opacity-100 (visible)    │  ← todas están, apiladas
+│ figura 2   opacity-0   (invisible)  │
+│ figura 3   opacity-0   (invisible)  │
+└─────────────────────────────────────┘
+        ▲ cambia el índice cada 6 s
+        └── clase opacity-0 / opacity-100 + transition-opacity</div>
+
+<h3>8.2 Ventajas frente al carrusel deslizante</h3>
+<table>
+  <tr><th>Aspecto</th><th>Fundido (elegido)</th><th>Deslizante</th></tr>
+  <tr><td>JS necesario</td><td>Un índice y un intervalo</td><td>Índice, offset, gestos táctiles</td></tr>
+  <tr><td>Salto de layout</td><td>Ninguno: el contenedor tiene alto fijo</td><td>Frecuente si no se calcula el ancho</td></tr>
+  <tr><td>Accesibilidad</td><td>Simple: se ocultan las inactivas</td><td>Hay que gestionar foco y scroll</td></tr>
+  <tr><td>Estética</td><td>Elegante, editorial</td><td>Más "app"</td></tr>
+</table>
+
+<h3>8.3 Datos</h3>
+<pre><code>export type HistoryPhoto = {
+    src: string;
+    alt: string;
+    caption: string;   // descripción que aparece bajo la foto
+};
+
+export const historyPhotos: HistoryPhoto[] = [
+    { src: "/images/historia-01.jpg", alt: "Sonia y David en el parque",
+      caption: "Nuestra primera salida, 2020." },
+    // ...
+];</code></pre>
+
+<h3>8.4 El componente completo, explicado</h3>
+<pre><code>"use client";
+
+import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
+import type { HistoryPhoto } from "@/data/wedding-data";
+
+type Props = { photos: HistoryPhoto[]; intervalo?: number };
+
+export default function HistoriaCarrusel({ photos, intervalo = 6000 }: Props) {
+    const [activa, setActiva] = useState(0);
+    const [pausado, setPausado] = useState(false);
+    const [reducir, setReducir] = useState(false);
+
+    /* Avanza circularmente: 0,1,2,3,0,1... */
+    const siguiente = useCallback(() => {
+        setActiva((i) =&gt; (i + 1) % photos.length);
+    }, [photos.length]);
+
+    /* Respeta la preferencia del sistema: sin animaciones automáticas */
+    useEffect(() =&gt; {
+        const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+        setReducir(mq.matches);
+        const onChange = (e: MediaQueryListEvent) =&gt; setReducir(e.matches);
+        mq.addEventListener("change", onChange);
+        return () =&gt; mq.removeEventListener("change", onChange);
+    }, []);
+
+    /* El reloj: se reinicia si se pausa y se limpia al desmontar */
+    useEffect(() =&gt; {
+        if (pausado || reducir || photos.length &lt;= 1) return;
+        const id = setInterval(siguiente, intervalo);
+        return () =&gt; clearInterval(id);
+    }, [pausado, reducir, intervalo, siguiente, photos.length]);
+
+    return (
+        &lt;div className="relative"
+             onMouseEnter={() =&gt; setPausado(true)}
+             onMouseLeave={() =&gt; setPausado(false)}
+             onFocus={() =&gt; setPausado(true)}
+             onBlur={() =&gt; setPausado(false)}&gt;
+
+            &lt;div className="relative h-80 w-full overflow-hidden rounded-2xl md:h-[400px]"&gt;
+                {photos.map((photo, i) =&gt; (
+                    &lt;figure key={photo.src}
+                            aria-hidden={i !== activa}
+                            className={`absolute inset-0 transition-opacity duration-1000 ${
+                                i === activa ? "opacity-100" : "opacity-0"
+                            }`}&gt;
+                        &lt;Image src={photo.src} alt={photo.alt} fill
+                               sizes="(min-width: 768px) 50vw, 100vw"
+                               className="object-cover" /&gt;
+
+                        &lt;div className="absolute inset-0 bg-linear-to-t from-ink/75 via-transparent to-transparent" /&gt;
+
+                        &lt;figcaption className="absolute inset-x-0 bottom-0 p-5 font-sans text-sm text-cream"&gt;
+                            {photo.caption}
+                        &lt;/figcaption&gt;
+                    &lt;/figure&gt;
+                ))}
+            &lt;/div&gt;
+
+            &lt;div className="mt-5 flex justify-center gap-2"&gt;
+                {photos.map((photo, i) =&gt; (
+                    &lt;button key={photo.src} type="button"
+                            onClick={() =&gt; setActiva(i)}
+                            aria-label={`Ver foto ${i + 1} de ${photos.length}`}
+                            aria-current={i === activa ? "true" : undefined}
+                            className={`h-2 rounded-full transition-all duration-300 ${
+                                i === activa ? "w-6 bg-terracotta" : "w-2 bg-sand"
+                            }`} /&gt;
+                ))}
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+
+<h3>8.5 Por qué cada decisión</h3>
+<table>
+  <tr><th>Detalle</th><th>Razón</th></tr>
+  <tr><td><code>absolute inset-0</code> en cada figura</td><td>Apila todas en el mismo lugar; sin esto se verían una debajo de otra</td></tr>
+  <tr><td>Alto en el contenedor (<code>h-80 md:h-[400px]</code>)</td><td>Con <code>fill</code> la imagen necesita un padre con altura; además evita el salto de layout</td></tr>
+  <tr><td><code>aria-hidden</code> en las inactivas</td><td>Un lector de pantalla no debe leer cuatro descripciones a la vez</td></tr>
+  <tr><td><code>useCallback</code> en <code>siguiente</code></td><td>Si la función cambiara en cada render, el <code>useEffect</code> reiniciaría el intervalo constantemente</td></tr>
+  <tr><td><code>return () =&gt; clearInterval(id)</code></td><td>Sin la limpieza, al desmontar quedaría un reloj corriendo (fuga de memoria)</td></tr>
+  <tr><td><code>pausado</code> y <code>reducir</code></td><td>Nadie debe perder una foto porque el mouse pasó por encima, ni sufrir animaciones si pidió reducirlas</td></tr>
+  <tr><td><code>(i + 1) % length</code></td><td>El módulo hace circular el índice: después del último vuelve al primero</td></tr>
+  <tr><td>Puntos como <code>&lt;button&gt;</code></td><td>Son navegables con teclado; un <code>div</code> con <code>onClick</code> no lo es</td></tr>
+</table>
+
+<h3>8.6 Errores típicos</h3>
+<table>
+  <tr><th>Síntoma</th><th>Causa</th></tr>
+  <tr><td>Se ven todas las fotos amontonadas</td><td>Falta <code>position: absolute</code> en cada figura</td></tr>
+  <tr><td>El carrusel salta en cada cambio</td><td>El contenedor no tiene alto fijo</td></tr>
+  <tr><td>El intervalo se acelera solo</td><td>Falta <code>useCallback</code> o la dependencia en el <code>useEffect</code></td></tr>
+  <tr><td>La descripción no se desvanece</td><td>El <code>figcaption</code> quedó fuera de la figura que cambia de opacidad</td></tr>
+  <tr><td>Nunca avanza</td><td><code>pausado</code> quedó en <code>true</code>, o <code>photos.length</code> es 1</td></tr>
+</table>
+
+<!-- ============================ 9 ============================ -->
+<div class="page-break"></div>
+<h2 id="f15">9. Fase 15 — Galería collage + lightbox (a fondo)</h2>
+
+<h3>9.1 El modelo de datos</h3>
+<pre><code>export type GalleryPhoto = {
+    src: string;
+    alt: string;
+    caption?: string;
+    size?: "normal" | "ancho" | "alto" | "grande";
+};</code></pre>
+
+<p>El tamaño no se adivina con CSS: se decide en los datos. El componente traduce esa palabra a clases.</p>
+
+<pre><code>const clasesDeTamano = {
+    normal: "",
+    ancho:  "col-span-2",
+    alto:   "row-span-2",
+    grande: "col-span-2 row-span-2",
+} as const;</code></pre>
+
+<h3>9.2 El grid que lo hace posible</h3>
+<pre><code>&lt;div className="grid grid-cols-2 auto-rows-[180px] gap-3
+                md:grid-cols-4 md:auto-rows-[220px] md:gap-4
+                [grid-auto-flow:dense]"&gt;
+
+  {photos.map((photo) =&gt; (
+    &lt;button key={photo.src}
+            className={`group relative overflow-hidden rounded-xl ${clasesDeTamano[photo.size ?? "normal"]}`}&gt;
+      &lt;Image src={photo.src} alt={photo.alt} fill
+             sizes="(min-width: 768px) 25vw, 50vw"
+             className="object-cover transition-transform duration-500 group-hover:scale-105" /&gt;
+    &lt;/button&gt;
+  ))}
+&lt;/div&gt;</code></pre>
+
+<table>
+  <tr><th>Pieza</th><th>Qué hace</th></tr>
+  <tr><td><code>auto-rows-[180px]</code></td><td>Cada fila mide 180 px. Con <code>row-span-2</code> una foto mide 360 + separación</td></tr>
+  <tr><td><code>col-span-2</code></td><td>La foto ocupa dos columnas: se ve horizontal</td></tr>
+  <tr><td><code>[grid-auto-flow:dense]</code></td><td>Rellena huecos con las fotos siguientes en vez de dejar espacios vacíos</td></tr>
+  <tr><td><code>aspect-*</code> desaparece</td><td>En un collage la proporción la define el span, no un aspect ratio fijo</td></tr>
+</table>
+
+<div class="callout">
+  <strong>Sin <code>dense</code></strong> el grid respeta el orden y deja agujeros cuando una foto grande no cabe. Con <code>dense</code> reacomoda las siguientes para llenar el hueco. Es lo que hace que un collage se vea intencional.
+</div>
+
+<h3>9.3 El lightbox con &lt;dialog&gt;</h3>
+<p>HTML ya tiene un elemento para esto: <code>&lt;dialog&gt;</code>. Con <code>showModal()</code> se abre encima de todo, bloquea el resto de la página y captura <code>Escape</code> automáticamente. No hay que reinventar el foco ni el fondo.</p>
+
+<pre><code>"use client";
+
+import Image from "next/image";
+import { useEffect, useRef } from "react";
+import type { GalleryPhoto } from "@/data/wedding-data";
+
+type Props = {
+    photos: GalleryPhoto[];
+    index: number | null;               // null = cerrado
+    onClose: () =&gt; void;
+    onNavigate: (i: number) =&gt; void;
+};
+
+export default function Lightbox({ photos, index, onClose, onNavigate }: Props) {
+    const ref = useRef&lt;HTMLDialogElement&gt;(null);
+
+    /* Abre y cierra el diálogo cuando cambia el índice */
+    useEffect(() =&gt; {
+        const dialog = ref.current;
+        if (!dialog) return;
+
+        if (index !== null &amp;&amp; !dialog.open) {
+            dialog.showModal();
+            document.body.style.overflow = "hidden";
+        }
+        if (index === null &amp;&amp; dialog.open) {
+            dialog.close();
+            document.body.style.overflow = "";
+        }
+    }, [index]);
+
+    /* Flechas del teclado mientras está abierto */
+    useEffect(() =&gt; {
+        if (index === null) return;
+        const onKey = (e: KeyboardEvent) =&gt; {
+            if (e.key === "ArrowRight") onNavigate((index + 1) % photos.length);
+            if (e.key === "ArrowLeft")  onNavigate((index - 1 + photos.length) % photos.length);
+        };
+        window.addEventListener("keydown", onKey);
+        return () =&gt; window.removeEventListener("keydown", onKey);
+    }, [index, photos.length, onNavigate]);
+
+    /* Escape y clic en el fondo cierran */
+    return (
+        &lt;dialog
+            ref={ref}
+            onClose={onClose}
+            onClick={(e) =&gt; { if (e.target === e.currentTarget) onClose(); }}
+            className="m-auto w-full max-w-5xl rounded-2xl bg-ink/95 p-0
+                       backdrop:bg-ink/80 backdrop:backdrop-blur-sm"&gt;
+
+            {index !== null &amp;&amp; (
+                &lt;figure className="relative"&gt;
+                    &lt;div className="relative aspect-[3/2] w-full"&gt;
+                        &lt;Image src={photos[index].src} alt={photos[index].alt} fill
+                               sizes="90vw" className="object-contain" /&gt;
+                    &lt;/div&gt;
+
+                    &lt;figcaption className="flex items-center justify-between gap-4 p-4 font-sans text-sm text-cream"&gt;
+                        &lt;span&gt;{photos[index].caption ?? photos[index].alt}&lt;/span&gt;
+                        &lt;button type="button" onClick={onClose}
+                                className="rounded-full border border-cream/30 px-4 py-1
+                                           text-xs uppercase tracking-[0.2em]"&gt;
+                            Cerrar
+                        &lt;/button&gt;
+                    &lt;/figcaption&gt;
+                &lt;/figure&gt;
+            )}
+        &lt;/dialog&gt;
+    );
+}</code></pre>
+
+<h3>9.4 Qué resuelve el diálogo nativo</h3>
+<table>
+  <tr><th>Problema</th><th>Cómo lo resuelve</th></tr>
+  <tr><td>Cerrar con <code>Escape</code></td><td>Nativo, sin listener</td></tr>
+  <tr><td>El resto de la página no se puede clickear</td><td>La capa modal lo bloquea</td></tr>
+  <tr><td>El foco se va detrás del modal</td><td><code>showModal()</code> lo encierra</td></tr>
+  <tr><td>Fondo oscuro</td><td>Pseudo-elemento <code>::backdrop</code>, expuesto en Tailwind como <code>backdrop:</code></td></tr>
+</table>
+
+<p><strong>Detalle importante:</strong> el diálogo se monta siempre, aunque esté cerrado. No se usa <code>{index !== null &amp;&amp; &lt;dialog&gt;...}</code>, porque el elemento debe existir para poder llamar <code>showModal()</code> desde el efecto. Lo que cambia es su contenido.</p>
+
+<h3>9.5 Accesibilidad de la galería</h3>
+<ul>
+  <li>Cada foto es un <code>&lt;button&gt;</code>, no un <code>div</code>: se abre con teclado.</li>
+  <li>El botón lleva <code>aria-label</code> describiendo la foto ("Ampliar: Sonia y David en el jardín").</li>
+  <li>Al cerrar, el foco vuelve solo al botón que abrió (el navegador lo hace con <code>dialog.close()</code>).</li>
+  <li>Se bloquea el scroll del fondo mientras el modal está abierto.</li>
+  <li>Las flechas izquierda/derecha funcionan con el teclado.</li>
+</ul>
+
+<!-- ============================ 10 ============================ -->
+<div class="page-break"></div>
+<h2 id="f16">10. Fase 16 — Despedida y agradecimientos</h2>
+
+<p>Mismo patrón que Bienvenida, en fondo café para cerrar con fuerza antes del footer.</p>
+
+<pre><code>&lt;section id="despedida" className="scroll-mt-24 bg-coffee py-24"&gt;
+  &lt;div className="mx-auto max-w-3xl px-6 text-center"&gt;
+    &lt;p className="font-sans text-[11px] uppercase tracking-[0.45em] text-terracotta"&gt;
+      Gracias
+    &lt;/p&gt;
+    &lt;h2 className="mt-6 font-serif text-3xl leading-[1.2] text-cream md:text-4xl"&gt;
+      {farewell.title}
+    &lt;/h2&gt;
+    &lt;div className="mx-auto mt-8 h-px w-16 bg-terracotta/60" /&gt;
+    &lt;p className="mt-8 font-sans text-base leading-relaxed text-cream/75"&gt;
+      {farewell.message}
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;</code></pre>
+
+<p><strong>Detalle de contraste:</strong> sobre café, el texto va en <code>text-cream/75</code>, no en <code>text-cream</code> puro. Un párrafo largo en blanco total sobre fondo oscuro cansa la vista; bajarlo al 75 % mantiene la legibilidad y suaviza.</p>
+
+<!-- ============================ 11 ============================ -->
+<div class="page-break"></div>
+<h2 id="f17">11. Fase 17 — Footer</h2>
+
+<p>Cierre de página con foto de fondo, degradado y tres bloques: monograma, fecha y un mensaje corto.</p>
+
+<pre><code>&lt;footer className="relative overflow-hidden"&gt;
+  &lt;Image src={featuredPhotos.hero} alt="" fill sizes="100vw"
+         className="object-cover" /&gt;
+
+  &lt;div className="absolute inset-0 bg-ink/85" /&gt;
+
+  &lt;div className="relative z-10 mx-auto max-w-6xl px-6 py-16 text-center"&gt;
+    &lt;p className="font-serif text-3xl text-cream"&gt;
+      {couple.groom} &amp; {couple.bride}
+    &lt;/p&gt;
+    &lt;p className="mt-3 font-sans text-[11px] uppercase tracking-[0.3em] text-sand"&gt;
+      {event.dateLabel}
+    &lt;/p&gt;
+    &lt;p className="mt-6 font-sans text-xs text-sand/70"&gt;
+      Hecho con cariño para celebrar con ustedes.
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/footer&gt;</code></pre>
+
+<p><strong>Decisión de rendimiento:</strong> el footer reutiliza la foto del Hero en lugar de cargar una nueva. A esa escala y con un velo del 85 % encima, la diferencia es invisible, y el navegador ya la tiene en caché. En Next, además, la variante servida es la misma si el <code>sizes</code> coincide.</p>
+
+<!-- ============================ 12 ============================ -->
+<div class="page-break"></div>
+<h2 id="f18">12. Fase 18 — RSVP con Oracle (a fondo)</h2>
+
+<h3>12.1 Qué es Autonomous Database "Always Free"</h3>
+<p>Oracle Autonomous Database es un servicio administrado: Oracle se encarga de parches, respaldos y ajuste. La capa <strong>Always Free</strong> es gratuita sin fecha de expiración e incluye 20 GB de almacenamiento y dos instancias. Se administra desde el navegador (Database Actions), así que no necesitas instalar nada para empezar.</p>
+
+<div class="callout">
+  <strong>Por qué encaja con este proyecto:</strong> el sitio se publica en Vercel, que no puede alojar un servidor Oracle. Una base en la nube resuelve eso y te deja practicar SQL real desde el primer día.
+</div>
+
+<h3>12.2 Arquitectura del flujo</h3>
+<div class="diagram">Invitado
+   │  llena el formulario y envía
+   ▼
+Rsvp.tsx  ("use client")            ← useActionState, estados de error y "enviando"
+   │
+   │  form action
+   ▼
+actions/rsvp.ts  ("use server")     ← valida, arma los binds, ejecuta
+   │
+   │  pool.execute(sql, binds)
+   ▼
+lib/oracle.ts                       ← un solo pool para toda la app
+   │
+   │  TCPS 1522 (cifrado)
+   ▼
+Oracle Autonomous Database (Always Free)
+   └── tabla RSVP</div>
+
+<h3>12.3 Preparación de la base (una sola vez)</h3>
+<ol>
+  <li>Crear la instancia en Oracle Cloud con la región más cercana (Querétaro, si está disponible en tu cuenta).</li>
+  <li>Guardar la contraseña del usuario <code>ADMIN</code> en un lugar seguro.</li>
+  <li>Entrar a <strong>Database Actions → SQL</strong> y ejecutar el DDL de abajo.</li>
+  <li>En <strong>Database connection</strong>, copiar la cadena de conexión TLS (protocolo <code>tcps</code>, puerto 1522).</li>
+</ol>
+
+<pre><code>CREATE TABLE RSVP (
+    ID             NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    NOMBRE         VARCHAR2(120)  NOT NULL,
+    CORREO         VARCHAR2(160),
+    TELEFONO       VARCHAR2(40),
+    ASISTE         CHAR(1)        DEFAULT 'S' NOT NULL,
+    ACOMPANANTES   NUMBER(2)      DEFAULT 0  NOT NULL,
+    RESTRICCIONES  VARCHAR2(400),
+    MENSAJE        VARCHAR2(600),
+    CREADO_EN      TIMESTAMP      DEFAULT SYSTIMESTAMP NOT NULL,
+    CONSTRAINT RSVP_ASISTE_CK CHECK (ASISTE IN ('S','N')),
+    CONSTRAINT RSVP_ACOMP_CK  CHECK (ACOMPANANTES BETWEEN 0 AND 10)
+);
+
+-- Consulta de control
+SELECT COUNT(*) AS total,
+       SUM(CASE WHEN ASISTE = 'S' THEN 1 + ACOMPANANTES ELSE 0 END) AS personas
+FROM RSVP;</code></pre>
+
+<h3>12.4 Instalar el driver</h3>
+<pre><code>npm install oracledb</code></pre>
+
+<p>El driver moderno trabaja en <strong>modo thin</strong>: JavaScript puro, sin necesidad de instalar el Oracle Client. Eso es lo que permite usarlo en Vercel sin compilar nada nativo.</p>
+
+<h3>12.5 Variables de entorno</h3>
+<pre><code># .env.local  (nunca se sube a Git)
+ORACLE_USER=ADMIN
+ORACLE_PASSWORD=tu_password
+ORACLE_CONNECT_STRING=(description=(retry_count=20)(retry_delay=3)
+  (address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))
+  (connect_data=(service_name=g12345_miboda_high.adb.oraclecloud.com))
+  (security=(ssl_server_dn_match=yes)))</code></pre>
+
+<p>La cadena se puede escribir en una sola línea; aquí está partida por legibilidad. Es la que copia la consola de Oracle, no hay que inventarla.</p>
+
+<h3>12.6 El pool de conexiones</h3>
+<pre><code>// lib/oracle.ts
+import oracledb from "oracledb";
+
+declare global {
+    var __oraclePool: oracledb.Pool | undefined;
+}
+
+export async function getPool() {
+    if (!globalThis.__oraclePool) {
+        globalThis.__oraclePool = await oracledb.createPool({
+            user: process.env.ORACLE_USER,
+            password: process.env.ORACLE_PASSWORD,
+            connectString: process.env.ORACLE_CONNECT_STRING,
+            poolMin: 1,
+            poolMax: 4,
+            poolTimeout: 60,
+        });
+    }
+    return globalThis.__oraclePool;
+}</code></pre>
+
+<table>
+  <tr><th>Detalle</th><th>Por qué</th></tr>
+  <tr><td><strong>Pool</strong> y no una conexión por request</td><td>Abrir una conexión cuesta cientos de milisegundos; el pool las reutiliza</td></tr>
+  <tr><td><code>globalThis</code></td><td>En desarrollo, Next recarga el módulo en cada cambio. Sin esto, cada recarga crearía un pool nuevo hasta agotar el límite de sesiones de Oracle</td></tr>
+  <tr><td><code>poolMax: 4</code></td><td>Una boda no necesita más. El plan gratuito tiene un límite de sesiones y conviene no acercarse</td></tr>
+  <tr><td><code>import oracledb</code></td><td>El driver solo se ejecuta en el servidor. Nunca debe importarse desde un componente cliente</td></tr>
+</table>
+
+<h3>12.7 La server action</h3>
+<pre><code>// app/actions/rsvp.ts
+"use server";
+
+import { getPool } from "@/lib/oracle";
+
+export type RsvpState = { ok: boolean; message: string };
+
+export async function guardarRsvp(
+    _prev: RsvpState,
+    formData: FormData,
+): Promise&lt;RsvpState&gt; {
+    const nombre = String(formData.get("nombre") ?? "").trim();
+    const correo = String(formData.get("correo") ?? "").trim();
+    const telefono = String(formData.get("telefono") ?? "").trim();
+    const asiste = formData.get("asiste") === "no" ? "N" : "S";
+    const acompanantes = Number(formData.get("acompanantes") ?? 0);
+    const restricciones = String(formData.get("restricciones") ?? "").trim();
+    const mensaje = String(formData.get("mensaje") ?? "").trim();
+
+    if (nombre.length &lt; 3) {
+        return { ok: false, message: "Escribe tu nombre completo." };
+    }
+    if (!Number.isInteger(acompanantes) || acompanantes &lt; 0 || acompanantes &gt; 10) {
+        return { ok: false, message: "El número de acompañantes no es válido." };
+    }
+
+    try {
+        const pool = await getPool();
+        await pool.execute(
+            `INSERT INTO RSVP
+                 (NOMBRE, CORREO, TELEFONO, ASISTE, ACOMPANANTES, RESTRICCIONES, MENSAJE)
+             VALUES (:nombre, :correo, :telefono, :asiste, :acompanantes, :restricciones, :mensaje)`,
+            { nombre, correo, telefono, asiste, acompanantes, restricciones, mensaje },
+            { autoCommit: true },
+        );
+        return { ok: true, message: "¡Gracias! Tu confirmación quedó registrada." };
+    } catch (error) {
+        console.error("Error al guardar RSVP", error);
+        return { ok: false, message: "No pudimos guardar tu confirmación. Intenta de nuevo." };
+    }
+}</code></pre>
+
+<h3>12.8 Bind variables: la parte de seguridad</h3>
+<p>Nunca se concatena texto del usuario dentro del SQL. Se usan <strong>bind variables</strong>: el SQL lleva <code>:nombre</code> y los valores viajan aparte.</p>
+
+<pre><code>// ❌ Mal: inyección SQL. Con nombre = "x'); DROP TABLE RSVP; --" se borra la tabla
+await pool.execute(`INSERT INTO RSVP (NOMBRE) VALUES ('${nombre}')`);
+
+// ✅ Bien: el valor nunca se interpreta como SQL
+await pool.execute("INSERT INTO RSVP (NOMBRE) VALUES (:nombre)", { nombre });</code></pre>
+
+<p>Además de la seguridad, los binds permiten que Oracle reutilice el plan de ejecución: es más rápido.</p>
+
+<h3>12.9 El formulario en el cliente</h3>
+<pre><code>"use client";
+
+import { useActionState } from "react";
+import { guardarRsvp, type RsvpState } from "@/app/actions/rsvp";
+
+const inicial: RsvpState = { ok: false, message: "" };
+
+export default function RsvpForm() {
+    const [estado, formAction, pendiente] = useActionState(guardarRsvp, inicial);
+
+    return (
+        &lt;form action={formAction} className="mx-auto max-w-xl space-y-5"&gt;
+            &lt;div&gt;
+                &lt;label htmlFor="nombre" className="font-sans text-xs uppercase tracking-[0.2em] text-ink/70"&gt;
+                    Nombre completo
+                &lt;/label&gt;
+                &lt;input id="nombre" name="nombre" required minLength={3}
+                       className="mt-2 w-full rounded-xl border border-sand/70 bg-cream px-4 py-3
+                                  font-sans text-base text-ink outline-none
+                                  focus:border-terracotta" /&gt;
+            &lt;/div&gt;
+
+            &lt;fieldset&gt;
+                &lt;legend className="font-sans text-xs uppercase tracking-[0.2em] text-ink/70"&gt;
+                    ¿Podrás acompañarnos?
+                &lt;/legend&gt;
+                &lt;div className="mt-2 flex gap-6 font-sans text-sm text-ink"&gt;
+                    &lt;label className="flex items-center gap-2"&gt;
+                        &lt;input type="radio" name="asiste" value="si" defaultChecked /&gt; Sí
+                    &lt;/label&gt;
+                    &lt;label className="flex items-center gap-2"&gt;
+                        &lt;input type="radio" name="asiste" value="no" /&gt; No
+                    &lt;/label&gt;
+                &lt;/div&gt;
+            &lt;/fieldset&gt;
+
+            &lt;div&gt;
+                &lt;label htmlFor="acompanantes" className="font-sans text-xs uppercase tracking-[0.2em] text-ink/70"&gt;
+                    Acompañantes
+                &lt;/label&gt;
+                &lt;input id="acompanantes" name="acompanantes" type="number" min={0} max={10} defaultValue={0}
+                       className="mt-2 w-full rounded-xl border border-sand/70 bg-cream px-4 py-3
+                                  font-sans text-base text-ink outline-none focus:border-terracotta" /&gt;
+            &lt;/div&gt;
+
+            &lt;div&gt;
+                &lt;label htmlFor="restricciones" className="font-sans text-xs uppercase tracking-[0.2em] text-ink/70"&gt;
+                    Restricciones alimenticias
+                &lt;/label&gt;
+                &lt;textarea id="restricciones" name="restricciones" rows={3}
+                          className="mt-2 w-full rounded-xl border border-sand/70 bg-cream px-4 py-3
+                                     font-sans text-base text-ink outline-none focus:border-terracotta" /&gt;
+            &lt;/div&gt;
+
+            &lt;button type="submit" disabled={pendiente}
+                    className="w-full rounded-full bg-terracotta px-6 py-3 font-sans text-xs
+                               uppercase tracking-[0.2em] text-white transition-colors duration-300
+                               hover:bg-cinnamon disabled:opacity-60"&gt;
+                {pendiente ? "Enviando..." : "Confirmar asistencia"}
+            &lt;/button&gt;
+
+            {estado.message &amp;&amp; (
+                &lt;p role="status"
+                   className={`font-sans text-sm ${estado.ok ? "text-cinnamon" : "text-red-700"}`}&gt;
+                    {estado.message}
+                &lt;/p&gt;
+            )}
+        &lt;/form&gt;
+    );
+}</code></pre>
+
+<table>
+  <tr><th>Detalle</th><th>Por qué</th></tr>
+  <tr><td><code>useActionState</code></td><td>Devuelve el resultado de la acción, la función para el <code>action</code> y el estado pendiente</td></tr>
+  <tr><td><code>action={formAction}</code></td><td>Conecta el formulario a la acción del servidor sin <code>onSubmit</code> ni <code>fetch</code></td></tr>
+  <tr><td><code>disabled={pendiente}</code></td><td>Evita dobles envíos por doble clic</td></tr>
+  <tr><td><code>required</code>, <code>minLength</code>, <code>type="number"</code></td><td>La primera validación es del navegador; la del servidor es la que cuenta</td></tr>
+  <tr><td><code>role="status"</code></td><td>Los lectores de pantalla anuncian el resultado sin mover el foco</td></tr>
+  <tr><td><code>name</code> en cada campo</td><td>Es la llave con la que <code>formData.get()</code> encuentra el valor</td></tr>
+</table>
+
+<h3>12.10 Probar antes de desplegar</h3>
+<p>Un script de 15 líneas confirma que la conexión y la tabla funcionan, sin pasar por el navegador:</p>
+
+<pre><code>// scripts/probar-oracle.mjs
+import oracledb from "oracledb";
+
+const conn = await oracledb.getConnection({
+    user: process.env.ORACLE_USER,
+    password: process.env.ORACLE_PASSWORD,
+    connectString: process.env.ORACLE_CONNECT_STRING,
+});
+
+const r = await conn.execute("SELECT SYSTIMESTAMP FROM dual");
+console.log("Conectado:", r.rows[0][0]);
+await conn.close();</code></pre>
+
+<pre><code>node --env-file=.env.local scripts/probar-oracle.mjs</code></pre>
+
+<h3>12.11 Despliegue en Vercel</h3>
+<ol>
+  <li>Project Settings → Environment Variables: cargar <code>ORACLE_USER</code>, <code>ORACLE_PASSWORD</code> y <code>ORACLE_CONNECT_STRING</code>.</li>
+  <li>Nunca marcarlas como <code>NEXT_PUBLIC_</code>.</li>
+  <li>Habilitar el acceso desde cualquier IP en la lista de control de acceso de la base, o restringirlo si el proveedor ofrece IPs fijas.</li>
+  <li>Después del primer despliegue, enviar una confirmación de prueba y verificar con <code>SELECT</code>.</li>
+</ol>
+
+<h3>12.12 Privacidad y abuso</h3>
+<ul>
+  <li>Pide solo lo necesario: nombre, asistencia, acompañantes y restricciones. El correo y el teléfono son opcionales.</li>
+  <li>No registres datos personales en <code>console.log</code>.</li>
+  <li>Un formulario público recibe spam. Cuando funcione, se puede agregar un campo trampa oculto y un límite por IP.</li>
+  <li>El dueño de los datos debe poder borrarlos: un <code>DELETE</code> por nombre es suficiente para una boda.</li>
+</ul>
+
+<!-- ============================ 13 ============================ -->
+<div class="page-break"></div>
+<h2 id="orden">13. Orden de ejecución y checklist</h2>
+
+<table>
+  <tr><th style="width:8%">Fase</th><th>Entregable</th><th style="width:30%">Cómo se verifica</th></tr>
+  <tr><td>10</td><td>Iconos y justificado</td><td>El <code>+</code> gira a ×; la flecha se desliza; el texto justifica solo en desktop</td></tr>
+  <tr><td>11</td><td>Bienvenida</td><td>Aparece tras el Hero; la flecha del Hero baja a la sección correcta</td></tr>
+  <tr><td>12</td><td>Cronograma</td><td>6 hitos con las horas correctas; vertical en móvil</td></tr>
+  <tr><td>13</td><td>Vestimenta</td><td>2 cards parejas; nota de color visible</td></tr>
+  <tr><td>14</td><td>Carrusel</td><td>Cambia cada 6 s, se pausa al pasar el mouse, los puntos funcionan con Tab + Enter</td></tr>
+  <tr><td>15</td><td>Collage + lightbox</td><td>Tamaños variados sin huecos; modal abre, navega con flechas y cierra con Escape</td></tr>
+  <tr><td>16</td><td>Despedida</td><td>Texto legible sobre café; sin fondo oscuro contiguo</td></tr>
+  <tr><td>17</td><td>Footer</td><td>Foto con velo; texto arena legible</td></tr>
+  <tr><td>18</td><td>RSVP + Oracle</td><td>Envío real, mensaje de éxito, fila visible con <code>SELECT</code></td></tr>
+</table>
+
+<h3>Comprobaciones antes de publicar</h3>
+<ul>
+  <li><code>npx tsc --noEmit</code> sin errores.</li>
+  <li><code>npx eslint .</code> sin errores ni avisos.</li>
+  <li>Probar en un teléfono real: menú, carrusel, collage, formulario.</li>
+  <li>Revisar el peso de las imágenes (Hero &lt; 500 KB, galería &lt; 300 KB cada una).</li>
+  <li>Confirmar que ninguna credencial aparece en el JavaScript del navegador.</li>
+</ul>
+
+<!-- ============================ 14 ============================ -->
+<h2 id="glosario">14. Glosario de términos nuevos</h2>
+<table>
+  <tr><th>Término</th><th>Significado</th></tr>
+  <tr><td><strong>Fundido cruzado</strong></td><td>Una imagen desaparece mientras otra aparece en el mismo lugar, cambiando la opacidad</td></tr>
+  <tr><td><strong>Lightbox</strong></td><td>Capa que muestra una imagen ampliada sobre el resto de la página</td></tr>
+  <tr><td><strong>Collage</strong></td><td>Cuadrícula donde las fotos ocupan distinto número de columnas o filas</td></tr>
+  <tr><td><strong>Server Action</strong></td><td>Función que corre en el servidor y se invoca desde un formulario o un botón</td></tr>
+  <tr><td><strong>Bind variable</strong></td><td>Marcador <code>:nombre</code> en el SQL; el valor viaja aparte y no se interpreta como código</td></tr>
+  <tr><td><strong>Pool</strong></td><td>Conjunto de conexiones abiertas que se reutilizan en vez de crear una por consulta</td></tr>
+  <tr><td><strong>DDL / DML</strong></td><td>DDL crea estructura (<code>CREATE TABLE</code>); DML manipula datos (<code>INSERT</code>, <code>SELECT</code>)</td></tr>
+  <tr><td><strong>TNS / TCPS</strong></td><td>El "nombre" y la dirección cifrada de una base Oracle</td></tr>
+  <tr><td><strong>Always Free</strong></td><td>Capa gratuita sin fecha de expiración de Oracle Cloud</td></tr>
+  <tr><td><strong>Modal</strong></td><td>Ventana que bloquea la interacción con el resto de la página hasta cerrarse</td></tr>
+  <tr><td><strong>Focus trap</strong></td><td>Mantener el foco del teclado dentro del modal mientras está abierto</td></tr>
+  <tr><td><strong>prefers-reduced-motion</strong></td><td>Preferencia del sistema para reducir animaciones</td></tr>
+</table>
+
+<!-- ============================ 15 ============================ -->
+<h2 id="riesgos">15. Riesgos y decisiones pendientes</h2>
+
+<table>
+  <tr><th>Riesgo</th><th>Impacto</th><th>Mitigación</th></tr>
+  <tr><td>No tener los textos de Bienvenida y Despedida</td><td>Se prototipa con texto de ejemplo</td><td>Reemplazar en <code>wedding-data.ts</code>; el componente no cambia</td></tr>
+  <tr><td>Fotos del traje y vestido sin llegar</td><td>Fase 13 bloqueada</td><td>Usar <code>PhotoPlaceholder</code> con la proporción 4/5</td></tr>
+  <tr><td>El Header se satura con 8 enlaces</td><td>Se aprieta en 1024 px</td><td>Quitar "Hospedaje" del menú o acortar etiquetas</td></tr>
+  <tr><td>Latencia de Oracle desde México</td><td>1–2 s por envío</td><td>Elegir región cercana; el formulario muestra "Enviando..."</td></tr>
+  <tr><td>Credenciales filtradas</td><td>Acceso total a la base</td><td>Variables sin <code>NEXT_PUBLIC_</code>, <code>.env.local</code> fuera de Git, rotar la contraseña si se expone</td></tr>
+  <tr><td>Spam en el formulario</td><td>Filas basura</td><td>Campo trampa, límite por IP y revisión manual</td></tr>
+  <tr><td>El carrusel distrae</td><td>Peor lectura en la Historia</td><td>Intervalo de 6 s, pausa al interactuar y respeto a <code>prefers-reduced-motion</code></td></tr>
+</table>
+
+<div class="callout ok">
+  <strong>Regla para no perderte:</strong> una fase, un archivo, una verificación en el navegador. Si algo falla, el problema está en lo último que pegaste, no en todo el proyecto.
+</div>
+
+</body>
+</html>

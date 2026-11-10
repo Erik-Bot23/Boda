@@ -18,7 +18,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "Boda de Pablo y Marisol",
+  title: "Boda de Sonia y David",
   description: "Acompañanos a celebrar nuestro amor en nuestra boda. Descubre todos los detalles del evento, confirma tu asistencia y comparte este momento especial con nosotros.",
 };
 

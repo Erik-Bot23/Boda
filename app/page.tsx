@@ -1,5 +1,7 @@
 import Header from "@/components/layout/Header";
+import Bienvenida from "@/components/sections/Bienvenida";
 import CodigoVestimenta from "@/components/sections/CodigoVestimenta";
+import Cronograma from "@/components/sections/Cronograma";
 import CuentaRegresiva from "@/components/sections/CuentaRegresiva";
 import ElGranDia from "@/components/sections/ElGranDia";
 import Galeria from "@/components/sections/Galeria";
@@ -15,9 +17,11 @@ export default function Home() {
             <Header />
             <main>
                 <Hero/>
+                <Bienvenida/>
                 <NuestraHistoria/>
                 <CuentaRegresiva/>
                 <ElGranDia/>
+                <Cronograma/>
                 <CodigoVestimenta/>
                 <Hospedaje/>
                 <Galeria/>

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { faqItems } from "@/data/wedding-data";
 
 export default function PreguntasFrecuentes(){
@@ -30,11 +31,12 @@ export default function PreguntasFrecuentes(){
                                 </span>
 
                                 {/*El + gira 45° y se ve como "x" cuando está abierto */}
-                                <span
-                                    aria-hidden="true"
-                                    className="shrink-0 font-serif text-2xl leading-none text-terracotta transition-transform duration-300 group-open:rotate-45">
-                                        +
-                                </span>
+                                <Image
+                                    src="/icons/anadir.png"
+                                    alt=""
+                                    width={20}
+                                    height={20}
+                                    className="h-5 w-5 shrink-0 object-contain transition-transform duration-300 group-open:rotate-45"/>
                             </summary>
 
                             <p className="pb-6 pr-10 font-sans text-sm leading-relaxed text-cream/70">

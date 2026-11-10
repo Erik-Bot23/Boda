@@ -1,4 +1,5 @@
-import { featuredPhotos } from "@/data/wedding-data";
+import { historyPhotos } from "@/data/wedding-data";
+import HistoriaCarrusel from "@/components/sections/HistoriaCarrusel";
 import Image from "next/image";
 //import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
 
@@ -17,7 +18,7 @@ export default function NuestraHistoria(){
                             {/*Divisor alineado a la izquierda */}
                             <div className="mt-8 h-px w-16 bg-sand/60"/>
 
-                            <p className="mt-8 font-sans text-lg leading-relaxed text-ink/90">
+                            <p className="mt-8 font-sans text-lg leading-relaxed text-ink/90 text-left md:text-justify">
                                 Nos conocimos en una tarde de lluvia de 2020, cuando ninguno
                                 de los dos esperaba encontrar algo así. Desde entonces, cada
                                 momento compartido se ha convertido en nuestro lugar favorito.
@@ -42,7 +43,7 @@ export default function NuestraHistoria(){
                                     <Image src="/icons/derecha.png" alt="" width={16} height={16} className="h-4 w-4 object-contain transition-transform duration-300 group-open:rotate-90"/>
                                 </summary>
 
-                                <div className="mt-6 space-y-4 border-l-2 border-sand/60 pl-6 font-sans text-base leading-relaxed text-ink/80">
+                                <div className="mt-6 space-y-4 border-l-2 border-sand/60 pl-6 font-sans text-base leading-relaxed text-ink/80 text-left md:text-justify">
                                     <p>
                                         Todo empezó con una conversación que se alargó hasta
                                         la madrugada. Entre risas, planes y cafés, nos dimos
@@ -62,15 +63,7 @@ export default function NuestraHistoria(){
                             </details>
                         </div>
 
-                        <div className="relative h-80 w-full overflow-hidden rounded-2xl md:h-[400px]">
-                            <Image
-                                src={featuredPhotos.history}
-                                alt="Sonia y David"
-                                fill
-                                sizes="(min-width: 768px) 50vw, 100vw"
-                                className="object-cover"/>
-                            <div className="pointer-events-none absolute inset-0 rounded-2xl border border-sand/50"/>
-                        </div>
+                        <HistoriaCarrusel photos={historyPhotos}/>
                     </div>
                 </div>
         </section>

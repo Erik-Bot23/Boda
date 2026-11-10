@@ -26,6 +26,13 @@ export const event = {
     city: "Cuautitlán Izcalli, Estado de México"
 } as const;
 
+//Bienvenida: mensaje de los novios al inicio de la página
+export const welcome = {
+    kicker: "Bienvenidos",
+    title: "Nos encantaría compartir este día contigo",
+    message: "Con mucha alegría queremos invitarte a celebrar con nosotros el comienzo de una nueva etapa. Este día no estaría completo sin las personas que han caminado a nuestro lado, así que guarda la fecha y acompáñanos a brindar por todo lo que viene.",
+} as const;
+
 //Un solo link y una sola dirección para la ceremonia y recepción
 const mapsUrl = "https://www.google.com/maps/place/Centro+Cristiano+Izcalli/@19.6608527,-99.216204,17z/data=!3m1!4b1!4m6!3m5!1s0x85d21e4b94ff5c1b:0xa22b683567e9db6!8m2!3d19.6608527!4d-99.216204!16s%2Fg%2F11c32b2fyd?entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D";
 const address = "Jacarandas 6, Santa Rosa de Lima, 54740 Cuautitlán Izcalli, Méx.";
@@ -44,9 +51,39 @@ export const reception: Venue = {
     mapsUrl,
 };
 
+//Cronograma: los momentos del día, en orden
+export type ScheduleItem = {
+    time: string;
+    title: string;
+    description: string;
+};
+
+export const schedule: ScheduleItem[] = [
+    { time: "5:00 PM", title: "Ceremonia", description: "Nos damos el sí."},
+    { time: "6:30 PM", title: "Sesión de fotos", description: "Con familiares y amigos."},
+    { time: "8:00 PM", title: "Recepción", description: "Cena y brindis."},
+    { time: "9:00 PM", title: "Baile de los novios", description: "Nuestro primer baile."},
+    { time: "9:30 PM", title: "Pastel", description: "El corte y el postre."},
+    { time: "10:00 PM", title: "Baile general", description: "A celebrar con todos."},
+];
+
 export const dressCode = {
     title: "Formal",
-    description: "Te pedimos venir con vestimenta formal. Evita el blanco: está reservado para la novia. ¡Gracias por tu comprensión!",
+    description: "Te pedimos venir con vestimenta formal. ¡Gracias por tu comprensión!",
+    groom: {
+        label: "Ellos",
+        title: "Traje azul",
+        image: "/imagesPrueba/vestimentaNovio.jpeg",
+        alt: "Traje azul con el que se vestirá el novio",
+        note: "El azul esta reservado para el novio.",
+    },
+    bride: {
+        label: "Ellas",
+        title: "Vestido blanco",
+        image:  "/imagesPrueba/vestimentaNovia.jpg",
+        alt: "Vestido blanco con el que se vestirá la novia",
+        note: "El blanco está reservado para la novia",
+    },
 } as const;
 
 //Lugares para quedarse
@@ -65,17 +102,21 @@ export const hotels: Hotel[] = [
 export type GalleryPhoto = {
     src: string;
     alt: string;
+    //Texto que se ve en el lightbox; si falta, se usa el alt
+    caption?: string;
+    //Tamaño en el collage: normal (1x1), ancho (2x1), alto (1x2) o grande (2x2)
+    size?: "normal" | "ancho" | "alto" | "grande"
 };
 
 export const galleryPhotos: GalleryPhoto[] = [
     //Las fotos se guardan en public/images/ y se agrega así:
-    //{ src: "/images/galeria-01.jpg", alt: "Pablo y Marisol en la playa"}
-    {src: "/imagesPrueba/gale1.jpg", alt: "Sonia y David"},
-    {src: "/imagesPrueba/gale2.jpg", alt: "Sonia y David"},
-    {src: "/imagesPrueba/gale3.jpg", alt: "Sonia y David"},
-    {src: "/imagesPrueba/gale4.jpg", alt: "Sonia y David"},
-    {src: "/imagesPrueba/gale5.jpg", alt: "Sonia y David"},
-    {src: "/imagesPrueba/gale6.jpg", alt: "Sonia y David"},
+    //{ src: "/images/galeria-01.jpg", alt: "Sonia y David en la playa"}
+    {src: "/imagesPrueba/gale1.jpg", alt: "Sonia y David", caption: "Nuestro primer viaje juntos.", size: "grande"},
+    {src: "/imagesPrueba/gale2.jpg", alt: "Sonia y David", caption: "Una tarde de café y conversación", size: "alto"},
+    {src: "/imagesPrueba/gale3.jpg", alt: "Sonia y David", caption: "Celebrando en familia.", size: "normal"},
+    {src: "/imagesPrueba/gale4.jpg", alt: "Sonia y David", caption: "Ese dái que no queremos olvidar.", size: "normal"},
+    {src: "/imagesPrueba/gale5.jpg", alt: "Sonia y David", caption: "Le pedida, por fin.", size: "ancho"},
+    {src: "/imagesPrueba/gale6.jpg", alt: "Sonia y David", caption: "Listos para el siguiente capitulo.", size: "ancho"},
 ];
 
 //Rutas para las fotos destacadas (Hero e Historia)
@@ -84,6 +125,26 @@ export const featuredPhotos = {
     hero: "/imagesPrueba/hero.jpg",
     history: "/imagesPrueba/historias.jpg",
 }
+
+//Carrusel de historia: cada foto con su descripción
+export type HistoryPhoto = {
+    src: string;
+    alt: string;
+    caption: string;
+};
+
+export const historyPhotos: HistoryPhoto[] = [
+    {
+        src: "/imagesPrueba/historias.jpg",
+        alt: "Sonia y David en su primera salida",
+        caption: "Nuestra primera salida, 2020.",
+    },
+    {
+        src: "/imagesPrueba/historia2.png",
+        alt: "Sonia y David en el parque",
+        caption: "El parque donde caminamos tantas tardes.",
+    },
+];
 
 //Preguntas frecuentes
 export type FaqItem = {
@@ -94,7 +155,7 @@ export type FaqItem = {
 export const faqItems: FaqItem[] = [
     {
         question: "¿A qué hora debo llegar?",
-        answer: "La ceremonía comienza a las 5:00 PM. Te recomendamos llegas entre 4:30 y 4:45 PM para acomodarte sin prisa y no perderte el inicio.",
+        answer: "La ceremonia comienza a las 5:00 PM. Te recomendamos llegar entre 4:30 y 4:45 PM para acomodarte sin prisa y no perderte el inicio.",
     },
     {
         question: "¿Qué pasa si tengo alguna restricción alimenticia?",
