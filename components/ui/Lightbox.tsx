@@ -62,7 +62,7 @@ export default function Lightbox({ photos, index, onClose, onNavigate }: Props){
                         </div>
 
                         {/*Degradado para leer el texto sobre la foto*/}
-                        <div className="pointer-events-none obsolute inset-0 bg-linear-to-t from-ink/70 to-transparent"/>
+                        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-ink/70 to-transparent"/>
 
                         <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 p-4 font-sans text-sm text-cream">
                             <span> { photos[index].caption ?? photos[index].alt } </span>

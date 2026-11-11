@@ -112,7 +112,7 @@ export const galleryPhotos: GalleryPhoto[] = [
     //Las fotos se guardan en public/images/ y se agrega así:
     //{ src: "/images/galeria-01.jpg", alt: "Sonia y David en la playa"}
     {src: "/imagesPrueba/gale1.jpg", alt: "Sonia y David", caption: "Nuestro primer viaje juntos.", size: "grande"},
-    {src: "/imagesPrueba/gale2.jpg", alt: "Sonia y David", caption: "Una tarde de café y conversación", size: "alto"},
+    {src: "/imagesPrueba/gale2.jpg", alt: "Sonia y David", caption: "Una tarde de café y conversación.", size: "alto"},
     {src: "/imagesPrueba/gale3.jpg", alt: "Sonia y David", caption: "Celebrando en familia.", size: "normal"},
     {src: "/imagesPrueba/gale4.jpg", alt: "Sonia y David", caption: "Ese día que no queremos olvidar.", size: "normal"},
     {src: "/imagesPrueba/gale5.jpg", alt: "Sonia y David", caption: "La pedida, por fin.", size: "ancho"},
@@ -171,3 +171,10 @@ export const faqItems: FaqItem[] = [
         answer: "En la sección \"El gran día\" está el botón \"Cómo llegar\", que abre la ubicación exacta en Google Maps. La ceremonia y la recepción son en el mismo lugar.",
     },
 ];
+
+//Despedida
+export const farewell = {
+    kicker: "Gracias",
+    title: "Gracias por ser parte de nuestra historia",
+    message: "Llegamos al final de esta invitación, pero al comienzo de una nueva etapa. Esperamos contar con tu presencia."
+};

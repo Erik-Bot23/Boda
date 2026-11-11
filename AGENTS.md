@@ -121,7 +121,7 @@ Definidos en el bloque `@theme`, por lo que generan utilidades (`bg-*`, `text-*`
 - **Sin modo oscuro automático:** se eliminó el `@media (prefers-color-scheme: dark)` a propósito.
 - Foco visible en `terracotta` para accesibilidad (ya en `globals.css`).
 - `scroll-behavior: smooth` global para la navegación por anclas.
-- Anclas de sección con `id` en español (`#bienvenida`, `#historia`, `#countdown`, `#gran-dia`, `#cronograma`, `#vestimenta`, `#hospedaje`, `#galeria`, `#faq`, `#rsvp`).
+- Anclas de sección con `id` en español (`#bienvenida`, `#historia`, `#countdown`, `#gran-dia`, `#cronograma`, `#vestimenta`, `#hospedaje`, `#galeria`, `#faq`, `#despedida`, `#rsvp`).
 
 ---
 
@@ -136,33 +136,39 @@ components/
   layout/
     Header.tsx        # Menú fijo/scroll + hamburguesa móvil        (listo)
     Footer.tsx        # Fondo oscuro con foto y texto arena          (vacío)
+    Cortina.tsx       # Pantalla inicial + música (Fase 18)
   sections/
     Hero.tsx          # Foto, nombres, fecha, hora y ciudad          (listo)
     Bienvenida.tsx    # Mensaje de los novios tras el Hero           (listo)
-    NuestraHistoria.tsx  # Texto + <details> expandible + foto       (listo)
+    NuestraHistoria.tsx  # Texto + <details> expandible + carrusel      (listo)
     CuentaRegresiva.tsx  # Sección café que envuelve al Countdown    (listo)
     ElGranDia.tsx     # Lugar, horarios y botón de Google Maps       (listo)
-    Cronograma.tsx    # Onda SVG con 6 hitos; lista vertical en móvil (Fase 12)
-    CodigoVestimenta.tsx  # Título "Formal" + descripción           (implementado)
-    Hospedaje.tsx     # Hoteles; hoy muestra estado "próximamente"  (implementado)
-    Galeria.tsx       # Grid de fotos (placeholders hasta tener imágenes) 
+    Cronograma.tsx    # Onda SVG con 6 hitos; lista vertical en móvil (listo)
+    CodigoVestimenta.tsx  # Dos cards con foto (traje / vestido)      (listo)
+    Hospedaje.tsx     # Hoteles; hoy muestra estado "próximamente"  (listo)
+    Galeria.tsx       # Collage de tamaños variables + lightbox       (listo)
     PreguntasFrecuentes.tsx  # Acordeón con <details> nativo        (listo)
+    Despedida.tsx     # Agradecimiento de cierre en degradado         (listo)
   ui/
     Button.tsx        # Botón reutilizable (variantes)               (vacío)
     Countdown.tsx     # Contador en tiempo real (client component)   (listo)
     PhotoPlaceholder.tsx  # Espacio reservado para fotos             (listo)
+    Lightbox.tsx      # Modal con <dialog> nativo (Fase 15)
 data/
-  wedding-data.ts     # Fuente única de verdad (couple, event, welcome, schedule, venues, dressCode, hotels, galleryPhotos, faqItems)
+  wedding-data.ts     # Fuente única de verdad (couple, event, welcome, farewell, schedule, venues, dressCode, hotels, galleryPhotos, faqItems, music)
 public/
   images/             # Fotos definitivas (destino recomendado)
-  imagesPrueba/       # 8 fotos de prueba: novios1.jpg … novios8.jpg
+  imagesPrueba/       # Fotos de prueba (gale1-6, hero, historias, historia2, vestimenta)
   icons/derecha.png   # Flecha del botón "Ver nuestra historia completa"
   icons/anadir.png    # Signo "+" del acordeón de FAQ
+  music/              # Opalite (Life Is A Song Acoustic Version).mp3 (5.56 MB)
 docs/
   guia-proyecto.html  # Fuente de la guía (se edita aquí)
   guia-proyecto.pdf   # Guía imprimible: Next, estilos, clases, FAQ
   plan-fases.html     # Plan de las fases 11 a 18
   plan-fases.pdf      # Versión imprimible del plan
+  plan-cortina.html   # Cortina, música, hoteles con foto y nuevo roadmap
+  plan-cortina.pdf    # Versión imprimible
 ```
 
 ---
@@ -191,6 +197,9 @@ docs/
 20. **El temporizador se reinicia al cambiar de foto**: `activa` está en las dependencias del `useEffect`, así que el intervalo se limpia y se crea de nuevo tras cada avance o clic en un punto. Sin eso, un clic podía provocar un cambio inmediato a los 0.1 s.
 21. **`aria-hidden` solo en las fotos inactivas**: se pasa como `undefined` en la activa para que React no renderice el atributo; con `aria-hidden="false"` el lector de pantalla lo anuncia igual.
 22. **`prefers-reduced-motion` con `useSyncExternalStore`, no con `useEffect`**: eslint-plugin-react-hooks v7 marca como **error** el `setState` síncrono dentro del cuerpo de un efecto (`react-hooks/set-state-in-effect`). El hook de React para fuentes externas resuelve el matchMedia sin efectos y sin doble render.
+23. **La cortina va en `app/layout.tsx`, envolviendo a `{children}` con un fragmento**: como `Cortina` no puede renderizar un `div` (rompería el `flex flex-col` del `body`), devuelve `<> {children} <overlay/> <audio/> </>`. El overlay es `fixed inset-0 z-[100]`, por encima del Header (`z-50`).
+24. **La música solo puede sonar tras un gesto del usuario**: los navegadores bloquean el autoplay. La cortina es la excusa perfecta: el clic que abre la página es el gesto que destapa el `<audio>`. Sin ese clic no hay sonido.
+25. **El RSVP puede ser modal**: si el RSVP se abre como modal desde el botón "Confirmar" del Header, no hay sección entre FAQ y Despedida, y el degradado de Despedida (`from-coffee to-ink`) queda como la transición natural.
 
 ---
 
@@ -210,22 +219,24 @@ docs/
 - [x] **Fase 12 — Cronograma**: línea de tiempo ondulada (SVG) con hitos; versión vertical en móvil. *Implementada y verificada.*
 - [x] **Fase 13 — Vestimenta con imágenes**: dos cards (novio / novia) con foto y la nota de color a evitar. *Implementada; detectado el typo `text-terracota` en el label.*
 - [x] **Fase 14 — Carrusel de Historia**: fundido cruzado cada N segundos, con caption por foto que también se desvanece. Client component. *Implementada; pendiente el ajuste de `useSyncExternalStore`.*
-- [x] **Fase 15 — Galería collage + lightbox**: tamaños variables (`col-span` / `row-span`) y vista ampliada en modal accesible. Client component. *Implementada; detectados dos typos (`text-crear` y `ArrowRigth`).*
-- [ ] **Fase 16 — Despedida y agradecimientos**: sección de cierre antes del Footer.
-- [ ] **Fase 17 — Footer**: fondo oscuro con foto y texto arena.
-- [ ] **Fase 18 — RSVP + Oracle**: formulario, server action y persistencia en Oracle (Autonomous Database Free o Docker local). *Cambia la decisión anterior de PostgreSQL.*
+- [x] **Fase 15 — Galería collage + lightbox**: tamaños variables (`col-span` / `row-span`) y vista ampliada en modal accesible. Client component. *Implementada y verificada; detectado el typo `obsolute` en el degradado del lightbox.*
+- [x] **Fase 16 — Despedida y agradecimientos**: sección de cierre antes del Footer. *Implementada; usa `bg-ink` y necesita el degradado de transición y el typo `text-terracota` corregido.*
+- [ ] **Fase 17 — Footer**: fondo oscuro con foto y texto arena. *Pendiente; necesita el texto del cliente.*
+- [ ] **Fase 18 — Cortina de bienvenida + música**: pantalla inicial que cubre todo, con un clic para entrar. Desbloquea el autoplay de la música. *Código entregado; pendiente de pegar.*
+- [ ] **Fase 19 — RSVP + Oracle**: formulario, server action y persistencia en Oracle (Autonomous Database Free). *Es la última; puede ser una sección o un modal abierto desde el botón "Confirmar".*
 
 ### Orden y criterio
 
-1. Primero lo estático y visible (Fases 10–13, 16–17): no requieren estado ni infraestructura.
-2. Después lo interactivo (Fases 14–15): ambas son client components y comparten el patrón de imágenes con `next/image` + `fill`.
-3. Al final el RSVP (Fase 18): es lo único que necesita cuenta en Oracle, wallet/TLS y variables de entorno, así que conviene tener el sitio visualmente cerrado antes.
+1. Primero lo estático y visible (Fases 13, 16, 17): no requieren estado ni infraestructura.
+2. Después lo interactivo (Fases 14, 15, 18): son client components.
+3. Al final el RSVP (Fase 19): es lo único que necesita cuenta en Oracle, wallet/TLS y variables de entorno, así que conviene tener el sitio visualmente cerrado antes.
 
 ---
 
-## 8. Estado actual (al 10 de noviembre de 2026)
+## 8. Estado actual (al 11 de noviembre de 2026)
 
-- **Fases 1 a 15 implementadas.** `tsc --noEmit` y `eslint .` limpios. Pendiente: dos typos de la Fase 15 (`text-crear` en el `Lightbox` y `ArrowRigth` en el atajo de teclado) y tres typos en los `caption` de `galleryPhotos`.
+- **Fases 1 a 16 implementadas.** `tsc --noEmit` y `eslint .` limpios. Pendiente en la Fase 16: el typo `text-terracota` del kicker y el degradado de transición `from-coffee to-ink`.
+- **Fase 17 pendiente** (Footer). **Fase 18 entregada** (Cortina de bienvenida + música). **Fase 19 pendiente** (RSVP + Oracle).
 - `app/page.tsx` ensambla: `Header` → `Hero` → `Bienvenida` → `NuestraHistoria` → `CuentaRegresiva` → `ElGranDia` → `Cronograma` → `CodigoVestimenta` → `Hospedaje` → `Galeria` → `PreguntasFrecuentes`.
 - **Datos definitivos**: 28 de diciembre de 2026, Centro Cristiano Izcalli (Cuautitlán Izcalli), ceremonia 5:00 PM y recepción 8:00 PM. Mismo lugar y mismo link de Google Maps.
 - **Cronograma del día**: 5:00 ceremonia · 6:30 fotos con familiares y amigos · 8:00 recepción · 9:00 baile de los novios · 9:30 pastel · 10:00 baile general.
@@ -254,11 +265,12 @@ docs/
 
 ### Próximo paso concreto
 
-1. Corregir los typos de la Fase 15: `text-crear` → `text-cream` y `ArrowRigth` → `ArrowRight` en `Lightbox.tsx`; y en `galleryPhotos` los textos "Ese dái", "Le pedida" y "capitulo".
-2. **Fase 16: Despedida y agradecimientos** (necesita el texto del cliente; se puede prototipar con ejemplo, como Bienvenida).
+1. Corregir `text-terracota` → `text-terracotta` en `Despedida.tsx` (línea 7) y cambiar `bg-ink` por `bg-linear-to-b from-coffee to-ink` (línea 5) para que la transición FAQ → Despedida → Footer no sea brusca.
+2. Pegar la **Fase 18** (cortina + música) y probarla en un navegador real: el clic abre la página y la música suena.
 3. **Fase 17: Footer** (necesita el texto del cliente).
-4. **Fase 18: RSVP + Oracle** (necesita cuenta en Oracle Cloud).
-5. Seguir el roadmap hasta la Fase 18.
+4. **Fase 19: RSVP + Oracle** (la última; decide si va como sección o como modal del botón "Confirmar").
+5. Opcional: agregar `image` a los hoteles para mostrar foto en cada card.
+6. Seguir el roadmap hasta la Fase 19.
 
 ---
 
@@ -312,4 +324,8 @@ docs/
 | 2026-11-10 | Revisión de la Fase 14: detectados dos imports sin usar (`event` en el carrusel y `featuredPhotos` en `NuestraHistoria`) y un **error** de ESLint nuevo: `react-hooks/set-state-in-effect` por leer el matchMedia con `setState` en el cuerpo del efecto. Solución: `useSyncExternalStore`. Verificada con ESLint en un archivo temporal. |
 | 2026-11-10 | Fase 15 (Galería collage + lightbox) entregada: `size` y `caption` en `GalleryPhoto`, `Galeria.tsx` como client component con grid de tamaños (`dense`, `auto-rows`) y `Lightbox.tsx` con `<dialog>` nativo. Verificada con ESLint y `tsc` en archivos temporales. |
 | 2026-11-10 | Pausa: la Fase 15 quedó a la mitad de pegar y sin verificar. `AGENTS.md` actualizado con el punto exacto y lo que falta, para retomarla en casa. |
-| 2026-11-11 | Fase 15 implementada y verificada: `tsc` y `eslint` limpios. Detectados dos typos silenciosos: `text-crear` (el texto del lightbox heredaba el color tinta sobre fondo tinta) y `ArrowRigth` (la flecha derecha del teclado no funcionaba). Además tres typos en los `caption` de `galleryPhotos`. |
+| 2026-11-11 | Fase 15 verificada: `text-cream`, `ArrowRight` y los textos de `galleryPhotos` corregidos; caption sobre la foto con `aspect-[16/10]` y `object-cover`. Detectado un último typo: `obsolute` en el `div` del degradado, que deja el caption sin velo sobre la foto. |
+| 2026-11-11 | Fase 16 (Despedida y agradecimientos) entregada: `farewell` en los datos y `Despedida.tsx`, sección café con texto crema antes del Footer. |
+| 2026-11-11 | Fase 16 implementada y vista: el cliente prefirió `bg-ink` y detectó el salto brusco FAQ (café) → Despedida (tinta). Solución: degradado `bg-linear-to-b from-coffee to-ink`. Detectado otro `text-terracota` en el kicker. |
+| 2026-11-11 | El cliente pide música de fondo y una **cortina de bienvenida** (autoplay bloqueado). Se reordena el roadmap: Fase 17 Footer, Fase 18 Cortina + música, Fase 19 RSVP + Oracle (última, puede ser modal). Canción: `public/music/Opalite (Life Is A Song Acoustic Version).mp3` (5.56 MB). |
+| 2026-11-11 | Creado `docs/plan-cortina.html` y `docs/plan-cortina.pdf` con la cortina, la música, el degradado, los hoteles con foto y el nuevo roadmap. |

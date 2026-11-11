@@ -3,6 +3,7 @@ import Bienvenida from "@/components/sections/Bienvenida";
 import CodigoVestimenta from "@/components/sections/CodigoVestimenta";
 import Cronograma from "@/components/sections/Cronograma";
 import CuentaRegresiva from "@/components/sections/CuentaRegresiva";
+import Despedida from "@/components/sections/Despedida";
 import ElGranDia from "@/components/sections/ElGranDia";
 import Galeria from "@/components/sections/Galeria";
 import Hero from "@/components/sections/Hero";
@@ -26,6 +27,7 @@ export default function Home() {
                 <Hospedaje/>
                 <Galeria/>
                 <PreguntasFrecuentes/>
+                <Despedida/>
             </main>
         </>
     );
