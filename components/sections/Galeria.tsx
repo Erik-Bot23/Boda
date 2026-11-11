@@ -1,11 +1,29 @@
+"use client"
+
 import Image from "next/image";
+import { useCallback, useState } from "react";
+import Lightbox from "@/components/ui/Lightbox";
 import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
 import { galleryPhotos } from "@/data/wedding-data";
+
+//Traduce la palabra de los datos a clases de Tailwind
+const clasesDeTamano = {
+    normal: "",
+    ancho: "col-span-2",
+    alto: "row-span-2",
+    grande: "col-span-2 row-span-2"
+} as const;
 
 //Recuadros que se muestran mientras no hay fotos reales
 const PLACEHOLDER_COUNT = 6;
 
 export default function Galeria(){
+    const [indice, setIndice] = useState<number | null>(null);
+
+    //useCallback para que el lightbox no vuelva a suscribirse a cada render
+    const cerrar = useCallback(() => setIndice(null), []);
+    const navegar = useCallback((nuevo: number) => setIndice(nuevo), []);
+
     return (
         <section id="galeria" className="scroll-mt-24 bg-cream py-24">
             <div className="mx-auto max-w-6xl px-6">
@@ -24,26 +42,35 @@ export default function Galeria(){
                     </p>
                 </div>
 
-                <div className="mt-14 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
-                    {galleryPhotos.length > 0 ? galleryPhotos.map((photo) => (
-                        <figure
+                {/*
+                    auto-rows fija la altura de cada fila; los span multiplican.
+                    [grid-auto-flow:dense] rellena los huecos con las fotos siguientes
+                    en vez de dejar espacios vacíos.
+                */}
+                <div className="mt-14 grid grid-cols-2 gap-3 auto-rows-[180px] md:grid-cols-4 md:auto-rows-[220px] md:gap-4 [grid-auto-flow:dense]">
+                    {galleryPhotos.length > 0 ? galleryPhotos.map((photo, index) => (
+                        <button
                             key={photo.src}
-                            className="group relative aspect-[4/5] overflow-hidden rounded-xl bg-sand/20">
-                                <Image 
+                            type="button"
+                            onClick={() => setIndice(index)}
+                            aria-label={`Ampliar: ${photo.alt}`}
+                            className={`group relative overflow-hidden rounded-xl bg-sand/20 ${clasesDeTamano[photo.size ?? "normal"]}`}>
+                                <Image
                                     src={photo.src}
                                     alt={photo.alt}
                                     fill
-                                    sizes="(min-width: 768px) 33vw, 50vw"
+                                    sizes="(min-width: 768px) 25vw, 50vw"
                                     className="object-cover transition-transform duration-500 group-hover:scale-105"/>
-                        </figure>
+                        </button>
                     )) : Array.from({ length: PLACEHOLDER_COUNT }).map((_,index) => (
                         <PhotoPlaceholder
                             key={index}
                             label={`Foto ${String(index + 1).padStart(2, "0")}`}
-                            className="aspect-[4/5] w-full rounded-xl"/>
+                            className="w-full rounded-xl"/>
                     ))}
                 </div>
             </div>
+            <Lightbox photos={galleryPhotos} index={indice} onClose={cerrar} onNavigate={navegar} />
         </section>
     );
 }

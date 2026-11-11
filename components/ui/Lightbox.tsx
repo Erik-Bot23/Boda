@@ -1,6 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import { useEffect, useRef } from "react";
-import { event, type GalleryPhoto } from "@/data/wedding-data";
+import { type GalleryPhoto } from "@/data/wedding-data";
 
 type Props = {
     photos: GalleryPhoto[];
@@ -33,7 +35,7 @@ export default function Lightbox({ photos, index, onClose, onNavigate }: Props){
         if(index === null) return;
 
         const onKey = (event: KeyboardEvent) => {
-            if(event.key === "ArrowRigth") onNavigate((index + 1) % photos.length);
+            if(event.key === "ArrowRight") onNavigate((index + 1) % photos.length);
             if(event.key === "ArrowLeft") onNavigate((index - 1 + photos.length) % photos.length);
         };
 
@@ -50,22 +52,25 @@ export default function Lightbox({ photos, index, onClose, onNavigate }: Props){
             className="m-auto w-full max-w-5xl rounded border border-cream/10 bg-ink/95 p-0 backdrop:bg-ink/80 backdrop:backdrop-blur-sm">
                 {index !== null ? (
                     <figure className="relative">
-                        <div className="relative aspect-[3/2] w-full">
+                        <div className="relative aspect-[16/10] w-full">
                             <Image
                                 src={photos[index].src}
                                 alt={photos[index].alt}
                                 fill
                                 sizes="90vw"
-                                className="object-contain"/>
+                                className="object-cover"/>
                         </div>
 
-                        <figcaption className="flex items-center justify-between gap-4 p-4 font-sans text-sm text-crear">
+                        {/*Degradado para leer el texto sobre la foto*/}
+                        <div className="pointer-events-none obsolute inset-0 bg-linear-to-t from-ink/70 to-transparent"/>
+
+                        <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-4 p-4 font-sans text-sm text-cream">
                             <span> { photos[index].caption ?? photos[index].alt } </span>
 
                             <button
                                 type="button"
                                 onClick={onClose}
-                                className="shrink-0 rounded-full border border-cream/30 px-4 py-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-cream transition-colors duration-300 hover:border-cream hover:bg-cream hover:text-ink">
+                                className="shrink-0 rounded-full border border-cream/30 bg-ink/40 px-4 py-1.5 font-sans text-[10px] uppercase tracking-[0.2em] text-cream transition-colors duration-300 hover:border-cream hover:bg-cream hover:text-ink">
                                     Cerrar
                             </button>
                         </figcaption>

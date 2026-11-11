@@ -210,7 +210,7 @@ docs/
 - [x] **Fase 12 — Cronograma**: línea de tiempo ondulada (SVG) con hitos; versión vertical en móvil. *Implementada y verificada.*
 - [x] **Fase 13 — Vestimenta con imágenes**: dos cards (novio / novia) con foto y la nota de color a evitar. *Implementada; detectado el typo `text-terracota` en el label.*
 - [x] **Fase 14 — Carrusel de Historia**: fundido cruzado cada N segundos, con caption por foto que también se desvanece. Client component. *Implementada; pendiente el ajuste de `useSyncExternalStore`.*
-- [ ] **Fase 15 — Galería collage + lightbox**: tamaños variables (`col-span` / `row-span`) y vista ampliada en modal accesible. Client component. *Código entregado; en curso (pegada la mitad) y sin verificar.*
+- [x] **Fase 15 — Galería collage + lightbox**: tamaños variables (`col-span` / `row-span`) y vista ampliada en modal accesible. Client component. *Implementada; detectados dos typos (`text-crear` y `ArrowRigth`).*
 - [ ] **Fase 16 — Despedida y agradecimientos**: sección de cierre antes del Footer.
 - [ ] **Fase 17 — Footer**: fondo oscuro con foto y texto arena.
 - [ ] **Fase 18 — RSVP + Oracle**: formulario, server action y persistencia en Oracle (Autonomous Database Free o Docker local). *Cambia la decisión anterior de PostgreSQL.*
@@ -225,9 +225,7 @@ docs/
 
 ## 8. Estado actual (al 10 de noviembre de 2026)
 
-- **Fases 1 a 13 implementadas.** `tsc --noEmit` limpio; `eslint .` con **un error pendiente** en `HistoriaCarrusel.tsx` (regla `react-hooks/set-state-in-effect`) y dos imports sin usar.
-- **Fase 14 entregada** (Carrusel de Historia): implementada y vista en el navegador; falta aplicar el ajuste de `useSyncExternalStore` (ver *Próximo paso*).
-- **Fase 15 en curso (a la mitad) y sin verificar.** Falta terminar de pegar: el bloque `GalleryPhoto` / `galleryPhotos` en los datos, `components/ui/Lightbox.tsx` y el reemplazo de `components/sections/Galeria.tsx`.
+- **Fases 1 a 15 implementadas.** `tsc --noEmit` y `eslint .` limpios. Pendiente: dos typos de la Fase 15 (`text-crear` en el `Lightbox` y `ArrowRigth` en el atajo de teclado) y tres typos en los `caption` de `galleryPhotos`.
 - `app/page.tsx` ensambla: `Header` → `Hero` → `Bienvenida` → `NuestraHistoria` → `CuentaRegresiva` → `ElGranDia` → `Cronograma` → `CodigoVestimenta` → `Hospedaje` → `Galeria` → `PreguntasFrecuentes`.
 - **Datos definitivos**: 28 de diciembre de 2026, Centro Cristiano Izcalli (Cuautitlán Izcalli), ceremonia 5:00 PM y recepción 8:00 PM. Mismo lugar y mismo link de Google Maps.
 - **Cronograma del día**: 5:00 ceremonia · 6:30 fotos con familiares y amigos · 8:00 recepción · 9:00 baile de los novios · 9:30 pastel · 10:00 baile general.
@@ -256,14 +254,11 @@ docs/
 
 ### Próximo paso concreto
 
-1. **Terminar la Fase 15** (fue interrumpida a la mitad):
-   - [ ] Datos: reemplazar el bloque `GalleryPhoto` / `galleryPhotos` con `caption?` y `size?` (repacto: gale1 `grande`, gale2 `alto`, gale3 y gale4 `normal`, gale5 y gale6 `ancho`).
-   - [ ] Crear `components/ui/Lightbox.tsx` (el `<dialog>` nativo).
-   - [ ] Reemplazar todo `components/sections/Galeria.tsx` por la versión client con el collage y el `<Lightbox>`.
-   - [ ] Probar: collage sin huecos, modal, `Escape`, clic en el fondo, flechas del teclado y regreso del foco.
-2. **Ajustar la Fase 14** (queda un error de ESLint): quitar `event` del import del carrusel, quitar `featuredPhotos` del import de `NuestraHistoria`, y sustituir el efecto del matchMedia por `useSyncExternalStore` (código entregado en el chat).
-3. **Fase 16: Despedida y agradecimientos** (necesita el texto del cliente; se puede prototipar).
-4. Seguir el roadmap hasta la Fase 18.
+1. Corregir los typos de la Fase 15: `text-crear` → `text-cream` y `ArrowRigth` → `ArrowRight` en `Lightbox.tsx`; y en `galleryPhotos` los textos "Ese dái", "Le pedida" y "capitulo".
+2. **Fase 16: Despedida y agradecimientos** (necesita el texto del cliente; se puede prototipar con ejemplo, como Bienvenida).
+3. **Fase 17: Footer** (necesita el texto del cliente).
+4. **Fase 18: RSVP + Oracle** (necesita cuenta en Oracle Cloud).
+5. Seguir el roadmap hasta la Fase 18.
 
 ---
 
@@ -317,3 +312,4 @@ docs/
 | 2026-11-10 | Revisión de la Fase 14: detectados dos imports sin usar (`event` en el carrusel y `featuredPhotos` en `NuestraHistoria`) y un **error** de ESLint nuevo: `react-hooks/set-state-in-effect` por leer el matchMedia con `setState` en el cuerpo del efecto. Solución: `useSyncExternalStore`. Verificada con ESLint en un archivo temporal. |
 | 2026-11-10 | Fase 15 (Galería collage + lightbox) entregada: `size` y `caption` en `GalleryPhoto`, `Galeria.tsx` como client component con grid de tamaños (`dense`, `auto-rows`) y `Lightbox.tsx` con `<dialog>` nativo. Verificada con ESLint y `tsc` en archivos temporales. |
 | 2026-11-10 | Pausa: la Fase 15 quedó a la mitad de pegar y sin verificar. `AGENTS.md` actualizado con el punto exacto y lo que falta, para retomarla en casa. |
+| 2026-11-11 | Fase 15 implementada y verificada: `tsc` y `eslint` limpios. Detectados dos typos silenciosos: `text-crear` (el texto del lightbox heredaba el color tinta sobre fondo tinta) y `ArrowRigth` (la flecha derecha del teclado no funcionaba). Además tres typos en los `caption` de `galleryPhotos`. |

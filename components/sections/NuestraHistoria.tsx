@@ -1,7 +1,6 @@
 import { historyPhotos } from "@/data/wedding-data";
 import HistoriaCarrusel from "@/components/sections/HistoriaCarrusel";
 import Image from "next/image";
-//import PhotoPlaceholder from "@/components/ui/PhotoPlaceholder";
 
 export default function NuestraHistoria(){
     return (

@@ -29,7 +29,7 @@ function subscribe(callback: () => void){
     return () => mq.removeEventListener("change", callback);
 }
 
-export default function HistoriaCarrusel({photos, intervalo = 6000}: Props){
+export default function HistoriaCarrusel({photos, intervalo = 4000}: Props){
     const [activa, setActiva] = useState(0);
     const [pausado, setPausado] = useState(false);
 

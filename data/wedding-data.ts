@@ -114,9 +114,9 @@ export const galleryPhotos: GalleryPhoto[] = [
     {src: "/imagesPrueba/gale1.jpg", alt: "Sonia y David", caption: "Nuestro primer viaje juntos.", size: "grande"},
     {src: "/imagesPrueba/gale2.jpg", alt: "Sonia y David", caption: "Una tarde de café y conversación", size: "alto"},
     {src: "/imagesPrueba/gale3.jpg", alt: "Sonia y David", caption: "Celebrando en familia.", size: "normal"},
-    {src: "/imagesPrueba/gale4.jpg", alt: "Sonia y David", caption: "Ese dái que no queremos olvidar.", size: "normal"},
-    {src: "/imagesPrueba/gale5.jpg", alt: "Sonia y David", caption: "Le pedida, por fin.", size: "ancho"},
-    {src: "/imagesPrueba/gale6.jpg", alt: "Sonia y David", caption: "Listos para el siguiente capitulo.", size: "ancho"},
+    {src: "/imagesPrueba/gale4.jpg", alt: "Sonia y David", caption: "Ese día que no queremos olvidar.", size: "normal"},
+    {src: "/imagesPrueba/gale5.jpg", alt: "Sonia y David", caption: "La pedida, por fin.", size: "ancho"},
+    {src: "/imagesPrueba/gale6.jpg", alt: "Sonia y David", caption: "Listos para el siguiente capítulo.", size: "ancho"},
 ];
 
 //Rutas para las fotos destacadas (Hero e Historia)
