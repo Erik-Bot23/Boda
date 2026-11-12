@@ -80,7 +80,7 @@ export const dressCode = {
     bride: {
         label: "Ellas",
         title: "Vestido blanco",
-        image:  "/imagesPrueba/vestimentaNovia.jpg",
+        image:  "/imagesPrueba/vestidoNovia.png",
         alt: "Vestido blanco con el que se vestirá la novia",
         note: "El blanco está reservado para la novia",
     },
@@ -91,11 +91,34 @@ export type Hotel = {
     name: string;
     note: string;
     url: string | null;
+    image?: string;
+    imageAlt?: string;
 }
 
 export const hotels: Hotel[] = [
     //Agregar los hoteles recomendados
     //{ name: "Hotel ejemplo", note: "A 10 minutos del evento", url: "https://..." }
+    { 
+        name: "Hotel campanario", 
+        note: "A 10 minutos del evento", 
+        url: "https://www.google.com/search?q=hoteles+en+miahuatlan&sca_esv=f0ad64fcc536899c&rlz=1C1GCEA_enMX1150MX1150&sxsrf=AKL5yDj-p0a18evDDxw8qb_gM_4WxICLxg%3A1794498025679&ei=6d31at76KNDukPIPvtDlwQM&biw=1366&bih=599&llpgabe=CgovbS8wNjYwZzFu&oq=hoteles+&gs_lp=Egxnd3Mtd2l6LXNlcnAiCGhvdGVsZXMgKgsIABiABBiKBRiSAzILEAAYgAQYigUYkgMyDhAAGIAEGLEDGIMBGJIDMg0QABiABBiKBRhDGMkDMhAQABiABBiKBRhDGLEDGIMBMgoQABiABBiKBRhDMhAQABiABBiKBRhDGLEDGIMBMhAQABiABBiKBRhDGLEDGIMBMgoQABiABBiKBRhDMgoQABiABBiKBRhDMgoQABiABBiKBRhDSIIXUKwHWKwHcAF4AZABAJgB0gKgAdICqgEDMy0xuAEDyAEA-AEBmAICoAL2AsICChAAGEcY1gQYsAPCAg0QABhHGNYEGMkDGLADwgIOEAAYgAQYigUYkgMYsAPCAg4QABiABBjnBBiSAxiwA8ICDRAAGIAEGIoFGEMYsAPCAg4QABjkAhjWBBiwA9gBAcICFxAuGNwGGLgGGNoGGNgCGMgDGLAD2AEBmAMAiAYBkAYTugYGCAEQARgJkgcFMS4zLTGgB_gFsgcDMy0xuAfeAsIHBTMtMS4xyAcbgAgB&sclient=gws-wiz-serp",
+        image: "/imagesPrueba/hotel1.jpg",
+        imageAlt: "Hotel 5 sstrellas cerca del mar",
+     },
+     { 
+        name: "Hotel vasilica", 
+        note: "A 10 minutos del evento", 
+        url: "https://www.google.com/search?q=hoteles+en+miahuatlan&sca_esv=f0ad64fcc536899c&rlz=1C1GCEA_enMX1150MX1150&sxsrf=AKL5yDj-p0a18evDDxw8qb_gM_4WxICLxg%3A1794498025679&ei=6d31at76KNDukPIPvtDlwQM&biw=1366&bih=599&llpgabe=CgovbS8wNjYwZzFu&oq=hoteles+&gs_lp=Egxnd3Mtd2l6LXNlcnAiCGhvdGVsZXMgKgsIABiABBiKBRiSAzILEAAYgAQYigUYkgMyDhAAGIAEGLEDGIMBGJIDMg0QABiABBiKBRhDGMkDMhAQABiABBiKBRhDGLEDGIMBMgoQABiABBiKBRhDMhAQABiABBiKBRhDGLEDGIMBMhAQABiABBiKBRhDGLEDGIMBMgoQABiABBiKBRhDMgoQABiABBiKBRhDMgoQABiABBiKBRhDSIIXUKwHWKwHcAF4AZABAJgB0gKgAdICqgEDMy0xuAEDyAEA-AEBmAICoAL2AsICChAAGEcY1gQYsAPCAg0QABhHGNYEGMkDGLADwgIOEAAYgAQYigUYkgMYsAPCAg4QABiABBjnBBiSAxiwA8ICDRAAGIAEGIoFGEMYsAPCAg4QABjkAhjWBBiwA9gBAcICFxAuGNwGGLgGGNoGGNgCGMgDGLAD2AEBmAMAiAYBkAYTugYGCAEQARgJkgcFMS4zLTGgB_gFsgcDMy0xuAfeAsIHBTMtMS4xyAcbgAgB&sclient=gws-wiz-serp",
+        image: "/imagesPrueba/hotel2.jpg",
+        imageAlt: "Hotel 5 sstrellas cerca del centro de ceremonia",
+     },
+     { 
+        name: "Hotel beach", 
+        note: "A 10 minutos del evento", 
+        url: "https://www.google.com/search?q=hoteles+en+miahuatlan&sca_esv=f0ad64fcc536899c&rlz=1C1GCEA_enMX1150MX1150&sxsrf=AKL5yDj-p0a18evDDxw8qb_gM_4WxICLxg%3A1794498025679&ei=6d31at76KNDukPIPvtDlwQM&biw=1366&bih=599&llpgabe=CgovbS8wNjYwZzFu&oq=hoteles+&gs_lp=Egxnd3Mtd2l6LXNlcnAiCGhvdGVsZXMgKgsIABiABBiKBRiSAzILEAAYgAQYigUYkgMyDhAAGIAEGLEDGIMBGJIDMg0QABiABBiKBRhDGMkDMhAQABiABBiKBRhDGLEDGIMBMgoQABiABBiKBRhDMhAQABiABBiKBRhDGLEDGIMBMhAQABiABBiKBRhDGLEDGIMBMgoQABiABBiKBRhDMgoQABiABBiKBRhDMgoQABiABBiKBRhDSIIXUKwHWKwHcAF4AZABAJgB0gKgAdICqgEDMy0xuAEDyAEA-AEBmAICoAL2AsICChAAGEcY1gQYsAPCAg0QABhHGNYEGMkDGLADwgIOEAAYgAQYigUYkgMYsAPCAg4QABiABBjnBBiSAxiwA8ICDRAAGIAEGIoFGEMYsAPCAg4QABjkAhjWBBiwA9gBAcICFxAuGNwGGLgGGNoGGNgCGMgDGLAD2AEBmAMAiAYBkAYTugYGCAEQARgJkgcFMS4zLTGgB_gFsgcDMy0xuAfeAsIHBTMtMS4xyAcbgAgB&sclient=gws-wiz-serp",
+        image: "/imagesPrueba/hotel3.jpg",
+        imageAlt: "Hotel 5 sstrellas",
+     },
 ];
 
 //Galería
@@ -123,7 +146,6 @@ export const galleryPhotos: GalleryPhoto[] = [
 //Al pasar a las fotos definitivas: cambiar imagesPrueba -> images, solo aquí
 export const featuredPhotos = {
     hero: "/imagesPrueba/hero.jpg",
-    history: "/imagesPrueba/historias.jpg",
 }
 
 //Carrusel de historia: cada foto con su descripción
@@ -155,7 +177,7 @@ export type FaqItem = {
 export const faqItems: FaqItem[] = [
     {
         question: "¿A qué hora debo llegar?",
-        answer: "La ceremonia comienza a las 5:00 PM. Te recomendamos llegar entre 4:30 y 4:45 PM para acomodarte sin prisa y no perderte el inicio.",
+        answer: "La ceremonia comienza a las 5:00 PM. Te recomendamos llegar entre 4:30 o 4:45 PM para acomodarte sin prisa y no perderte el inicio.",
     },
     {
         question: "¿Qué pasa si tengo alguna restricción alimenticia?",
@@ -178,3 +200,22 @@ export const farewell = {
     title: "Gracias por ser parte de nuestra historia",
     message: "Llegamos al final de esta invitación, pero al comienzo de una nueva etapa. Esperamos contar con tu presencia."
 };
+
+//Música de fondo: la cortina la activa el clic de "Entrar"
+export const music = {
+    src: "/music/Opalite.mp3",
+} as const;
+
+
+//Pie de página: identidad del sitio y contacto de quien desarrolló la página
+export const site = {
+    developer: {
+        name: "Erik Jarquín Sánchez",
+        collaborator: "David Alexander Gómez Jarquín",
+        role: "Diseñado y desarrollado por",
+        email: "erikjarquin20@gmail.com",
+        phone: "+52 951 161 74 12",
+        location: "Ciudad de Oaxaca de Juárez"
+    },
+    note: "Diseño y desarrollo web, limpio y a la medida."
+} as const;

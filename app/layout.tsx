@@ -1,5 +1,5 @@
 //Las fuentes, el header y el footer globales
-
+import Cortina from "@/components/layout/Cortina";
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Montserrat} from "next/font/google";
 import "./globals.css";
@@ -25,7 +25,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="es" className={`${cormorant.variable} ${montserrat.variable} h-full`}>
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <Cortina>
+          {children}
+        </Cortina>
+      </body>
     </html>
   );
 }

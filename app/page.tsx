@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import Bienvenida from "@/components/sections/Bienvenida";
 import CodigoVestimenta from "@/components/sections/CodigoVestimenta";
@@ -29,6 +30,7 @@ export default function Home() {
                 <PreguntasFrecuentes/>
                 <Despedida/>
             </main>
+            <Footer/>
         </>
     );
 }

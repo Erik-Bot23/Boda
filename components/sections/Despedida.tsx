@@ -2,9 +2,9 @@ import { couple, farewell } from "@/data/wedding-data";
 
 export default function Despedida() {
     return (
-        <section id="despedida" className="scroll-mt-24 bg-ink py-24">
+        <section id="despedida" className="scroll-mt-24 bg-linear-to-b from-coffee to-ink py-24">
             <div className="mx-auto max-w-3xl px-6 text-center">
-                <p className="font-sans text-[11px] uppercase tracking-[0.45em] text-terracota">
+                <p className="font-sans text-[11px] uppercase tracking-[0.45em] text-terracotta">
                     {farewell.kicker}
                 </p>
 

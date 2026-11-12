@@ -200,6 +200,7 @@ docs/
 23. **La cortina va en `app/layout.tsx`, envolviendo a `{children}` con un fragmento**: como `Cortina` no puede renderizar un `div` (rompería el `flex flex-col` del `body`), devuelve `<> {children} <overlay/> <audio/> </>`. El overlay es `fixed inset-0 z-[100]`, por encima del Header (`z-50`).
 24. **La música solo puede sonar tras un gesto del usuario**: los navegadores bloquean el autoplay. La cortina es la excusa perfecta: el clic que abre la página es el gesto que destapa el `<audio>`. Sin ese clic no hay sonido.
 25. **El RSVP puede ser modal**: si el RSVP se abre como modal desde el botón "Confirmar" del Header, no hay sección entre FAQ y Despedida, y el degradado de Despedida (`from-coffee to-ink`) queda como la transición natural.
+26. **El Footer lleva el contacto del desarrollador, no el de los novios**: es la información profesional del que hizo la página (nombre, correo, teléfono), con enlaces `mailto:` y `tel:`. Vive en `site.developer`, separada de `couple` y `event`, para que los datos del evento y los del desarrollo nunca se mezclen.
 
 ---
 
@@ -221,8 +222,8 @@ docs/
 - [x] **Fase 14 — Carrusel de Historia**: fundido cruzado cada N segundos, con caption por foto que también se desvanece. Client component. *Implementada; pendiente el ajuste de `useSyncExternalStore`.*
 - [x] **Fase 15 — Galería collage + lightbox**: tamaños variables (`col-span` / `row-span`) y vista ampliada en modal accesible. Client component. *Implementada y verificada; detectado el typo `obsolute` en el degradado del lightbox.*
 - [x] **Fase 16 — Despedida y agradecimientos**: sección de cierre antes del Footer. *Implementada; usa `bg-ink` y necesita el degradado de transición y el typo `text-terracota` corregido.*
-- [ ] **Fase 17 — Footer**: fondo oscuro con foto y texto arena. *Pendiente; necesita el texto del cliente.*
-- [ ] **Fase 18 — Cortina de bienvenida + música**: pantalla inicial que cubre todo, con un clic para entrar. Desbloquea el autoplay de la música. *Código entregado; pendiente de pegar.*
+- [x] **Fase 17 — Footer**: fondo oscuro con el contacto del desarrollador. *Implementada y verificada; sin foto de fondo (bg-ink plano) y sin bloque de nombres por petición del cliente.*
+- [x] **Fase 18 — Cortina de bienvenida + música**: pantalla inicial que cubre todo, con un clic para entrar. Desbloquea el autoplay de la música. *Implementada y verificada; los tres typos corregidos.*
 - [ ] **Fase 19 — RSVP + Oracle**: formulario, server action y persistencia en Oracle (Autonomous Database Free). *Es la última; puede ser una sección o un modal abierto desde el botón "Confirmar".*
 
 ### Orden y criterio
@@ -233,10 +234,9 @@ docs/
 
 ---
 
-## 8. Estado actual (al 11 de noviembre de 2026)
-
-- **Fases 1 a 16 implementadas.** `tsc --noEmit` y `eslint .` limpios. Pendiente en la Fase 16: el typo `text-terracota` del kicker y el degradado de transición `from-coffee to-ink`.
-- **Fase 17 pendiente** (Footer). **Fase 18 entregada** (Cortina de bienvenida + música). **Fase 19 pendiente** (RSVP + Oracle).
+## 8. Estado actual (al 12 de noviembre de 2026)
+- **Fases 1 a 18 implementadas y verificadas.** `tsc --noEmit` limpio; `eslint .` con **dos avisos** en `Footer.tsx` (`couple` y `event` sin usar, por quitar el bloque de nombres).
+- **Fase 19 pendiente** (RSVP + Oracle): el cliente dará las especificaciones; falta decidir si va como sección o como modal del botón "Confirmar".
 - `app/page.tsx` ensambla: `Header` → `Hero` → `Bienvenida` → `NuestraHistoria` → `CuentaRegresiva` → `ElGranDia` → `Cronograma` → `CodigoVestimenta` → `Hospedaje` → `Galeria` → `PreguntasFrecuentes`.
 - **Datos definitivos**: 28 de diciembre de 2026, Centro Cristiano Izcalli (Cuautitlán Izcalli), ceremonia 5:00 PM y recepción 8:00 PM. Mismo lugar y mismo link de Google Maps.
 - **Cronograma del día**: 5:00 ceremonia · 6:30 fotos con familiares y amigos · 8:00 recepción · 9:00 baile de los novios · 9:30 pastel · 10:00 baile general.
@@ -265,12 +265,9 @@ docs/
 
 ### Próximo paso concreto
 
-1. Corregir `text-terracota` → `text-terracotta` en `Despedida.tsx` (línea 7) y cambiar `bg-ink` por `bg-linear-to-b from-coffee to-ink` (línea 5) para que la transición FAQ → Despedida → Footer no sea brusca.
-2. Pegar la **Fase 18** (cortina + música) y probarla en un navegador real: el clic abre la página y la música suena.
-3. **Fase 17: Footer** (necesita el texto del cliente).
-4. **Fase 19: RSVP + Oracle** (la última; decide si va como sección o como modal del botón "Confirmar").
-5. Opcional: agregar `image` a los hoteles para mostrar foto en cada card.
-6. Seguir el roadmap hasta la Fase 19.
+1. Corregir los dos avisos de `Footer.tsx`: quitar `couple` y `event` del import (el bloque de nombres ya no existe) y dejar solo `import { site } from "@/data/wedding-data"`.
+2. Esperar las especificaciones del RSVP (Fase 19) y decidir sección vs. modal.
+3. Opcional: limpiar `featuredPhotos.history` (huérfano) y agregar `image` a los hoteles.
 
 ---
 
@@ -329,3 +326,6 @@ docs/
 | 2026-11-11 | Fase 16 implementada y vista: el cliente prefirió `bg-ink` y detectó el salto brusco FAQ (café) → Despedida (tinta). Solución: degradado `bg-linear-to-b from-coffee to-ink`. Detectado otro `text-terracota` en el kicker. |
 | 2026-11-11 | El cliente pide música de fondo y una **cortina de bienvenida** (autoplay bloqueado). Se reordena el roadmap: Fase 17 Footer, Fase 18 Cortina + música, Fase 19 RSVP + Oracle (última, puede ser modal). Canción: `public/music/Opalite (Life Is A Song Acoustic Version).mp3` (5.56 MB). |
 | 2026-11-11 | Creado `docs/plan-cortina.html` y `docs/plan-cortina.pdf` con la cortina, la música, el degradado, los hoteles con foto y el nuevo roadmap. |
+| 2026-11-12 | Fase 18 implementada y verificada: la cortina abre la página y la música suena. El archivo fue renombrado a `public/music/Opalite.mp3`. Detectados tres typos: `z[100]` (sin el guion; el Header quedaba por encima de la cortina), `text-5l` y `rouded-full`. |
+| 2026-11-12 | Fase 17 (Footer) entregada: foto del Hero con velo, identidad de la boda y bloque de contacto del desarrollador (`site.developer`) con enlaces `mailto:` y `tel:`, más "Volver arriba". |
+| 2026-11-12 | Fase 17 y 18 verificadas. Los tres typos de la cortina corregidos. El cliente rellenó `site.developer` con sus datos, quitó el bloque de nombres del Footer y pidió quitar la foto de fondo (queda `bg-ink` plano). Dos avisos de ESLint pendientes por imports sin usar. |

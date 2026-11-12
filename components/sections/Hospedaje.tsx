@@ -17,7 +17,7 @@ export default function Hospedaje(){
                     <div className="mx-auto mt-8 h-px w-16 bg-sand/60" />
 
                     <p className="mx-auto mt-8 max-w-xl font-sans text-base leading-relaxed text-ink/80">
-                        Estamos preparando una lista de opciones cercanas al lugar del
+                        Te compartimos una lista de opciones cercanas al lugar del
                         evento para que elijas la que mejor se acomode a ti.
                     </p>
                 </div>
@@ -28,6 +28,18 @@ export default function Hospedaje(){
                             <li
                                 key={hotel.name}
                                 className="flex flex-col rounded-2xl border border-sand/60 bg-cream p-6">
+
+                                    {hotel.image ? (
+                                        <div className="relative mb-5 aspect-[16/10] overflow-hidden rounded-xl">
+                                            <Image
+                                                src={hotel.image}
+                                                alt={hotel.imageAlt ?? hotel.name}
+                                                fill
+                                                sizes="(min-width: 1024px) 33vw, 50vw"
+                                                className="object-cover"/>
+                                        </div>
+                                    ) : null}
+
                                     <h3 className="font-serif text-2xl leading-snug text-coffee">
                                         {hotel.name}
                                     </h3>
