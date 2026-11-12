@@ -169,6 +169,8 @@ docs/
   plan-fases.pdf      # Versión imprimible del plan
   plan-cortina.html   # Cortina, música, hoteles con foto y nuevo roadmap
   plan-cortina.pdf    # Versión imprimible
+  plan-rsvp.html      # RSVP con modal, dashboard del cliente y Oracle
+  plan-rsvp.pdf       # Versión imprimible (código completo)
 ```
 
 ---
@@ -224,7 +226,7 @@ docs/
 - [x] **Fase 16 — Despedida y agradecimientos**: sección de cierre antes del Footer. *Implementada; usa `bg-ink` y necesita el degradado de transición y el typo `text-terracota` corregido.*
 - [x] **Fase 17 — Footer**: fondo oscuro con el contacto del desarrollador. *Implementada y verificada; sin foto de fondo (bg-ink plano) y sin bloque de nombres por petición del cliente.*
 - [x] **Fase 18 — Cortina de bienvenida + música**: pantalla inicial que cubre todo, con un clic para entrar. Desbloquea el autoplay de la música. *Implementada y verificada; los tres typos corregidos.*
-- [ ] **Fase 19 — RSVP + Oracle**: formulario, server action y persistencia en Oracle (Autonomous Database Free). *Es la última; puede ser una sección o un modal abierto desde el botón "Confirmar".*
+- [ ] **Fase 19 — RSVP + Oracle**: modal de confirmación en el sitio, correo de confirmación y **proyecto aparte** para el dashboard del cliente (login + tabla de invitados). *Especificaciones recibidas; código y PDF entregados; pendiente crear la cuenta de Oracle.*
 
 ### Orden y criterio
 
@@ -236,7 +238,7 @@ docs/
 
 ## 8. Estado actual (al 12 de noviembre de 2026)
 - **Fases 1 a 18 implementadas y verificadas.** `tsc --noEmit` limpio; `eslint .` con **dos avisos** en `Footer.tsx` (`couple` y `event` sin usar, por quitar el bloque de nombres).
-- **Fase 19 pendiente** (RSVP + Oracle): el cliente dará las especificaciones; falta decidir si va como sección o como modal del botón "Confirmar".
+- **Fase 19 pendiente** (RSVP + Oracle): especificaciones recibidas (modal + dashboard aparte). Falta la cuenta de Oracle y pegar el código.
 - `app/page.tsx` ensambla: `Header` → `Hero` → `Bienvenida` → `NuestraHistoria` → `CuentaRegresiva` → `ElGranDia` → `Cronograma` → `CodigoVestimenta` → `Hospedaje` → `Galeria` → `PreguntasFrecuentes`.
 - **Datos definitivos**: 28 de diciembre de 2026, Centro Cristiano Izcalli (Cuautitlán Izcalli), ceremonia 5:00 PM y recepción 8:00 PM. Mismo lugar y mismo link de Google Maps.
 - **Cronograma del día**: 5:00 ceremonia · 6:30 fotos con familiares y amigos · 8:00 recepción · 9:00 baile de los novios · 9:30 pastel · 10:00 baile general.
@@ -265,8 +267,8 @@ docs/
 
 ### Próximo paso concreto
 
-1. Corregir los dos avisos de `Footer.tsx`: quitar `couple` y `event` del import (el bloque de nombres ya no existe) y dejar solo `import { site } from "@/data/wedding-data"`.
-2. Esperar las especificaciones del RSVP (Fase 19) y decidir sección vs. modal.
+1. Corregir los dos avisos de `Footer.tsx`: quitar `couple` y `event` del import y dejar solo `import { site } from "@/data/wedding-data"`.
+2. **Fase 19, cuando el cliente tenga la cuenta de Oracle**: crear la instancia, ejecutar el DDL del apartado 3 de `docs/plan-rsvp.pdf`, probar con `scripts/probar-oracle.mjs` y luego pegar el modal y la server action.
 3. Opcional: limpiar `featuredPhotos.history` (huérfano) y agregar `image` a los hoteles.
 
 ---
@@ -329,3 +331,5 @@ docs/
 | 2026-11-12 | Fase 18 implementada y verificada: la cortina abre la página y la música suena. El archivo fue renombrado a `public/music/Opalite.mp3`. Detectados tres typos: `z[100]` (sin el guion; el Header quedaba por encima de la cortina), `text-5l` y `rouded-full`. |
 | 2026-11-12 | Fase 17 (Footer) entregada: foto del Hero con velo, identidad de la boda y bloque de contacto del desarrollador (`site.developer`) con enlaces `mailto:` y `tel:`, más "Volver arriba". |
 | 2026-11-12 | Fase 17 y 18 verificadas. Los tres typos de la cortina corregidos. El cliente rellenó `site.developer` con sus datos, quitó el bloque de nombres del Footer y pidió quitar la foto de fondo (queda `bg-ink` plano). Dos avisos de ESLint pendientes por imports sin usar. |
+| 2026-11-12 | El Footer se queda como "carta de presentación" del desarrollador, sin bloque de nombres. |
+| 2026-11-12 | Especificaciones del RSVP recibidas: modal desde el botón "Confirmar", campos nombre/email/cuántos asisten/restricciones, correo de confirmación, y **dashboard aparte** con login y tabla. Creado `docs/plan-rsvp.html` y `docs/plan-rsvp.pdf` con teoría, conceptos y todo el código (Oracle, oracledb, pool, DDL, binds, server action, Resend/Nodemailer, Auth.js, dashboard). Pendiente la cuenta de Oracle. |

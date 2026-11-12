@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Plan — RSVP con modal, dashboard del cliente y Oracle · Sonia &amp; David</title>
+<style>
+  @page { size: A4; margin: 16mm 15mm 18mm 15mm; }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.55;
+    color: #1a1817;
+    background: #ffffff;
+  }
+
+  h1, h2, h3, h4 { font-family: Georgia, "Times New Roman", serif; color: #5c3a21; line-height: 1.2; }
+
+  h1 { font-size: 30pt; margin: 0 0 8px; }
+  h2 {
+    font-size: 17pt; margin: 30px 0 10px; padding-bottom: 5px;
+    border-bottom: 1px solid #d8bfa8; break-after: avoid;
+  }
+  h3 { font-size: 12.5pt; margin: 20px 0 6px; color: #a66443; break-after: avoid; }
+  h4 { font-size: 11pt; margin: 14px 0 4px; color: #5c3a21; break-after: avoid; }
+
+  p { margin: 0 0 9px; }
+  ul, ol { margin: 0 0 10px; padding-left: 20px; }
+  li { margin-bottom: 3px; }
+
+  code {
+    font-family: Consolas, "Courier New", monospace; font-size: 9pt;
+    background: #f4ede4; color: #5c3a21; padding: 1px 4px; border-radius: 3px;
+  }
+
+  pre {
+    font-family: Consolas, "Courier New", monospace; font-size: 8.1pt; line-height: 1.45;
+    background: #faf6f1; border-left: 3px solid #c08d52; padding: 8px 10px;
+    margin: 8px 0 12px; white-space: pre-wrap; overflow-wrap: anywhere; break-inside: avoid;
+  }
+  pre code { background: none; padding: 0; font-size: inherit; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 8.8pt; margin: 8px 0 14px; break-inside: avoid; }
+  th { background: #f3ebe1; color: #5c3a21; text-align: left; font-weight: 600; }
+  th, td { border: 1px solid #e3d6c6; padding: 4px 6px; vertical-align: top; }
+  td code { white-space: nowrap; }
+
+  .cover { height: 240mm; display: flex; flex-direction: column; justify-content: center; text-align: center; }
+  .cover .kicker { font-size: 10pt; letter-spacing: 0.35em; text-transform: uppercase; color: #c08d52; margin-bottom: 18px; }
+  .cover h1 { font-size: 34pt; margin-bottom: 4px; }
+  .cover .subtitle { font-size: 13pt; color: #a66443; margin-bottom: 40px; }
+  .cover .rule { width: 60px; height: 1px; background: #d8bfa8; margin: 0 auto 40px; }
+  .cover .meta { font-size: 10pt; color: #6b6560; line-height: 1.8; }
+
+  .toc ol { padding-left: 22px; }
+  .toc li { margin-bottom: 4px; }
+  .toc a { color: #1a1817; text-decoration: none; }
+
+  .callout { background: #faf6f1; border: 1px solid #e3d6c6; border-left: 4px solid #c08d52; padding: 8px 12px; margin: 10px 0 14px; break-inside: avoid; }
+  .callout strong { color: #5c3a21; }
+  .warn { border-left-color: #a66443; background: #fbf3ef; }
+  .ok { border-left-color: #7c8b5a; background: #f5f7ef; }
+
+  .page-break { break-before: page; }
+  .small { font-size: 9pt; color: #6b6560; }
+
+  .diagram {
+    font-family: Consolas, "Courier New", monospace; font-size: 8.3pt; line-height: 1.5;
+    background: #faf6f1; border: 1px solid #e3d6c6; padding: 10px 12px;
+    white-space: pre; break-inside: avoid; overflow-wrap: anywhere;
+  }
+
+  .tag {
+    display: inline-block; font-size: 7.5pt; font-family: Consolas, monospace;
+    padding: 1px 5px; border-radius: 3px; border: 1px solid #e3d6c6; background: #f3ebe1;
+    color: #5c3a21; vertical-align: 1px;
+  }
+  .tag.c { background: #fbf3ef; border-color: #e8cfc2; color: #a66443; }
+</style>
+</head>
+<body>
+
+<!-- ============================ PORTADA ============================ -->
+<div class="cover">
+  <div class="kicker">Plan de trabajo · última fase</div>
+  <h1>RSVP, dashboard y Oracle</h1>
+  <div class="subtitle">Invitación de boda Sonia &amp; David · 28 de diciembre de 2026</div>
+  <div class="rule"></div>
+  <div class="meta">
+    El modal de confirmación · el correo de agradecimiento · el dashboard del cliente<br>
+    Autonomous Database Always Free · el driver oracledb · NextAuth.js · Resend<br>
+    <span class="small">12 de noviembre de 2026</span>
+  </div>
+</div>
+
+<!-- ============================ ÍNDICE ============================ -->
+<div class="page-break"></div>
+<h2 style="margin-top:0">Contenido</h2>
+<div class="toc">
+<ol>
+  <li><a href="#panorama">El panorama: dos proyectos, una base de datos</a></li>
+  <li><a href="#oracle">Oracle Autonomous Database</a></li>
+  <li><a href="#tablas">Las tablas</a></li>
+  <li><a href="#conexion">El archivo de conexión: <code>lib/oracle.ts</code></a></li>
+  <li><a href="#modal">El modal de RSVP en la página de la boda</a></li>
+  <li><a href="#action">La server action: validar, contar, guardar</a></li>
+  <li><a href="#email">El correo de confirmación</a></li>
+  <li><a href="#dashboard">El dashboard del cliente (proyecto nuevo)</a></li>
+  <li><a href="#entorno">Variables de entorno y despliegue</a></li>
+  <li><a href="#seguridad">Seguridad y privacidad</a></li>
+  <li><a href="#orden">Orden de trabajo y checklist</a></li>
+</ol>
+</div>
+
+<!-- ============================ 1 ============================ -->
+<div class="page-break"></div>
+<h2 id="panorama">1. El panorama: dos proyectos, una base de datos</h2>
+
+<p>Esta fase son <strong>dos aplicaciones</strong> que se conectan a la misma base Oracle. No es un solo proyecto con dos partes: son dos carpetas, dos despliegues y dos dominios distintos.</p>
+
+<div class="diagram">PROYECTO 1 · la invitación (este repositorio)
+   invitado → clic en "Confirmar" → modal RSVP
+                                       │
+                                       ▼
+                              Server Action (Next.js)
+                              ├─ valida y cuenta pases
+                              ├─ INSERT en INVITADOS
+                              └─ envía el correo (Resend)
+                                       │
+                                       │  TCP sobre TLS (puerto 1522)
+                                       ▼
+                       ┌──────────────────────────────┐
+                       │  Oracle Autonomous Database  │
+                       │  Always Free (20 GB)         │
+                       │  USUARIOS · INVITADOS ·      │
+                       │  ACOMPANANTES                │
+                       └──────────────┬───────────────┘
+                                       │
+                                       │  mismo driver, mismo pool
+                                       ▼
+PROYECTO 2 · el dashboard (carpeta nueva)
+   cliente → /login → Auth.js valida contra USUARIOS
+                            │
+                            ▼
+                     /dashboard (protegida)
+                     SELECT con JOIN, tabla y resumen</div>
+
+<h3>1.1 Por qué dos proyectos y no uno</h3>
+<table>
+  <tr><th>Motivo</th><th>Detalle</th></tr>
+  <tr><td>Permisos</td><td>El invitado no debe tener acceso al dashboard ni a las credenciales. Separados, no hay forma de equivocarse</td></tr>
+  <tr><td>Seguridad</td><td>La clave del dashboard no vive en el sitio público. Un error en el sitio de la boda no expone el panel</td></tr>
+  <tr><td>Despliegue</td><td>Cada uno se actualiza por separado. Una mejora en el dashboard no obliga a tocar la invitación</td></tr>
+  <tr><td>Reutilización</td><td>Si el desarrollador hace más bodas, el dashboard es el mismo y solo cambia el <code>USUARIO_ID</code></td></tr>
+</table>
+
+<div class="callout">
+  <strong>Lo único que comparten es la base.</strong> Los dos proyectos instalan <code>oracledb</code> y tienen su propio <code>lib/oracle.ts</code>. Es el mismo archivo copiado, no un paquete compartido.
+</div>
+
+<h3>1.2 ¿Qué es exactamente "Autonomous Database Always Free"?</h3>
+<p>Oracle Cloud ofrece bases de datos administradas: Oracle aplica parches, respaldos y ajuste automáticamente. La capa <strong>Always Free</strong> es gratuita sin fecha de expiración e incluye 20 GB. Se maneja desde el navegador (Database Actions), así que no hay servidor que cuidar.</p>
+
+<table>
+  <tr><th>Concepto</th><th>Qué significa</th></tr>
+  <tr><td><strong>Autonomous</strong></td><td>El motor se autogestiona: parches, respaldos, índices y rendimiento</td></tr>
+  <tr><td><strong>Always Free</strong></td><td>Nivel gratuito permanente, con 20 GB y límites de CPU/OCPU bajos pero suficientes</td></tr>
+  <tr><td><strong>ADB</strong></td><td>La abreviatura del servicio (Autonomous Database)</td></tr>
+  <tr><td><strong>Database Actions</strong></td><td>Una consola web dentro del mismo servicio para ejecutar SQL sin instalar nada</td></tr>
+</table>
+
+<!-- ============================ 2 ============================ -->
+<div class="page-break"></div>
+<h2 id="oracle">2. Oracle Autonomous Database</h2>
+
+<h3>2.1 Crear la instancia (una sola vez)</h3>
+<ol>
+  <li>Entra a <strong>oracle.cloud</strong> y crea la cuenta (pide tarjeta, pero el nivel Free no cobra).</li>
+  <li>En <strong>Oracle Cloud Infrastructure</strong>, menú → <strong>Autonomous Database</strong> → <strong>Create</strong>.</li>
+  <li>Tipo: <strong>Transaction Processing</strong>. Nombre y contraseña del usuario <code>ADMIN</code> (guárdala en un lugar seguro).</li>
+  <li>Región: la más cercana a México (<code>mx-queretaro</code> o <code>mx-monterrey</code> si está disponible).</li>
+  <li>Acceso: <strong>Allow secure access from anywhere</strong> (por ahora; se puede restringir después).</li>
+</ol>
+
+<h3>2.2 El driver: <code>oracledb</code> en modo thin</h3>
+<pre><code>npm install oracledb</code></pre>
+
+<p>El driver de Oracle para Node.js tiene dos modos:</p>
+<table>
+  <tr><th>Modo</th><th>Cómo funciona</th><th>Cuándo usarlo</th></tr>
+  <tr><td><strong>Thin</strong></td><td>JavaScript puro. No instala nada del Oracle Client</td><td><strong>Siempre aquí.</strong> Funciona en Vercel sin compilar nativos</td></tr>
+  <tr><td>Thick</td><td>Carga la librería nativa del Oracle Client ( Instant Client )</td><td>Solo si necesitas funciones avanzadas (Kerberos, PKIX, ...)</td></tr>
+</table>
+
+<div class="callout ok">
+  <strong>Thin es la clave del despliegue:</strong> Vercel compila funciones serverless en un entorno donde no puedes instalar librerías nativas. Como thin es JavaScript puro, la conexión funciona tal cual.
+</div>
+
+<h3>2.3 La cadena de conexión</h3>
+<p>En la consola de la base, <strong>Database connection → Connection strings</strong> copia la cadena <code>TCPS</code> (puerto 1522). Tiene esta forma:</p>
+
+<pre><code>(description=(retry_count=20)(retry_delay=3)
+  (address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))
+  (connect_data=(service_name=g8f3a2c1b2e_miboda_high.adb.oraclecloud.com))
+  (security=(ssl_server_dn_match=yes)))</code></pre>
+
+<table>
+  <tr><th>Parte</th><th>Qué indica</th></tr>
+  <tr><td><code>protocol=tcps</code></td><td>TLS cifrado, igual que HTTPS pero en el puerto 1522</td></tr>
+  <tr><td><code>host=adb…oraclecloud.com</code></td><td>La puerta de entrada de tu base</td></tr>
+  <tr><td><code>service_name=g8f3a2c1b2e_miboda_high</code></td><td>El "nombre del servicio" dentro de la base. Viene en tres sabores: <code>_high</code>, <code>_medium</code>, <code>_low</code></td></tr>
+  <tr><td><code>retry_count / retry_delay</code></td><td>Si la base está ocupada, reintenta 20 veces esperando 3 segundos. Importante en el nivel Free, que se duerme</td></tr>
+  <tr><td><code>ssl_server_dn_match=yes</code></td><td>Verifica que el certificado del servidor corresponda al servicio</td></tr>
+</table>
+
+<div class="callout warn">
+  <strong>Si el driver se queja del certificado</strong> (<code>DPI-1049</code> o <code>SSL handshake failed</code>), hay dos caminos:
+  <br><strong>A)</strong> En Database Actions → <strong>Database connection → Wallet</strong>, descarga el wallet y apunta a la carpeta con <code>walletLocation</code>.
+  <br><strong>B)</strong> Para desarrollo, cambia <code>ssl_server_dn_match=yes</code> por <code>no</code>. Es menos estricto; para producción conviene el wallet.
+</div>
+
+<h3>2.4 El pool de conexiones</h3>
+<p>Abrir una conexión Oracle cuesta cientos de milisegundos. Un <strong>pool</strong> las abre una vez y las reutiliza. Por eso toda la aplicación comparte <em>uno</em> solo.</p>
+
+<div class="callout warn">
+  <strong>Sin <code>globalThis</code> el pool se multiplicaría.</strong> En desarrollo, Next recarga los módulos con cada cambio. Si el pool se creara dentro de la función, cada recarga abriría uno nuevo y llegarías al límite de sesiones del nivel Free.
+</div>
+
+<!-- ============================ 3 ============================ -->
+<div class="page-break"></div>
+<h2 id="tablas">3. Las tablas</h2>
+
+<p>Se crean una sola vez, desde <strong>Database Actions → SQL</strong>. Tres tablas: el cliente, sus invitados y (opcional) los acompañantes.</p>
+
+<pre><code>--El cliente: quien se loguea al dashboard
+CREATE TABLE USUARIOS (
+    ID            NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    NOMBRE        VARCHAR2(120) NOT NULL,
+    EMAIL         VARCHAR2(160) NOT NULL UNIQUE,
+    PASSWORD_HASH VARCHAR2(200) NOT NULL,
+    LIMITE_PASES  NUMBER(4)     DEFAULT 100 NOT NULL,
+    CREADO_EN     TIMESTAMP      DEFAULT SYSTIMESTAMP NOT NULL
+);
+
+--Cada confirmación de un invitado
+CREATE TABLE INVITADOS (
+    ID               NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    USUARIO_ID       NUMBER(10)   NOT NULL,
+    NOMBRE           VARCHAR2(120) NOT NULL,
+    EMAIL            VARCHAR2(160) NOT NULL,
+    PASES_PERMITIDOS NUMBER(2)    DEFAULT 1 NOT NULL,
+    RESTRICCIONES    VARCHAR2(400),
+    CREADO_EN        TIMESTAMP      DEFAULT SYSTIMESTAMP NOT NULL,
+    CONSTRAINT INVITADOS_USUARIO_FK FOREIGN KEY (USUARIO_ID) REFERENCES USUARIOS(ID),
+    CONSTRAINT INVITADOS_PASES_CK   CHECK (PASES_PERMITIDOS BETWEEN 1 AND 10)
+);
+
+--Opcional: el nombre de cada acompañante
+CREATE TABLE ACOMPANANTES (
+    ID          NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    INVITADO_ID NUMBER(10)   NOT NULL,
+    NOMBRE      VARCHAR2(120) NOT NULL,
+    CONSTRAINT ACOMPANANTES_INVITADO_FK FOREIGN KEY (INVITADO_ID)
+        REFERENCES INVITADOS(ID) ON DELETE CASCADE
+);
+
+--Índice para el contador y para el dashboard
+CREATE INDEX INVITADOS_USUARIO_IDX ON INVITADOS(USUARIO_ID);</code></pre>
+
+<table>
+  <tr><th>Tabla</th><th>Para qué</th><th>Clave</th></tr>
+  <tr><td><code>USUARIOS</code></td><td>El cliente del dashboard. <code>PASSWORD_HASH</code> guarda el hash de la contraseña, nunca la contraseña</td><td><code>ID</code></td></tr>
+  <tr><td><code>INVITADOS</code></td><td>Cada confirmación. <code>PASES_PERMITIDOS</code> es cuántos pases usó ese invitado (1 si viene solo, más si trae acompañantes)</td><td><code>ID</code>, apunta a <code>USUARIOS</code></td></tr>
+  <tr><td><code>ACOMPANANTES</code></td><td>Solo si quieres el nombre de cada acompañante. Si no, basta con el conteo de <code>PASES_PERMITIDOS</code></td><td>apunta a <code>INVITADOS</code></td></tr>
+</table>
+
+<h3>3.1 La contraseña nunca en texto plano</h3>
+<pre><code>npm install bcryptjs</code></pre>
+<pre><code>import bcrypt from "bcryptjs";
+
+//Al crear el usuario
+const hash = await bcrypt.hash("miContraseñaSegura", 12);
+
+//Al iniciar sesión
+const valida = await bcrypt.compare("laQueEscribieron", hashDeLaBase);</code></pre>
+
+<p>El número <code>12</code> es el "costo": cuántas vueltas de cifrado. 10–12 es el estándar. Cada vuelta hace el hash más lento de calcular para un atacante, sin afectar apenas al inicio de sesión.</p>
+
+<h3>3.2 Consulta de control</h3>
+<pre><code>SELECT
+    (SELECT LIMITE_PASES FROM USUARIOS WHERE ID = :usuarioId)            AS LIMITE,
+    (SELECT COALESCE(SUM(PASES_PERMITIDOS), 0)
+       FROM INVITADOS WHERE USUARIO_ID = :usuarioId)                     AS USADOS
+FROM DUAL;</code></pre>
+
+<p><code>COALESCE</code> devuelve 0 cuando la suma es <code>NULL</code> (o sea, cuando todavía no hay invitados). Sin él, el <code>NULL</code> se colaría por todas partes y las comparaciones fallarían.</p>
+
+<!-- ============================ 4 ============================ -->
+<div class="page-break"></div>
+<h2 id="conexion">4. El archivo de conexión: <code>lib/oracle.ts</code></h2>
+
+<p>Es <strong>exactamente el mismo archivo</strong> en los dos proyectos. Se guarda en <code>lib/oracle.ts</code> (la carpeta <code>lib</code> es convención para código de servidor que no es un componente).</p>
+
+<pre><code>//lib/oracle.ts
+import oracledb from "oracledb";
+
+//En TypeScript, esto le dice al compilador que vamos a colgar
+//nuestro pool de la variable global para que sobreviva los recargas de Next
+declare global {
+    var __oraclePool: oracledb.Pool | undefined;
+}
+
+export async function getPool(): Promise&lt;oracledb.Pool&gt; {
+    if (!globalThis.__oraclePool) {
+        globalThis.__oraclePool = await oracledb.createPool({
+            user: process.env.ORACLE_USER,
+            password: process.env.ORACLE_PASSWORD,
+            connectString: process.env.ORACLE_CONNECT_STRING,
+
+            //Nivel Free: no hace falta más
+            poolMin: 1,
+            poolMax: 4,
+            poolIncrement: 1,
+            poolTimeout: 60,
+        });
+    }
+
+    return globalThis.__oraclePool;
+}</code></pre>
+
+<table>
+  <tr><th>Parámetro</th><th>Por qué</th></tr>
+  <tr><td><code>poolMin: 1</code></td><td>Mantiene una conexión abierta. En el nivel Free, la primera conexión tarda; tener una lista evita ese salto</td></tr>
+  <tr><td><code>poolMax: 4</code></td><td>Una boda no necesita más. El nivel Free tiene un límite de sesiones y conviene no acercarse</td></tr>
+  <tr><td><code>poolTimeout: 60</code></td><td>Si se agotan las conexiones, espera hasta 60 s antes de fallar</td></tr>
+  <tr><td><code>globalThis.__oraclePool</code></td><td>Sobrevive a los recargas en desarrollo y evita pools duplicados</td></tr>
+</table>
+
+<div class="callout warn">
+  <strong>Este archivo nunca se importa desde un componente de cliente.</strong> Si un <code>"use client"</code> importa <code>lib/oracle.ts</code>, el navegador intentaría descargar <code>oracledb</code> y fallaría. Solo lo importan server actions y páginas de servidor.
+</div>
+
+<!-- ============================ 5 ============================ -->
+<div class="page-break"></div>
+<h2 id="modal">5. El modal de RSVP en la página de la boda</h2>
+
+<h3>5.1 Radix UI o Headless UI</h3>
+<p>Ambas librerías resuelven lo mismo: un modal <strong>accesible</strong> (foco atrapado, <code>Escape</code>, <code>aria-modal</code>, cierre al hacer clic fuera) sin tener que implementarlo a mano.</p>
+
+<table>
+  <tr><th>Librería</th><th>Notas</th></tr>
+  <tr><td><strong>Radix UI</strong> <span class="tag">recomendada</span></td><td>Sin estilos (headless), primitivas composables, el más usado con React 19. Se instala por piezas: <code>npm install @radix-ui/react-dialog</code></td></tr>
+  <tr><td>Headless UI</td><td>De los creadores de Tailwind. Componentes ya con clases de Tailwind incluidas. Menos flexible para personalizar</td></tr>
+</table>
+
+<div class="callout">
+  <strong>Dato importante:</strong> ya tienes un modal funcional en el lightbox de la Galería, hecho con el <code>&lt;dialog&gt;</code> nativo. El RSVP <em>podría</em> usar el mismo enfoque. Pero como pediste una librería, aquí va Radix, que es lo que se usa en producción.
+</div>
+
+<h3>5.2 El componente del modal</h3>
+<pre><code>"use client";
+
+import * as Dialog from "@radix-ui/react-dialog";
+import { useActionState } from "react";
+import { confirmarAsistencia, type RsvpState } from "@/app/actions/rsvp";
+
+const estadoInicial: RsvpState = { ok: false, message: "" };
+
+type Props = {
+    abierto: boolean;
+    onCerrar: () => void;
+};
+
+export default function RsvpModal({ abierto, onCerrar }: Props) {
+    const [estado, formAction, pendiente] = useActionState(confirmarAsistencia, estadoInicial);
+
+    return (
+        &lt;Dialog.Root open={abierto} onOpenChange={(open) => { if (!open) onCerrar(); }}&gt;
+            &lt;Dialog.Portal&gt;
+                &lt;Dialog.Overlay className="fixed inset-0 z-[110] bg-ink/70 backdrop-blur-sm" /&gt;
+
+                &lt;Dialog.Content
+                    className="fixed left-1/2 top-1/2 z-[120] w-[calc(100%-2rem)] max-w-lg
+                               -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-sand/40
+                               bg-cream p-6 shadow-2xl"&gt;
+
+                    &lt;Dialog.Title className="font-serif text-2xl text-coffee"&gt;
+                        Confirma tu asistencia
+                    &lt;/Dialog.Title&gt;
+
+                    &lt;Dialog.Description className="mt-2 font-sans text-sm text-ink/70"&gt;
+                        Nos encantaría contar contigo.
+                    &lt;/Dialog.Description&gt;
+
+                    {estado.ok ? (
+                        &lt;div className="mt-8 text-center"&gt;
+                            &lt;p className="font-serif text-2xl text-coffee"&gt;¡Gracias por confirmar!&lt;/p&gt;
+                            &lt;p className="mt-3 font-sans text-sm text-ink/70"&gt;{estado.message}&lt;/p&gt;
+
+                            &lt;Dialog.Close asChild&gt;
+                                &lt;button className="mt-6 rounded-full bg-terracotta px-7 py-3 font-sans
+                                                   text-[11px] uppercase tracking-[0.2em] text-white
+                                                   transition-colors duration-300 hover:bg-cinnamon"&gt;
+                                    Cerrar
+                                &lt;/button&gt;
+                            &lt;/Dialog.Close&gt;
+                        &lt;/div&gt;
+                    ) : (
+                        &lt;form action={formAction} className="mt-6 space-y-5"&gt;
+                            &lt;div&gt;
+                                &lt;label htmlFor="nombre" className="font-sans text-[10px] uppercase
+                                                                  tracking-[0.25em] text-ink/70"&gt;
+                                    Nombre completo
+                                &lt;/label&gt;
+                                &lt;input id="nombre" name="nombre" required minLength={3}
+                                       className="mt-2 w-full rounded-xl border border-sand/70 bg-white
+                                                  px-4 py-3 font-sans text-base text-ink outline-none
+                                                  focus:border-terracotta" /&gt;
+                            &lt;/div&gt;
+
+                            &lt;div&gt;
+                                &lt;label htmlFor="email" className="font-sans text-[10px] uppercase
+                                                                 tracking-[0.25em] text-ink/70"&gt;
+                                    Correo electrónico
+                                &lt;/label&gt;
+                                &lt;input id="email" name="email" type="email" required
+                                       className="mt-2 w-full rounded-xl border border-sand/70 bg-white
+                                                  px-4 py-3 font-sans text-base text-ink outline-none
+                                                  focus:border-terracotta" /&gt;
+                            &lt;/div&gt;
+
+                            &lt;div&gt;
+                                &lt;label htmlFor="asisten" className="font-sans text-[10px] uppercase
+                                                                  tracking-[0.25em] text-ink/70"&gt;
+                                    ¿Cuántos asisten?
+                                &lt;/label&gt;
+                                &lt;select id="asisten" name="asisten" required defaultValue="1"
+                                        className="mt-2 w-full rounded-xl border border-sand/70 bg-white
+                                                   px-4 py-3 font-sans text-base text-ink outline-none
+                                                   focus:border-terracotta"&gt;
+                                    &lt;option value="1"&gt;1 persona&lt;/option&gt;
+                                    &lt;option value="2"&gt;2 personas&lt;/option&gt;
+                                    &lt;option value="3"&gt;3 personas&lt;/option&gt;
+                                    &lt;option value="4"&gt;4 personas&lt;/option&gt;
+                                &lt;/select&gt;
+                            &lt;/div&gt;
+
+                            &lt;div&gt;
+                                &lt;label htmlFor="restricciones" className="font-sans text-[10px] uppercase
+                                                                      tracking-[0.25em] text-ink/70"&gt;
+                                    Restricciones alimenticias
+                                &lt;/label&gt;
+                                &lt;textarea id="restricciones" name="restricciones" rows={3}
+                                          className="mt-2 w-full rounded-xl border border-sand/70 bg-white
+                                                     px-4 py-3 font-sans text-base text-ink outline-none
+                                                     focus:border-terracotta" /&gt;
+                            &lt;/div&gt;
+
+                            {estado.message ? (
+                                &lt;p role="alert" className="font-sans text-sm text-red-700"&gt;
+                                    {estado.message}
+                                &lt;/p&gt;
+                            ) : null}
+
+                            &lt;button type="submit" disabled={pendiente}
+                                    className="w-full rounded-full bg-terracotta px-6 py-3 font-sans
+                                               text-[11px] uppercase tracking-[0.2em] text-white
+                                               transition-colors duration-300 hover:bg-cinnamon
+                                               disabled:opacity-60"&gt;
+                                {pendiente ? "Enviando..." : "Confirmar asistencia"}
+                            &lt;/button&gt;
+                        &lt;/form&gt;
+                    )}
+
+                    &lt;Dialog.Close asChild&gt;
+                        &lt;button aria-label="Cerrar"
+                                className="absolute right-4 top-4 font-sans text-lg text-ink/50
+                                           transition-colors duration-200 hover:text-ink"&gt;
+                            ×
+                        &lt;/button&gt;
+                    &lt;/Dialog.Close&gt;
+                &lt;/Dialog.Content&gt;
+            &lt;/Dialog.Portal&gt;
+        &lt;/Dialog.Root&gt;
+    );
+}</code></pre>
+
+<h3>5.3 Las piezas de Radix</h3>
+<table>
+  <tr><th>Pieza</th><th>Qué hace</th></tr>
+  <tr><td><code>Dialog.Root</code></td><td>Dueño del estado abierto/cerrado. Recibe <code>open</code> y <code>onOpenChange</code></td></tr>
+  <tr><td><code>Dialog.Portal</code></td><td>Mueve el contenido al <code>&lt;body&gt;</code>. Sin esto, un <code>overflow: hidden</code> de un padre lo recortaría</td></tr>
+  <tr><td><code>Dialog.Overlay</code></td><td>El fondo oscuro. Recibe los clics y cierra</td></tr>
+  <tr><td><code>Dialog.Content</code></td><td>La caja del modal. Aquí va todo el formulario</td></tr>
+  <tr><td><code>Dialog.Title</code> / <code>Description</code></td><td>Textos que el lector de pantalla anuncia. <strong>Obligatorios</strong> para accesibilidad</td></tr>
+  <tr><td><code>Dialog.Close asChild</code></td><td>Convierte lo que sea en el botón de cerrar. <code>asChild</code> fusiona las props con el hijo</td></tr>
+</table>
+
+<h3>5.4 Abrirlo desde el Header</h3>
+<p>El Header ya es un componente de cliente, así que puede tener el estado del modal. Cambia el enlace "Confirmar" por un botón y monta el modal al final del <code>&lt;header&gt;</code>:</p>
+
+<pre><code>//components/layout/Header.tsx
+const [rsvpAbierto, setRsvpAbierto] = useState(false);
+
+//El botón de escritorio
+&lt;button
+    type="button"
+    onClick={() => setRsvpAbierto(true)}
+    className="rounded-full bg-terracotta px-5 py-2.5 font-sans text-[11px] uppercase
+               tracking-[0.2em] text-white transition-colors duration-300 hover:bg-cinnamon"&gt;
+    Confirmar
+&lt;/button&gt;
+
+//El botón del menú móvil: lo mismo, con onClick={() => { setIsMenuOpen(false); setRsvpAbierto(true); }}
+
+//Al final del header, antes de cerrar
+&lt;RsvpModal abierto={rsvpAbierto} onCerrar={() => setRsvpAbierto(false)} /&gt;</code></pre>
+
+<div class="callout">
+  <strong>Por qué el estado vive en el Header y no en la página:</strong> el botón que abre el modal está ahí. Si el estado viviera en <code>page.tsx</code> (un componente de servidor), haría falta un contexto o pasar props a través del árbol.
+</div>
+
+<!-- ============================ 6 ============================ -->
+<div class="page-break"></div>
+<h2 id="action">6. La server action: validar, contar, guardar</h2>
+
+<p>Una <strong>server action</strong> es una función que corre en el servidor pero se llama desde el navegador como si fuera local. Next le pone el transporte, la serialización y la protección contra CSRF.</p>
+
+<pre><code>//app/actions/rsvp.ts
+"use server";
+
+import oracledb from "oracledb";
+import { getPool } from "@/lib/oracle";
+import { enviarConfirmacion } from "@/lib/email";
+
+export type RsvpState = {
+    ok: boolean;
+    message: string;
+};
+
+export async function confirmarAsistencia(
+    _prev: RsvpState,
+    formData: FormData,
+): Promise&lt;RsvpState&gt; {
+    //1. Leer y limpiar
+    const nombre = String(formData.get("nombre") ?? "").trim();
+    const email = String(formData.get("email") ?? "").trim().toLowerCase();
+    const asisten = Number(formData.get("asisten"));
+    const restricciones = String(formData.get("restricciones") ?? "").trim();
+
+    //2. Validar (la del navegador es cortesía; esta es la que vale)
+    if (nombre.length &lt; 3) {
+        return { ok: false, message: "Escribe tu nombre completo." };
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        return { ok: false, message: "Escribe un correo electrónico válido." };
+    }
+    if (!Number.isInteger(asisten) || asisten &lt; 1 || asisten &gt; 10) {
+        return { ok: false, message: "El número de asistentes no es válido." };
+    }
+
+    const usuarioId = Number(process.env.NEXT_PUBLIC_USUARIO_ID ?? 1);
+
+    try {
+        const pool = await getPool();
+
+        //3. El contador: cuántos pases ya están comprometidos
+        const usadosResult = await pool.execute(
+            `SELECT COALESCE(SUM(PASES_PERMITIDOS), 0) AS USADOS
+             FROM INVITADOS WHERE USUARIO_ID = :usuarioId`,
+            { usuarioId },
+        );
+        const usados = Number((usadosResult.rows?.[0] as unknown[])?.[0] ?? 0);
+
+        //4. El límite del cliente
+        const limiteResult = await pool.execute(
+            `SELECT LIMITE_PASES FROM USUARIOS WHERE ID = :usuarioId`,
+            { usuarioId },
+        );
+        const limite = Number((limiteResult.rows?.[0] as unknown[])?.[0] ?? 0);
+
+        if (usados + asisten &gt; limite) {
+            return {
+                ok: false,
+                message: `Lo sentimos: sólo quedan ${limite - usados} ${limite - usados === 1 ? "pase" : "pases"}.`,
+            };
+        }
+
+        //5. Guardar
+        await pool.execute(
+            `INSERT INTO INVITADOS (USUARIO_ID, NOMBRE, EMAIL, PASES_PERMITIDOS, RESTRICCIONES)
+             VALUES (:usuarioId, :nombre, :email, :asisten, :restricciones)`,
+            { usuarioId, nombre, email, asisten, restricciones },
+            { autoCommit: true },
+        );
+
+        //6. Avisar al invitado (sin tumbar la petición si el correo falla)
+        try {
+            await enviarConfirmacion({ para: email, nombre, asisten });
+        } catch (error) {
+            console.error("No se pudo enviar el correo de confirmación", error);
+        }
+
+        return { ok: true, message: "Te llegará un correo con los detalles. ¡Nos vemos ahí!" };
+    } catch (error) {
+        console.error("Error al guardar el RSVP", error);
+        return { ok: false, message: "No pudimos guardar tu confirmación. Intenta de nuevo." };
+    }
+}</code></pre>
+
+<h3>6.1 El contador y el límite, paso a paso</h3>
+<div class="diagram">1. invitados ya confirmados
+   SELECT COALESCE(SUM(PASES_PERMITIDOS), 0)  →  USADOS = 47
+
+2. tope del cliente
+   SELECT LIMITE_PASES FROM USUARIOS        →  LIMITE = 100
+
+3. comparar
+   USADOS + asisten  &gt;  LIMITE ?
+   47 + 5 = 52  &lt;= 100   →  se guarda
+   47 + 60 = 107 &gt; 100   →  se rechaza con un mensaje</div>
+
+<div class="callout warn">
+  <strong>Esto no es a prueba de concurrencia.</strong> Si dos invitados confirman al mismo tiempo y ambos ven 95/100, los dos pasarían y quedarían 105. Para una boda es aceptable. La forma rigurosa es un <code>SELECT ... FOR UPDATE</code> sobre la fila del usuario o una restricción única. Si algún día importa, se implementa.
+</div>
+
+<h3>6.2 Bind variables: la parte de seguridad</h3>
+<p>Nunca se concatena texto del usuario dentro del SQL. Se usan <strong>bind variables</strong>: el SQL lleva <code>:nombre</code> y los valores viajan aparte.</p>
+
+<pre><code>//❌ Mal: inyección SQL. Con nombre = "x'); DROP TABLE INVITADOS; --" se borra la tabla
+await pool.execute(`INSERT INTO INVITADOS (NOMBRE) VALUES ('${nombre}')`);
+
+//✅ Bien: el valor nunca se interpreta como SQL
+await pool.execute("INSERT INTO INVITADOS (NOMBRE) VALUES (:nombre)", { nombre });</code></pre>
+
+<p>Además de la seguridad, los binds permiten que Oracle reutilice el plan de ejecución: es más rápido.</p>
+
+<h3>6.3 <code>useActionState</code>: el puente con el formulario</h3>
+<table>
+  <tr><th>Devuelve</th><th>Para qué</th></tr>
+  <tr><td><code>estado</code></td><td>El resultado: <code>{ ok, message }</code></td></tr>
+  <tr><td><code>formAction</code></td><td>Se pasa al <code>action</code> del <code>&lt;form&gt;</code></td></tr>
+  <tr><td><code>pendiente</code></td><td><code>true</code> mientras se ejecuta. Sirve para deshabilitar el botón y evitar dobles envíos</td></tr>
+</table>
+
+<p>El primer argumento de la acción (<code>_prev</code>) es el estado anterior. Next lo rellena solo; por eso el nombre empieza con guion bajo (se recibe pero no se usa).</p>
+
+<!-- ============================ 7 ============================ -->
+<div class="page-break"></div>
+<h2 id="email">7. El correo de confirmación</h2>
+
+<p>El correo lo envía <strong>el servidor</strong>, nunca el navegador: si se hiciera desde el cliente, la clave de la API quedaría pública.</p>
+
+<h3>7.1 Resend (recomendado)</h3>
+<pre><code>npm install resend</code></pre>
+<pre><code>//lib/email.ts
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+export async function enviarConfirmacion({
+    para,
+    nombre,
+    asisten,
+}: {
+    para: string;
+    nombre: string;
+    asisten: number;
+}) {
+    await resend.emails.send({
+        from: "Boda Sonia y David &lt;no-reply@tudominio.com&gt;",
+        to: [para],
+        subject: "¡Tu asistencia está confirmada!",
+        html: `
+            &lt;div style="font-family: Georgia, serif; color: #1a1817;"&gt;
+                &lt;h1 style="color: #5c3a21;"&gt;¡Gracias, ${nombre}!&lt;/h1&gt;
+                &lt;p style="font-family: sans-serif; font-size: 15px;"&gt;
+                    Recibimos tu confirmación para &lt;strong&gt;${asisten}
+                    ${asisten === 1 ? "persona" : "personas"}&lt;/strong&gt;.
+                &lt;/p&gt;
+                &lt;p style="font-family: sans-serif; font-size: 15px;"&gt;
+                    Nos vemos el 28 de diciembre de 2026 en el Centro Cristiano Izcalli.
+                &lt;/p&gt;
+            &lt;/div&gt;`,
+    });
+}</code></pre>
+
+<div class="callout warn">
+  <strong>El remitente debe ser un dominio verificado.</strong> Resend exige verificar <code>tudominio.com</code> (agregando registros DNS) antes de enviar. No puedes usar un correo Gmail. Si no tienes dominio, la alternativa es Nodemailer.
+</div>
+
+<h3>7.2 Nodemailer (alternativa con Gmail)</h3>
+<pre><code>npm install nodemailer</code></pre>
+<pre><code>//lib/email.ts
+import nodemailer from "nodemailer";
+
+const transporte = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,           // p. ej. "smtp.gmail.com"
+    port: Number(process.env.SMTP_PORT ?? 587),
+    secure: false,                          // 587 usa STARTTLS
+    auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,       // contraseña de aplicación, no la normal
+    },
+});
+
+export async function enviarConfirmacion({ para, nombre, asisten }) {
+    await transporte.sendMail({
+        from: `"Boda Sonia y David" &lt;${process.env.SMTP_USER}&gt;`,
+        to: para,
+        subject: "¡Tu asistencia está confirmada!",
+        html: `&lt;p&gt;Gracias ${nombre}, recibimos ${asisten} ${asisten === 1 ? "confirmación" : "confirmaciones"}.&lt;/p&gt;`,
+    });
+}</code></pre>
+
+<p>Con Gmail hay que crear una <strong>contraseña de aplicación</strong> (Google → Seguridad → Verificación en dos pasos → Contraseñas de aplicación). La contraseña normal no funciona.</p>
+
+<h3>7.3 Qué pasa si el correo falla</h3>
+<p>En la server action, el envío está envuelto en su propio <code>try</code> <strong>después</strong> del INSERT. Así, si Resend o Nodemailer falla, la confirmación ya está guardada y el invitado ve el "¡Gracias!" de todos modos. El fallo se registra en la consola del servidor.</p>
+
+<div class="callout">
+  <strong>Orden correcto:</strong> guardar primero, enviar después. Al revés, un fallo de correo dejaría al invitado sin confirmación a pesar de haberla hecho.
+</div>
+
+<!-- ============================ 8 ============================ -->
+<div class="page-break"></div>
+<h2 id="dashboard">8. El dashboard del cliente (proyecto nuevo)</h2>
+
+<h3>8.1 Crear el proyecto</h3>
+<pre><code>npx create-next-app@latest dashboard
+#TypeScript, Tailwind, App Router, alias @/*</code></pre>
+
+<p>Copia <code>lib/oracle.ts</code> tal cual. La paleta de colores es la misma, definida en <code>app/globals.css</code> con los mismos tokens:</p>
+
+<pre><code>@theme {
+  --color-cream: #f3ebe1;
+  --color-sand: #d8bfa8;
+  --color-terracotta: #c08d52;
+  --color-cinnamon: #a66443;
+  --color-coffee: #5c3a21;
+  --color-ink: #1a1817;
+}</code></pre>
+
+<h3>8.2 NextAuth.js (Auth.js) v5</h3>
+<pre><code>npm install next-auth@beta bcryptjs</code></pre>
+
+<p>Se configura en un archivo <code>auth.ts</code> en la raíz del proyecto. Como el login es con correo y contraseña, se usa el <strong>proveedor de credenciales</strong>.</p>
+
+<pre><code>//auth.ts
+import NextAuth from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import bcrypt from "bcryptjs";
+import { getPool } from "@/lib/oracle";
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
+    //Necesario en Vercel: Auth.js tiene que saber que el host es de confianza
+    trustHost: true,
+
+    //Con credenciales no hay flujo OAuth, así que la sesión es un JWT
+    session: { strategy: "jwt" },
+
+    providers: [
+        Credentials({
+            credentials: {
+                email: { label: "Correo", type: "email" },
+                password: { label: "Contraseña", type: "password" },
+            },
+
+            async authorize(credentials) {
+                const email = String(credentials?.email ?? "").trim().toLowerCase();
+                const password = String(credentials?.password ?? "");
+
+                if (!email || !password) return null;
+
+                const pool = await getPool();
+                const resultado = await pool.execute(
+                    `SELECT ID, NOMBRE, EMAIL, PASSWORD_HASH, LIMITE_PASES
+                     FROM USUARIOS WHERE LOWER(EMAIL) = :email`,
+                    { email },
+                );
+
+                const fila = resultado.rows?.[0] as unknown[] | undefined;
+                if (!fila) return null;
+
+                const [id, nombre, correo, passwordHash, limitePases] = fila;
+                const valida = await bcrypt.compare(password, String(passwordHash));
+
+                if (!valida) return null;
+
+                //Esto es lo que Auth.js guarda en el token
+                return {
+                    id: String(id),
+                    name: String(nombre),
+                    email: String(correo),
+                    limitePases: Number(limitePases),
+                };
+            },
+        }),
+    ],
+
+    callbacks: {
+        //Copia datos del usuario al token JWT
+        async jwt({ token, user }) {
+            if (user) {
+                token.uid = String(user.id);
+                token.limitePases = (user as { limitePases?: number }).limitePases ?? 0;
+            }
+            return token;
+        },
+        //Y del token a la sesión que ve la página
+        async session({ session, token }) {
+            if (session.user) {
+                (session.user as unknown as { id: string }).id = token.uid as string;
+                (session.user as unknown as { limitePases: number }).limitePases =
+                    token.limitePases as number;
+            }
+            return session;
+        },
+    },
+});</code></pre>
+
+<h3>8.3 El endpoint de Auth.js</h3>
+<pre><code>//app/api/auth/[...nextauth]/route.ts
+import { handlers } from "@/auth";
+
+export const { GET, POST } = handlers;</code></pre>
+
+<p>Los corchetes en el nombre de carpeta son un <strong>segmento dinámico</strong>: Next crea una ruta que responde a <code>/api/auth/*</code>, que es lo que Auth.js necesita para el login, el logout y la sesión.</p>
+
+<h3>8.4 La página de login</h3>
+<pre><code>"use client";
+
+import { signIn } from "next-auth/react";
+import { useState } from "react";
+
+export default function LoginPage() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState<string | null>(null);
+    const [cargando, setCargando] = useState(false);
+
+    const onSubmit = async (evento: React.FormEvent) => {
+        evento.preventDefault();
+        setCargando(true);
+        setError(null);
+
+        const respuesta = await signIn("credentials", {
+            email,
+            password,
+            redirect: false,
+        });
+
+        if (respuesta?.error) {
+            setError("Correo o contraseña incorrectos.");
+            setCargando(false);
+            return;
+        }
+
+        window.location.href = "/dashboard";
+    };
+
+    return (
+        &lt;main className="flex min-h-svh items-center justify-center bg-cream px-6"&gt;
+            &lt;form onSubmit={onSubmit} className="w-full max-w-sm rounded-2xl
+                                                border border-sand/60 bg-white p-8"&gt;
+                &lt;h1 className="font-serif text-3xl text-coffee"&gt;Panel del cliente&lt;/h1&gt;
+
+                &lt;label htmlFor="email" className="mt-6 block font-sans text-[10px]
+                                                uppercase tracking-[0.25em] text-ink/70"&gt;
+                    Correo
+                &lt;/label&gt;
+                &lt;input id="email" type="email" value={email}
+                       onChange={(e) => setEmail(e.target.value)}
+                       className="mt-2 w-full rounded-xl border border-sand/70 px-4 py-3
+                                  font-sans text-base text-ink outline-none focus:border-terracotta" /&gt;
+
+                &lt;label htmlFor="password" className="mt-4 block font-sans text-[10px]
+                                                   uppercase tracking-[0.25em] text-ink/70"&gt;
+                    Contraseña
+                &lt;/label&gt;
+                &lt;input id="password" type="password" value={password}
+                       onChange={(e) => setPassword(e.target.value)}
+                       className="mt-2 w-full rounded-xl border border-sand/70 px-4 py-3
+                                  font-sans text-base text-ink outline-none focus:border-terracotta" /&gt;
+
+                {error ? &lt;p role="alert" className="mt-4 font-sans text-sm text-red-700"&gt;{error}&lt;/p&gt; : null}
+
+                &lt;button type="submit" disabled={cargando}
+                        className="mt-6 w-full rounded-full bg-terracotta px-6 py-3 font-sans
+                                   text-[11px] uppercase tracking-[0.2em] text-white
+                                   transition-colors duration-300 hover:bg-cinnamon disabled:opacity-60"&gt;
+                    {cargando ? "Entrando..." : "Entrar"}
+                &lt;/button&gt;
+            &lt;/form&gt;
+        &lt;/main&gt;
+    );
+}</code></pre>
+
+<h3>8.5 Proteger el dashboard (sin middleware)</h3>
+<p>El middleware de Next corre en el <strong>Edge Runtime</strong>, un entorno limitado donde <code>oracledb</code> puede fallar. Para un dashboard, la forma más simple y segura es preguntar por la sesión **dentro de la página de servidor**:</p>
+
+<pre><code>//app/dashboard/page.tsx
+import { auth } from "@/auth";
+import { signOut } from "@/auth";
+import { redirect } from "next/navigation";
+import { getPool } from "@/lib/oracle";
+
+export default async function DashboardPage() {
+    const session = await auth();
+
+    //Si no hay sesión, afuera
+    if (!session?.user) {
+        redirect("/login");
+    }
+
+    const usuarioId = (session.user as unknown as { id: string }).id;
+    const pool = await getPool();
+
+    //Los invitados, con el nombre de cada acompañante (si se guardó)
+    const invitados = await pool.execute(
+        `SELECT i.ID, i.NOMBRE, i.EMAIL, i.PASES_PERMITIDOS, i.RESTRICCIONES, i.CREADO_EN
+         FROM INVITADOS i
+         WHERE i.USUARIO_ID = :usuarioId
+         ORDER BY i.CREADO_EN DESC`,
+        { usuarioId },
+    );
+
+    //El resumen
+    const resumen = await pool.execute(
+        `SELECT COALESCE(SUM(PASES_PERMITIDOS), 0) AS USADOS,
+                COUNT(*) AS CONFIRMACIONES
+         FROM INVITADOS WHERE USUARIO_ID = :usuarioId`,
+        { usuarioId },
+    );
+
+    const fila = resumen.rows?.[0] as unknown[] | undefined;
+    const usados = Number(fila?.[0] ?? 0);
+    const confirmaciones = Number(fila?.[1] ?? 0);
+    const limite = (session.user as unknown as { limitePases: number }).limitePases;
+    const disponibles = Math.max(limite - usados, 0);
+
+    return (
+        &lt;main className="min-h-svh bg-cream px-6 py-12"&gt;
+            &lt;div className="mx-auto max-w-5xl"&gt;
+                &lt;div className="flex items-center justify-between gap-4"&gt;
+                    &lt;h1 className="font-serif text-3xl text-coffee"&gt;Invitados&lt;/h1&gt;
+                    &lt;form action={async () =&gt; { "use server"; await signOut({ redirectTo: "/login" }); }}&gt;
+                        &lt;button className="rounded-full border border-sand px-5 py-2 font-sans
+                                          text-[11px] uppercase tracking-[0.2em] text-coffee
+                                          transition-colors duration-300 hover:bg-sand/20"&gt;
+                            Cerrar sesión
+                        &lt;/button&gt;
+                    &lt;/form&gt;
+                &lt;/div&gt;
+
+                {/*Tarjetas de resumen */}
+                &lt;div className="mt-8 grid gap-4 sm:grid-cols-3"&gt;
+                    &lt;div className="rounded-2xl border border-sand/60 bg-white p-6"&gt;
+                        &lt;p className="font-sans text-[10px] uppercase tracking-[0.25em] text-terracotta"&gt;
+                            Confirmaciones
+                        &lt;/p&gt;
+                        &lt;p className="mt-2 font-serif text-3xl text-coffee"&gt;{confirmaciones}&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;div className="rounded-2xl border border-sand/60 bg-white p-6"&gt;
+                        &lt;p className="font-sans text-[10px] uppercase tracking-[0.25em] text-terracotta"&gt;
+                            Pases usados
+                        &lt;/p&gt;
+                        &lt;p className="mt-2 font-serif text-3xl text-coffee"&gt;{usados} / {limite}&lt;/p&gt;
+                    &lt;/div&gt;
+                    &lt;div className="rounded-2xl border border-sand/60 bg-white p-6"&gt;
+                        &lt;p className="font-sans text-[10px] uppercase tracking-[0.25em] text-terracotta"&gt;
+                            Pases disponibles
+                        &lt;/p&gt;
+                        &lt;p className="mt-2 font-serif text-3xl text-coffee"&gt;{disponibles}&lt;/p&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+
+                {/*La tabla */}
+                &lt;div className="mt-8 overflow-hidden rounded-2xl border border-sand/60 bg-white"&gt;
+                    &lt;table className="w-full font-sans text-sm text-ink"&gt;
+                        &lt;thead className="bg-sand/20 text-left"&gt;
+                            &lt;tr&gt;
+                                &lt;th className="px-4 py-3"&gt;Nombre&lt;/th&gt;
+                                &lt;th className="px-4 py-3"&gt;Correo&lt;/th&gt;
+                                &lt;th className="px-4 py-3 text-center"&gt;Asisten&lt;/th&gt;
+                                &lt;th className="px-4 py-3"&gt;Restricciones&lt;/th&gt;
+                            &lt;/tr&gt;
+                        &lt;/thead&gt;
+                        &lt;tbody&gt;
+                            {(invitados.rows ?? []).map((fila, indice) =&gt; {
+                                const [id, nombre, email, asisten, restricciones] = fila as unknown[];
+                                return (
+                                    &lt;tr key={String(id)} className={indice % 2 === 0 ? "bg-white" : "bg-cream/50"}&gt;
+                                        &lt;td className="px-4 py-3"&gt;{String(nombre)}&lt;/td&gt;
+                                        &lt;td className="px-4 py-3"&gt;{String(email)}&lt;/td&gt;
+                                        &lt;td className="px-4 py-3 text-center"&gt;{Number(asisten)}&lt;/td&gt;
+                                        &lt;td className="px-4 py-3"&gt;{String(restricciones ?? "—")}&lt;/td&gt;
+                                    &lt;/tr&gt;
+                                );
+                            })}
+                        &lt;/tbody&gt;
+                    &lt;/table&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/main&gt;
+    );
+}</code></pre>
+
+<div class="callout">
+  <strong>Sobre TanStack Table y shadcn/ui:</strong> para esta tabla no hacen falta. Una tabla de HTML con Tailwind resuelve la necesidad. TanStack Table sirve cuando hay ordenamiento, filtros o paginación con miles de filas; shadcn/ui es útil si quieres componentes ya montados (botones, diálogos, paginación). Se pueden agregar después sin rehacer la página.
+</div>
+
+<!-- ============================ 9 ============================ -->
+<div class="page-break"></div>
+<h2 id="entorno">9. Variables de entorno y despliegue</h2>
+
+<h3>9.1 El sitio de la boda</h3>
+<pre><code>#.env.local  (nunca se sube a Git)
+ORACLE_USER=ADMIN
+ORACLE_PASSWORD=tu_contraseña
+ORACLE_CONNECT_STRING=(description=(retry_count=20)(retry_delay=3)(address=(protocol=tcps)(port=1522)(host=adb.mx-queretaro-1.oraclecloud.com))(connect_data=(service_name=g8f3a2c1b2e_miboda_high.adb.oraclecloud.com))(security=(ssl_server_dn_match=yes)))
+
+NEXT_PUBLIC_USUARIO_ID=1
+RESEND_API_KEY=re_tu_clave</code></pre>
+
+<h3>9.2 El dashboard</h3>
+<pre><code>#.env.local del proyecto nuevo
+ORACLE_USER=ADMIN
+ORACLE_PASSWORD=tu_contraseña
+ORACLE_CONNECT_STRING=(...la misma...)
+
+#Auth.js: un texto largo y aleatorio, sólo para este proyecto
+AUTH_SECRET=un_texto_largo_y_aleatorio
+AUTH_URL=https://dashboard-tu-dominio.vercel.app</code></pre>
+
+<table>
+  <tr><th>Variable</th><th>¿Pública?</th><th>Por qué</th></tr>
+  <tr><td><code>ORACLE_USER</code> / <code>ORACLE_PASSWORD</code></td><td><span class="tag c">nunca</span></td><td>Si llevan <code>NEXT_PUBLIC_</code>, se incrustan en el JavaScript del navegador y cualquiera los ve con F12</td></tr>
+  <tr><td><code>ORACLE_CONNECT_STRING</code></td><td><span class="tag c">nunca</span></td><td>Contiene el host y el servicio; no es secreto, pero tampoco debe exponerse</td></tr>
+  <tr><td><code>NEXT_PUBLIC_USUARIO_ID</code></td><td><span class="tag">pública</span></td><td>Es sólo el número de cliente. No es secreto y la server action la lee en el servidor igual</td></tr>
+  <tr><td><code>RESEND_API_KEY</code> / <code>SMTP_*</code></td><td><span class="tag c">nunca</span></td><td>Una clave de envío permite mandar correos a nombre del cliente</td></tr>
+  <tr><td><code>AUTH_SECRET</code></td><td><span class="tag c">nunca</span></td><td>Firma las cookies de sesión. Si se filtra, cualquiera puede falsificar una sesión</td></tr>
+</table>
+
+<div class="callout warn">
+  <strong>Genera <code>AUTH_SECRET</code> con:</strong> <code>openssl rand -base64 32</code> en la terminal. Guárdala y no la compartas.
+</div>
+
+<h3>9.3 Despliegue</h3>
+<ol>
+  <li><strong>Sitio de la boda:</strong> Vercel → importa el repositorio → agrega las variables de entorno del apartado 9.1 → Deploy.</li>
+  <li><strong>Dashboard:</strong> otro proyecto en Vercel con su propio repositorio y sus variables.</li>
+  <li><strong>Oracle:</strong> en Database Actions → <strong>Access Control List</strong>, permite <code>0.0.0.0/0</code> (Vercel no tiene IP fija) o, mejor, las IPs del rango de Vercel.</li>
+  <li><strong>Prueba:</strong> envía una confirmación y verifica con <code>SELECT * FROM INVITADOS</code>.</li>
+</ol>
+
+<div class="callout warn">
+  <strong>Permitir <code>0.0.0.0/0</code> significa que cualquiera puede intentar conectarse a tu base.</strong> La contraseña del usuario <code>ADMIN</code> es la única defensa. Usa una larga y aleatoria, y rota la contraseña si alguna vez la escribes en un lugar inseguro.
+</div>
+
+<!-- ============================ 10 ============================ -->
+<div class="page-break"></div>
+<h2 id="seguridad">10. Seguridad y privacidad</h2>
+
+<table>
+  <tr><th>Riesgo</th><th>Medida</th></tr>
+  <tr><td>Inyección SQL</td><td>Bind variables en <strong>todas</strong> las consultas. Nunca concatenar lo que escribió el usuario</td></tr>
+  <tr><td>Contraseñas filtradas</td><td>Hash con bcrypt. Nunca texto plano, nunca reversible</td></tr>
+  <tr><td>Sesiones falsas</td><td><code>AUTH_SECRET</code> larga, cookies httpOnly (Auth.js las pone así por defecto)</td></tr>
+  <tr><td>Claves en el navegador</td><td>Variables sin <code>NEXT_PUBLIC_</code> en todo lo sensible</td></tr>
+  <tr><td>Spam en el RSVP</td><td>Límite de pases, un <code>input</code> trampa oculto (honeypot) y, si hace falta, un límite por IP</td></tr>
+  <tr><td>Datos personales</td><td>Pide sólo lo necesario. El invitado debe poder pedir que borres sus datos: un <code>DELETE</code> por correo es suficiente para una boda</td></tr>
+  <tr><td>Correos registrados</td><td>No escribas el contenido del correo en <code>console.log</code></td></tr>
+</table>
+
+<h3>10.1 El campo trampa (honeypot)</h3>
+<p>Un input invisible para los humanos pero visible para los bots. Si se llena, se descarta la confirmación en silencio.</p>
+
+<pre><code>&lt;input type="text" name="empresa" tabIndex={-1} autoComplete="off"
+       className="hidden" aria-hidden="true" /&gt;</code></pre>
+
+<pre><code>//En la server action
+if (String(formData.get("empresa") ?? "").length &gt; 0) {
+    //Parece un bot: fingimos éxito para no dar pistas
+    return { ok: true, message: "¡Gracias por confirmar!" };
+}</code></pre>
+
+<!-- ============================ 11 ============================ -->
+<div class="page-break"></div>
+<h2 id="orden">11. Orden de trabajo y checklist</h2>
+
+<h3>11.1 En qué orden hacerlo</h3>
+<table>
+  <tr><th style="width:6%">Paso</th><th>Qué</th><th style="width:34%">Dónde se verifica</th></tr>
+  <tr><td>1</td><td>Crear la instancia Oracle y ejecutar el DDL</td><td>Database Actions → SQL → <code>SELECT * FROM USUARIOS</code></td></tr>
+  <tr><td>2</td><td>Agregar <code>lib/oracle.ts</code> y probar la conexión con un script</td><td>Consola local: <code>node --env-file=.env.local scripts/probar-oracle.mjs</code></td></tr>
+  <tr><td>3</td><td>Crear el usuario <code>ADMIN</code> del dashboard con bcrypt</td><td><code>SELECT ID, EMAIL FROM USUARIOS</code></td></tr>
+  <tr><td>4</td><td>Sitio: instalar Radix, crear el modal y conectarlo al Header</td><td>El modal se abre y se cierra con teclado</td></tr>
+  <tr><td>5</td><td>Sitio: la server action (validar, contar, insertar)</td><td>Una confirmación de prueba y un <code>SELECT</code></td></tr>
+  <tr><td>6</td><td>Sitio: el correo con Resend o Nodemailer</td><td>Recibes el correo en tu bandeja</td></tr>
+  <tr><td>7</td><td>Dashboard: proyecto nuevo, Auth.js, login, dashboard, logout</td><td>Entras y ves la fila de prueba</td></tr>
+  <tr><td>8</td><td>Desplegar los dos y probar de nuevo desde la URL pública</td><td>Confirmación real + fila visible</td></tr>
+</table>
+
+<h3>11.2 Script de prueba de la conexión</h3>
+<pre><code>//scripts/probar-oracle.mjs
+import oracledb from "oracledb";
+
+const conexion = await oracledb.getConnection({
+    user: process.env.ORACLE_USER,
+    password: process.env.ORACLE_PASSWORD,
+    connectString: process.env.ORACLE_CONNECT_STRING,
+});
+
+const resultado = await conexion.execute("SELECT SYSTIMESTAMP FROM dual");
+console.log("Conectado:", resultado.rows[0][0]);
+
+await conexion.close();</code></pre>
+
+<pre><code>node --env-file=.env.local scripts/probar-oracle.mjs</code></pre>
+
+<div class="callout ok">
+  <strong>Por qué probar antes de escribir la aplicación:</strong> si la cadena de conexión está mal, el error es del todo o nada. Confirmar que la base responde con <code>SYSTIMESTAMP</code> te ahorra horas de depurar código que en realidad está bien.
+</div>
+
+<h3>11.3 Checklist final</h3>
+<ul>
+  <li>El modal abre desde los dos botones del Header (escritorio y móvil).</li>
+  <li>Sin sesión no se puede entrar al dashboard.</li>
+  <li>La confirmación guardada aparece en la tabla en menos de un segundo.</li>
+  <li>El correo llega y dice el número correcto de asistentes.</li>
+  <li>Al llegar al límite, el mensaje es claro y no se guarda nada.</li>
+  <li>Ninguna credencial aparece en el JavaScript del navegador.</li>
+  <li><code>npx tsc --noEmit</code> y <code>npx eslint .</code> limpios en los dos proyectos.</li>
+</ul>
+
+<div class="callout ok">
+  <strong>Regla para no perderse:</strong> primero la base y la conexión, después el formulario, después el correo, y al final el dashboard. Cada pieza se puede probar por separado; si algo falla, el problema está en lo último que agregaste.
+</div>
+
+</body>
+</html>
